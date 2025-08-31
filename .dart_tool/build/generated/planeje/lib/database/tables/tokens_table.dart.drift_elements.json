@@ -1,0 +1,1 @@
+{"valid_import":true,"imports":[{"uri":"package:drift/drift.dart","transitive":false},{"uri":"package:planeje/database/constants/table_name.dart","transitive":false}],"elements":[{"kind":"table","name":"tokens_table","dart_name":"TokensTable"}]}

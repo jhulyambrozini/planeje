@@ -1,0 +1,1 @@
+{"valid_import":true,"imports":[{"uri":"package:flutter/material.dart","transitive":false},{"uri":"package:planeje/theme/colors.dart","transitive":false},{"uri":"package:planeje/views/finances_view.dart","transitive":false}],"elements":[]}

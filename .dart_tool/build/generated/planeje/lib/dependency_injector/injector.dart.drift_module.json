@@ -1,0 +1,11 @@
+{
+  "elements": {},
+  "imports": [
+    "package:planeje/database/database.dart",
+    "package:planeje/dependency_injector/dependency_injector.dart",
+    "package:planeje/viewmodels/finances_viewmodel.dart",
+    "package:planeje/viewmodels/home_or_auth_viewmodel.dart",
+    "package:planeje/viewmodels/user_login_viewmodel.dart",
+    "package:planeje/viewmodels/user_register_viewmodel.dart"
+  ]
+}

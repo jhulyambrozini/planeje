@@ -1,0 +1,430 @@
+// ignore_for_file: type=lint
+class $TokensTableTable extends TokensTable
+    with TableInfo<$TokensTableTable, TokensTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TokensTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _deviceTokenMeta = const VerificationMeta(
+    'deviceToken',
+  );
+  @override
+  late final GeneratedColumn<String> deviceToken = GeneratedColumn<String>(
+    'device_token',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _userTokenMeta = const VerificationMeta(
+    'userToken',
+  );
+  @override
+  late final GeneratedColumn<String> userToken = GeneratedColumn<String>(
+    'user_token',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, deviceToken, userToken];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tokens_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<TokensTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('device_token')) {
+      context.handle(
+        _deviceTokenMeta,
+        deviceToken.isAcceptableOrUnknown(
+          data['device_token']!,
+          _deviceTokenMeta,
+        ),
+      );
+    }
+    if (data.containsKey('user_token')) {
+      context.handle(
+        _userTokenMeta,
+        userToken.isAcceptableOrUnknown(data['user_token']!, _userTokenMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TokensTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TokensTableData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      deviceToken: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}device_token'],
+      )!,
+      userToken: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}user_token'],
+      )!,
+    );
+  }
+
+  @override
+  $TokensTableTable createAlias(String alias) {
+    return $TokensTableTable(attachedDatabase, alias);
+  }
+}
+
+class TokensTableData extends DataClass implements Insertable<TokensTableData> {
+  final int id;
+  final String deviceToken;
+  final String userToken;
+  const TokensTableData({
+    required this.id,
+    required this.deviceToken,
+    required this.userToken,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['device_token'] = Variable<String>(deviceToken);
+    map['user_token'] = Variable<String>(userToken);
+    return map;
+  }
+
+  TokensTableCompanion toCompanion(bool nullToAbsent) {
+    return TokensTableCompanion(
+      id: Value(id),
+      deviceToken: Value(deviceToken),
+      userToken: Value(userToken),
+    );
+  }
+
+  factory TokensTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TokensTableData(
+      id: serializer.fromJson<int>(json['id']),
+      deviceToken: serializer.fromJson<String>(json['deviceToken']),
+      userToken: serializer.fromJson<String>(json['userToken']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'deviceToken': serializer.toJson<String>(deviceToken),
+      'userToken': serializer.toJson<String>(userToken),
+    };
+  }
+
+  TokensTableData copyWith({int? id, String? deviceToken, String? userToken}) =>
+      TokensTableData(
+        id: id ?? this.id,
+        deviceToken: deviceToken ?? this.deviceToken,
+        userToken: userToken ?? this.userToken,
+      );
+  TokensTableData copyWithCompanion(TokensTableCompanion data) {
+    return TokensTableData(
+      id: data.id.present ? data.id.value : this.id,
+      deviceToken: data.deviceToken.present
+          ? data.deviceToken.value
+          : this.deviceToken,
+      userToken: data.userToken.present ? data.userToken.value : this.userToken,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TokensTableData(')
+          ..write('id: $id, ')
+          ..write('deviceToken: $deviceToken, ')
+          ..write('userToken: $userToken')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, deviceToken, userToken);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TokensTableData &&
+          other.id == this.id &&
+          other.deviceToken == this.deviceToken &&
+          other.userToken == this.userToken);
+}
+
+class TokensTableCompanion extends UpdateCompanion<TokensTableData> {
+  final Value<int> id;
+  final Value<String> deviceToken;
+  final Value<String> userToken;
+  const TokensTableCompanion({
+    this.id = const Value.absent(),
+    this.deviceToken = const Value.absent(),
+    this.userToken = const Value.absent(),
+  });
+  TokensTableCompanion.insert({
+    this.id = const Value.absent(),
+    this.deviceToken = const Value.absent(),
+    this.userToken = const Value.absent(),
+  });
+  static Insertable<TokensTableData> custom({
+    Expression<int>? id,
+    Expression<String>? deviceToken,
+    Expression<String>? userToken,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (deviceToken != null) 'device_token': deviceToken,
+      if (userToken != null) 'user_token': userToken,
+    });
+  }
+
+  TokensTableCompanion copyWith({
+    Value<int>? id,
+    Value<String>? deviceToken,
+    Value<String>? userToken,
+  }) {
+    return TokensTableCompanion(
+      id: id ?? this.id,
+      deviceToken: deviceToken ?? this.deviceToken,
+      userToken: userToken ?? this.userToken,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (deviceToken.present) {
+      map['device_token'] = Variable<String>(deviceToken.value);
+    }
+    if (userToken.present) {
+      map['user_token'] = Variable<String>(userToken.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TokensTableCompanion(')
+          ..write('id: $id, ')
+          ..write('deviceToken: $deviceToken, ')
+          ..write('userToken: $userToken')
+          ..write(')'))
+        .toString();
+  }
+}
+
+abstract class _$AppDatabase extends GeneratedDatabase {
+  _$AppDatabase(QueryExecutor e) : super(e);
+  $AppDatabaseManager get managers => $AppDatabaseManager(this);
+  late final $TokensTableTable tokensTable = $TokensTableTable(this);
+  @override
+  Iterable<TableInfo<Table, Object?>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+  @override
+  List<DatabaseSchemaEntity> get allSchemaEntities => [tokensTable];
+}
+
+typedef $$TokensTableTableCreateCompanionBuilder =
+    TokensTableCompanion Function({
+      Value<int> id,
+      Value<String> deviceToken,
+      Value<String> userToken,
+    });
+typedef $$TokensTableTableUpdateCompanionBuilder =
+    TokensTableCompanion Function({
+      Value<int> id,
+      Value<String> deviceToken,
+      Value<String> userToken,
+    });
+
+class $$TokensTableTableFilterComposer
+    extends Composer<_$AppDatabase, $TokensTableTable> {
+  $$TokensTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get deviceToken => $composableBuilder(
+    column: $table.deviceToken,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get userToken => $composableBuilder(
+    column: $table.userToken,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$TokensTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $TokensTableTable> {
+  $$TokensTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get deviceToken => $composableBuilder(
+    column: $table.deviceToken,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get userToken => $composableBuilder(
+    column: $table.userToken,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$TokensTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TokensTableTable> {
+  $$TokensTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get deviceToken => $composableBuilder(
+    column: $table.deviceToken,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get userToken =>
+      $composableBuilder(column: $table.userToken, builder: (column) => column);
+}
+
+class $$TokensTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TokensTableTable,
+          TokensTableData,
+          $$TokensTableTableFilterComposer,
+          $$TokensTableTableOrderingComposer,
+          $$TokensTableTableAnnotationComposer,
+          $$TokensTableTableCreateCompanionBuilder,
+          $$TokensTableTableUpdateCompanionBuilder,
+          (
+            TokensTableData,
+            BaseReferences<_$AppDatabase, $TokensTableTable, TokensTableData>,
+          ),
+          TokensTableData,
+          PrefetchHooks Function()
+        > {
+  $$TokensTableTableTableManager(_$AppDatabase db, $TokensTableTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TokensTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TokensTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TokensTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> deviceToken = const Value.absent(),
+                Value<String> userToken = const Value.absent(),
+              }) => TokensTableCompanion(
+                id: id,
+                deviceToken: deviceToken,
+                userToken: userToken,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> deviceToken = const Value.absent(),
+                Value<String> userToken = const Value.absent(),
+              }) => TokensTableCompanion.insert(
+                id: id,
+                deviceToken: deviceToken,
+                userToken: userToken,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$TokensTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TokensTableTable,
+      TokensTableData,
+      $$TokensTableTableFilterComposer,
+      $$TokensTableTableOrderingComposer,
+      $$TokensTableTableAnnotationComposer,
+      $$TokensTableTableCreateCompanionBuilder,
+      $$TokensTableTableUpdateCompanionBuilder,
+      (
+        TokensTableData,
+        BaseReferences<_$AppDatabase, $TokensTableTable, TokensTableData>,
+      ),
+      TokensTableData,
+      PrefetchHooks Function()
+    >;
+
+class $AppDatabaseManager {
+  final _$AppDatabase _db;
+  $AppDatabaseManager(this._db);
+  $$TokensTableTableTableManager get tokensTable =>
+      $$TokensTableTableTableManager(_db, _db.tokensTable);
+}

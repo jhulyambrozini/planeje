@@ -1,0 +1,7 @@
+{
+  "elements": {},
+  "imports": [
+    "package:flutter/material.dart",
+    "package:planeje/views/auth_or_home_view.dart"
+  ]
+}

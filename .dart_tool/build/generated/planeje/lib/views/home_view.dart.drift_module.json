@@ -1,0 +1,8 @@
+{
+  "elements": {},
+  "imports": [
+    "package:flutter/material.dart",
+    "package:planeje/theme/colors.dart",
+    "package:planeje/views/finances_view.dart"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "elements": {},
+  "imports": [
+    "package:planeje/database/database.dart",
+    "package:planeje/database/seeder.dart"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "elements": {},
+  "imports": [
+    "package:flutter/material.dart",
+    "package:planeje/dependency_injector/dependency_injector.dart",
+    "package:planeje/viewmodels/home_or_auth_viewmodel.dart",
+    "package:planeje/views/user_login_view.dart"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "elements": {
+    "TokensDatasourceImpl": {
+      "id": {
+        "library_uri": "package:planeje/database/datasource/tokens_datasource_impl.dart",
+        "name": "TokensDatasourceImpl"
+      },
+      "declaration": {
+        "source_uri": "package:planeje/database/datasource/tokens_datasource_impl.dart",
+        "offset": 429,
+        "name": "TokensDatasourceImpl"
+      },
+      "references": [
+        {
+          "library_uri": "package:planeje/database/tables/tokens_table.dart",
+          "name": "tokens_table"
+        }
+      ],
+      "type": "dao",
+      "tables": [
+        {
+          "library_uri": "package:planeje/database/tables/tokens_table.dart",
+          "name": "tokens_table"
+        }
+      ],
+      "views": [],
+      "includes": [],
+      "queries": [],
+      "dart_type": {
+        "elements": [
+          {
+            "lexeme": "TokensDatasourceImpl",
+            "import_uri": "package:planeje/database/datasource/tokens_datasource_impl.dart"
+          }
+        ]
+      },
+      "database": {
+        "elements": [
+          {
+            "lexeme": "AppDatabase",
+            "import_uri": "package:planeje/database/database.dart"
+          }
+        ]
+      }
+    }
+  },
+  "imports": [
+    "package:drift/drift.dart",
+    "package:planeje/database/constants/table_name.dart",
+    "package:planeje/database/database.dart",
+    "package:planeje/database/datasource/contracts/tokens_datasource.dart",
+    "package:planeje/database/tables/tokens_table.dart",
+    "package:planeje/models/tokens_model.dart"
+  ]
+}

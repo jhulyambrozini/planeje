@@ -1,0 +1,4 @@
+// ignore_for_file: type=lint
+mixin _$TokensDatasourceImplMixin on DatabaseAccessor<AppDatabase> {
+  $TokensTableTable get tokensTable => attachedDatabase.tokensTable;
+}

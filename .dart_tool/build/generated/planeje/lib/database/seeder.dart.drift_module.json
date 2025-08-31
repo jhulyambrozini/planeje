@@ -1,0 +1,52 @@
+{
+  "elements": {
+    "Seeder": {
+      "id": {
+        "library_uri": "package:planeje/database/seeder.dart",
+        "name": "Seeder"
+      },
+      "declaration": {
+        "source_uri": "package:planeje/database/seeder.dart",
+        "offset": 228,
+        "name": "Seeder"
+      },
+      "references": [
+        {
+          "library_uri": "package:planeje/database/tables/tokens_table.dart",
+          "name": "tokens_table"
+        }
+      ],
+      "type": "dao",
+      "tables": [
+        {
+          "library_uri": "package:planeje/database/tables/tokens_table.dart",
+          "name": "tokens_table"
+        }
+      ],
+      "views": [],
+      "includes": [],
+      "queries": [],
+      "dart_type": {
+        "elements": [
+          {
+            "lexeme": "Seeder",
+            "import_uri": "package:planeje/database/seeder.dart"
+          }
+        ]
+      },
+      "database": {
+        "elements": [
+          {
+            "lexeme": "AppDatabase",
+            "import_uri": "package:planeje/database/database.dart"
+          }
+        ]
+      }
+    }
+  },
+  "imports": [
+    "package:drift/drift.dart",
+    "package:planeje/database/database.dart",
+    "package:planeje/database/tables/tokens_table.dart"
+  ]
+}
