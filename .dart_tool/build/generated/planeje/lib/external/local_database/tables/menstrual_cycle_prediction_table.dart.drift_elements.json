@@ -1,0 +1,1 @@
+{"valid_import":true,"imports":[{"uri":"package:drift/drift.dart","transitive":false},{"uri":"package:planeje/external/local_database/constants/table_name.dart","transitive":false}],"elements":[{"kind":"table","name":"menstrual_cycle_prediction","dart_name":"MenstrualCyclePrediction"}]}

@@ -1,6 +1,0 @@
-{
-  "elements": {},
-  "imports": [
-    "package:planeje/models/tokens_model.dart"
-  ]
-}

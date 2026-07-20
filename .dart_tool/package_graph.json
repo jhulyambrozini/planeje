@@ -12,6 +12,8 @@
         "drift",
         "flutter",
         "flutter_dotenv",
+        "flutter_localizations",
+        "flutter_modular",
         "flutter_native_splash",
         "path_provider",
         "sqlite3_flutter_libs",
@@ -130,6 +132,26 @@
         "stream_channel",
         "test_api",
         "vector_math"
+      ]
+    },
+    {
+      "name": "flutter_localizations",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "intl",
+        "path"
+      ]
+    },
+    {
+      "name": "flutter_modular",
+      "version": "6.4.1",
+      "dependencies": [
+        "flutter",
+        "flutter_web_plugins",
+        "meta",
+        "modular_core",
+        "result_dart"
       ]
     },
     {
@@ -710,6 +732,38 @@
       ]
     },
     {
+      "name": "intl",
+      "version": "0.20.2",
+      "dependencies": [
+        "clock",
+        "meta",
+        "path"
+      ]
+    },
+    {
+      "name": "flutter_web_plugins",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter"
+      ]
+    },
+    {
+      "name": "result_dart",
+      "version": "2.2.0",
+      "dependencies": [
+        "meta"
+      ]
+    },
+    {
+      "name": "modular_core",
+      "version": "3.4.1",
+      "dependencies": [
+        "auto_injector",
+        "characters",
+        "meta"
+      ]
+    },
+    {
       "name": "web",
       "version": "1.1.1",
       "dependencies": []
@@ -805,13 +859,6 @@
       "dependencies": [
         "csslib",
         "source_span"
-      ]
-    },
-    {
-      "name": "flutter_web_plugins",
-      "version": "0.0.0",
-      "dependencies": [
-        "flutter"
       ]
     },
     {

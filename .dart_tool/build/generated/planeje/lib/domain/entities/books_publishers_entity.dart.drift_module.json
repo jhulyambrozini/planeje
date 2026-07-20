@@ -1,0 +1,106 @@
+{
+  "elements": {
+    "books_publishers_table": {
+      "id": {
+        "library_uri": "package:planeje/domain/entities/books_publishers_entity.dart",
+        "name": "books_publishers_table"
+      },
+      "declaration": {
+        "source_uri": "package:planeje/domain/entities/books_publishers_entity.dart",
+        "offset": 121,
+        "name": "BooksPublishersTable"
+      },
+      "references": [],
+      "type": "table",
+      "columns": [
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "id",
+          "nameInDart": "id",
+          "declaration": {
+            "source_uri": "package:planeje/domain/entities/books_publishers_entity.dart",
+            "offset": 245,
+            "name": "id"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "name",
+          "nameInDart": "name",
+          "declaration": {
+            "source_uri": "package:planeje/domain/entities/books_publishers_entity.dart",
+            "offset": 279,
+            "name": "name"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": true,
+          "nameInSql": "nationality",
+          "nameInDart": "nationality",
+          "declaration": {
+            "source_uri": "package:planeje/domain/entities/books_publishers_entity.dart",
+            "offset": 315,
+            "name": "nationality"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        }
+      ],
+      "existing_data_class": null,
+      "table_constraints": [
+        {
+          "type": "primary_key",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "custom_parent_class": null,
+      "interfaces_for_row_class": [],
+      "fixed_entity_info_name": null,
+      "base_dart_name": "BooksPublishersTable",
+      "row_class_name": "BooksPublishersTableData",
+      "companion_class_name": null,
+      "without_rowid": false,
+      "strict": false,
+      "write_default_constraints": true,
+      "custom_constraints": [],
+      "attached_indices": []
+    }
+  },
+  "imports": [
+    "package:drift/drift.dart",
+    "package:planeje/external/local_database/constants/table_name.dart"
+  ]
+}

@@ -260,6 +260,18 @@
       "languageVersion": "3.5"
     },
     {
+      "name": "flutter_localizations",
+      "rootUri": "file:///C:/Users/jhuly/fvm/versions/3.35.2/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "3.8"
+    },
+    {
+      "name": "flutter_modular",
+      "rootUri": "file:///C:/Users/jhuly/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_modular-6.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
       "name": "flutter_native_splash",
       "rootUri": "file:///C:/Users/jhuly/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_native_splash-2.4.6",
       "packageUri": "lib/",
@@ -344,6 +356,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/jhuly/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.20.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "io",
       "rootUri": "file:///C:/Users/jhuly/AppData/Local/Pub/Cache/hosted/pub.dev/io-1.0.5",
       "packageUri": "lib/",
@@ -414,6 +432,12 @@
       "rootUri": "file:///C:/Users/jhuly/AppData/Local/Pub/Cache/hosted/pub.dev/mime-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+    },
+    {
+      "name": "modular_core",
+      "rootUri": "file:///C:/Users/jhuly/AppData/Local/Pub/Cache/hosted/pub.dev/modular_core-3.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
     },
     {
       "name": "package_config",
@@ -522,6 +546,12 @@
       "rootUri": "file:///C:/Users/jhuly/AppData/Local/Pub/Cache/hosted/pub.dev/recase-4.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "result_dart",
+      "rootUri": "file:///C:/Users/jhuly/AppData/Local/Pub/Cache/hosted/pub.dev/result_dart-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "retry",

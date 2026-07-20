@@ -1,0 +1,281 @@
+{
+  "elements": {
+    "completed_readings_table": {
+      "id": {
+        "library_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+        "name": "completed_readings_table"
+      },
+      "declaration": {
+        "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+        "offset": 121,
+        "name": "CompletedReadingsTable"
+      },
+      "references": [],
+      "type": "table",
+      "columns": [
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "id",
+          "nameInDart": "id",
+          "declaration": {
+            "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+            "offset": 250,
+            "name": "id"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "book_name",
+          "nameInDart": "bookName",
+          "declaration": {
+            "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+            "offset": 284,
+            "name": "bookName"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "author_id",
+          "nameInDart": "authorId",
+          "declaration": {
+            "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+            "offset": 324,
+            "name": "authorId"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "year_of_reading",
+          "nameInDart": "yearOfReading",
+          "declaration": {
+            "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+            "offset": 364,
+            "name": "yearOfReading"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "gender_id",
+          "nameInDart": "genderId",
+          "declaration": {
+            "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+            "offset": 409,
+            "name": "genderId"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": true,
+          "nameInSql": "nationality_id",
+          "nameInDart": "nationalityId",
+          "declaration": {
+            "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+            "offset": 449,
+            "name": "nationalityId"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": true,
+          "nameInSql": "publisher_id",
+          "nameInDart": "publisherId",
+          "declaration": {
+            "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+            "offset": 505,
+            "name": "publisherId"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "total_number_of_reads",
+          "nameInDart": "totalNumberOfReads",
+          "declaration": {
+            "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+            "offset": 558,
+            "name": "totalNumberOfReads"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "total_pages",
+          "nameInDart": "totalPages",
+          "declaration": {
+            "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+            "offset": 610,
+            "name": "totalPages"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": true,
+          "nameInSql": "deleted_at",
+          "nameInDart": "deletedAt",
+          "declaration": {
+            "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+            "offset": 659,
+            "name": "deletedAt"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": false,
+          "nameInSql": "created_at",
+          "nameInDart": "createdAt",
+          "declaration": {
+            "source_uri": "package:planeje/external/local_database/tables/completed_readings_table.dart",
+            "offset": 719,
+            "name": "createdAt"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": {
+            "elements": [
+              {
+                "lexeme": "currentDateAndTime",
+                "import_uri": "package:drift/src/runtime/query_builder/query_builder.dart"
+              }
+            ]
+          },
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        }
+      ],
+      "existing_data_class": null,
+      "table_constraints": [
+        {
+          "type": "primary_key",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "custom_parent_class": null,
+      "interfaces_for_row_class": [],
+      "fixed_entity_info_name": null,
+      "base_dart_name": "CompletedReadingsTable",
+      "row_class_name": "CompletedReadingsTableData",
+      "companion_class_name": null,
+      "without_rowid": false,
+      "strict": false,
+      "write_default_constraints": true,
+      "custom_constraints": [],
+      "attached_indices": []
+    }
+  },
+  "imports": [
+    "package:drift/drift.dart",
+    "package:planeje/external/local_database/constants/table_name.dart"
+  ]
+}

@@ -1,0 +1,1 @@
+{"valid_import":true,"imports":[{"uri":"package:planeje/external/local_database/database.dart","transitive":false},{"uri":"package:planeje/external/dependency_injector/dependency_injector.dart","transitive":false},{"uri":"package:planeje/presenter/viewmodels/finances_viewmodel.dart","transitive":false}],"elements":[]}

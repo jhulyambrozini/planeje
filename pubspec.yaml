@@ -17,6 +17,9 @@ dependencies:
   flutter_dotenv: ^6.0.0
   flutter_native_splash: ^2.4.6
   supabase_flutter: ^2.10.0
+  flutter_modular: ^6.4.1
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
