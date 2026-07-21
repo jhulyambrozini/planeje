@@ -1,0 +1,1 @@
+ C:\\Users\\jhuly\\projetos\\planeje\\.dart_tool\\flutter_build\\44ce4376f9d7b71bb937d68991db5e9a\\native_assets.json: 

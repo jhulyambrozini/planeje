@@ -5,8 +5,6 @@ import 'package:planeje/modules/home/presenter/views/home_view.dart';
 class HomeModule extends Module {
   @override
   List<Module> get imports => [CoreModule()];
-  @override
-  void binds(i) {}
 
   @override
   void routes(r) {

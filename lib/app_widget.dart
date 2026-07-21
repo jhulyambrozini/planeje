@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:planeje/modules/core/presenter/theme/colors.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -15,6 +16,7 @@ class AppWidget extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       theme: ThemeData(
+        scaffoldBackgroundColor: ColorsTheme.background,
         textTheme: TextTheme(
           titleLarge: TextStyle(fontFamily: "Livvic"),
           titleMedium: TextStyle(fontFamily: "Livvic"),
