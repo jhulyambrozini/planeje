@@ -1,72 +1,108 @@
 import 'package:flutter/widgets.dart';
 
-enum FinnancesScreen { home, historicList, transactionList }
 
-enum FinnancesPopup { addMonth, addTransaction, editTransaction, deleteTransaction }
 
 class FinnacesViewmodel extends ChangeNotifier {
-  FinnancesScreen _currentScreen = FinnancesScreen.home;
-  FinnancesPopup? _currentPopup;
+  final GetHistoriesPagedUsecase _getHistoryUsecase;
 
-  String _selectedMonthYear = '';
-  String _totalSpent = '';
-  String _totalRemaining = '';
+  FinnacesViewmodel(this._getHistoryUsecase);
 
-  FinnancesScreen get currentScreen => _currentScreen;
-  FinnancesPopup? get currentPopup => _currentPopup;
-  String get selectedMonthYear => _selectedMonthYear;
-  String get totalSpent => _totalSpent;
-  String get totalRemaining => _totalRemaining;
+  PagingState<int, HistoryAggregate> pagingState = PagingState(
+    hasNextPage: true,
+    isLoading: false,
+  );
+  bool isLastPage = false;
 
-  bool get isPopupOpen => _currentPopup != null;
-
-  void navigateToHome() {
-    _currentScreen = FinnancesScreen.home;
-    _currentPopup = null;
-    notifyListeners();
+  Future<void> init() async {
+    await _fetchFirstPage();
   }
 
-  void navigateToHistoricList() {
-    _currentScreen = FinnancesScreen.historicList;
-    _currentPopup = null;
-    notifyListeners();
+  Future<void> _fetchFirstPage() async {
+    if (pagingState.isLoading) return;
+    pagingState = pagingState.copyWith(isLoading: true, error: null);
+    const newKey = 1;
+
+    final result = await _getHistoryUsecase(
+      PagingDto(page: newKey, perPage: 5),
+    );
+
+    result.fold(
+      (failure) {
+        pagingState = pagingState.copyWith(
+          isLoading: false,
+          error: failure.message,
+        );
+        notifyListeners();
+      },
+      (success) {
+        isLastPage = success.pagination.isLastPage;
+
+        if (success.data.isEmpty) {
+          pagingState = pagingState.copyWith(
+            pages: [],
+            keys: [],
+            hasNextPage: !isLastPage,
+            isLoading: false,
+          );
+          notifyListeners();
+          return;
+        }
+        pagingState = pagingState.copyWith(
+          pages: [success.data],
+          keys: [newKey],
+          hasNextPage: !isLastPage,
+          isLoading: false,
+        );
+        notifyListeners();
+      },
+    );
   }
 
-  void navigateToTransactionList(String monthYear) {
-    _selectedMonthYear = monthYear;
-    _currentScreen = FinnancesScreen.transactionList;
-    _currentPopup = null;
-    notifyListeners();
+  Future<void> fetchNextPage() async {
+    if (pagingState.isLoading || isLastPage) return;
+    pagingState = pagingState.copyWith(isLoading: true, error: null);
+    final newKey = (pagingState.keys?.last ?? 0) + 1;
+
+    final result = await _getHistoryUsecase(
+      PagingDto(page: newKey, perPage: 5),
+    );
+
+    result.fold(
+      (failure) {
+        pagingState = pagingState.copyWith(
+          isLoading: false,
+          error: failure.message,
+        );
+        notifyListeners();
+      },
+      (success) {
+        isLastPage = success.pagination.isLastPage;
+
+        if (success.data.isEmpty) {
+          pagingState = pagingState.copyWith(
+            pages: [],
+            keys: [],
+            hasNextPage: true,
+            isLoading: false,
+          );
+          notifyListeners();
+          return;
+        }
+        pagingState = pagingState.copyWith(
+          pages: [...?pagingState.pages, success.data],
+          keys: [...?pagingState.keys, newKey],
+          hasNextPage: !isLastPage,
+          isLoading: false,
+        );
+        notifyListeners();
+      },
+    );
   }
 
-  void showAddMonthPopup() {
-    _currentPopup = FinnancesPopup.addMonth;
+  Future<void> onRefresh() async {
+    pagingState = pagingState.reset();
+    isLastPage = false;
     notifyListeners();
-  }
-
-  void showAddTransactionPopup() {
-    _currentPopup = FinnancesPopup.addTransaction;
-    notifyListeners();
-  }
-
-  void showEditTransactionPopup() {
-    _currentPopup = FinnancesPopup.editTransaction;
-    notifyListeners();
-  }
-
-  void showDeleteTransactionPopup() {
-    _currentPopup = FinnancesPopup.deleteTransaction;
-    notifyListeners();
-  }
-
-  void dismissPopup() {
-    _currentPopup = null;
-    notifyListeners();
-  }
-
-  void updateTotals({String spent = '', String remaining = ''}) {
-    _totalSpent = spent;
-    _totalRemaining = remaining;
-    notifyListeners();
+    await _fetchFirstPage();
   }
 }

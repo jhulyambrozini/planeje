@@ -18,6 +18,8 @@ dependencies:
   flutter_native_splash: ^2.4.6
   supabase_flutter: ^2.10.0
   flutter_modular: ^6.4.1
+  infinite_scroll_pagination: ^5.1.1
+
   flutter_localizations:
     sdk: flutter
 

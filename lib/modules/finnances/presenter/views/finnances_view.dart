@@ -18,7 +18,7 @@ class FinnancesView extends StatefulWidget {
 }
 
 class _FinnancesViewState extends State<FinnancesView> {
-  final _vm = FinnacesViewmodel();
+  final _vm = Modular.get<FinnacesViewmodel>();
 
   @override
   Widget build(BuildContext context) {
