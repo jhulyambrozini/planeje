@@ -40,7 +40,7 @@ class FinnancesDeleteTransactionWidget extends StatelessWidget {
               'Essa ação não poderá\nser desfeita',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: ColorsTheme.secondaryLight,
+                color: ColorsTheme.mutedForeground2,
                 fontFamily: 'Inter',
                 fontSize: 12,
               ),
@@ -55,7 +55,10 @@ class FinnancesDeleteTransactionWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 6),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: ColorsTheme.primary, width: 1),
+                        border: Border.all(
+                          color: ColorsTheme.primary,
+                          width: 1,
+                        ),
                       ),
                       child: const Center(
                         child: Text(

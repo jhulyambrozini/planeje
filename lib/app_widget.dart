@@ -16,15 +16,24 @@ class AppWidget extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       theme: ThemeData(
-        scaffoldBackgroundColor: ColorsTheme.background,
-        textTheme: TextTheme(
-          titleLarge: TextStyle(fontFamily: "Livvic"),
-          titleMedium: TextStyle(fontFamily: "Livvic"),
-          titleSmall: TextStyle(fontFamily: "Livvic"),
-          bodyLarge: TextStyle(fontFamily: "Inter"),
-          bodyMedium: TextStyle(fontFamily: "Inter"),
-          bodySmall: TextStyle(fontFamily: "Inter"),
+        appBarTheme: AppBarTheme(
+          backgroundColor: ColorsTheme.background,
+          iconTheme: IconThemeData(color: ColorsTheme.foreground),
+          centerTitle: false,
+          titleSpacing: 0,
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            fontFamily: 'Livvic',
+          ),
         ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: ColorsTheme.primary,
+          elevation: 1,
+          shape: CircleBorder(),
+        ),
+        scaffoldBackgroundColor: ColorsTheme.background,
       ),
       supportedLocales: [
         Locale('pt', 'BR'), // Português do Brasil

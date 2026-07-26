@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:planeje/modules/core/presenter/theme/colors.dart';
+import 'package:planeje/modules/core/presenter/theme/font_sizes.dart';
+import 'package:planeje/modules/core/presenter/widgets/card_failure_fetch_widget.dart';
+import 'package:planeje/modules/finnances/domain/entities/finnances_header_entity.dart';
 import 'package:planeje/modules/finnances/presenter/viewmodels/finnances_viewmodel.dart';
 import 'package:planeje/modules/finnances/presenter/widgets/finnances_add_month_widget.dart';
-import 'package:planeje/modules/finnances/presenter/widgets/finnances_add_transaction_widget.dart';
-import 'package:planeje/modules/finnances/presenter/widgets/finnances_delete_transaction_widget.dart';
-import 'package:planeje/modules/finnances/presenter/widgets/finnances_edit_transaction_widget.dart';
 import 'package:planeje/modules/finnances/presenter/widgets/finnances_empty_state_widget.dart';
 import 'package:planeje/modules/finnances/presenter/widgets/finnances_historic_list_widget.dart';
-import 'package:planeje/modules/finnances/presenter/widgets/finnances_transaction_list_widget.dart';
 
 class FinnancesView extends StatefulWidget {
   const FinnancesView({super.key});
@@ -18,137 +18,120 @@ class FinnancesView extends StatefulWidget {
 }
 
 class _FinnancesViewState extends State<FinnancesView> {
-  final _vm = Modular.get<FinnacesViewmodel>();
+  final _viewmodel = Modular.get<FinnacesViewmodel>();
+
+  _onAddFinnaceMonth() async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return FinnancesAddMonthWidget(
+          onCancel: () => Navigator.of(context).pop(false),
+          onAdd: () => Navigator.of(context).pop(true),
+          months: _viewmodel.listMonth,
+          years: _viewmodel.listYears,
+          yearSelected: _viewmodel.yearSelected,
+          monthSelected: _viewmodel.monthSelected,
+          onSelectYear: _viewmodel.onSelectYear,
+          onSelectMonth: _viewmodel.onSelectMonth,
+        );
+      },
+    );
+    if (result == null) return;
+    if (!result) return;
+  }
+
+  _onEditFinnaceMonth(String id) async {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsTheme.background,
-      body: ListenableBuilder(
-        listenable: _vm,
-        builder: (context, _) => _buildBody(),
+      appBar: AppBar(title: Text('Financeiro')),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _onAddFinnaceMonth,
+        child: Center(
+          child: Icon(Icons.add, color: ColorsTheme.primaryDark, size: 32),
+        ),
       ),
-    );
-  }
-
-  Widget _buildBody() {
-    return Stack(
-      children: [
-        SafeArea(
-          child: Column(
-            children: [
-              if (_vm.currentScreen != FinnancesScreen.home)
-                _buildAppBar(),
-              Expanded(
-                child: _buildScreen(),
+      body: ListenableBuilder(
+        listenable: _viewmodel,
+        builder: (context, _) => Column(
+          children: [
+            if (_viewmodel.listIsEmpty) ...[
+              const Text(
+                'Esse é seu histórico\nde gastos',
+                style: TextStyle(
+                  color: ColorsTheme.primaryLight,
+                  fontFamily: 'Livvic',
+                  fontSize: FontSizesTheme.xl,
+                  height: 1.2,
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Center(
+                child: Text(
+                  'ANO - 2024',
+                  style: TextStyle(
+                    color: ColorsTheme.primaryLight,
+                    fontFamily: 'Inter',
+                    fontSize: FontSizesTheme.lg,
+                  ),
+                ),
               ),
             ],
-          ),
-        ),
-        if (_vm.isPopupOpen) _buildPopupOverlay(),
-      ],
-    );
-  }
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: () async => _viewmodel.onRefresh(),
+                child: PagedListView<int, FinnancesHeaderEntity>(
+                  state: _viewmodel.pagingState,
+                  fetchNextPage: _viewmodel.fetchPage,
+                  builderDelegate: PagedChildBuilderDelegate(
+                    itemBuilder: (context, item, index) {
+                      return FinnancesHistoricItemWidget(
+                        month: item.month,
+                        onTap: () => _onEditFinnaceMonth(item.id),
+                      );
+                    },
+                    firstPageProgressIndicatorBuilder: (_) =>
+                        const Center(child: CircularProgressIndicator()),
+                    firstPageErrorIndicatorBuilder: (_) => Align(
+                      alignment: Alignment.topCenter,
+                      child: CardFailureFetchWidget(
+                        message: _viewmodel.pagingState.error.toString(),
+                        onRefresh: _viewmodel.onRefresh,
+                      ),
+                    ),
+                    newPageProgressIndicatorBuilder: (_) =>
+                        const Center(child: CircularProgressIndicator()),
+                    newPageErrorIndicatorBuilder: (_) => Align(
+                      alignment: Alignment.topCenter,
 
-  Widget _buildAppBar() {
-    return Container(
-      color: ColorsTheme.background,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              if (_vm.currentScreen == FinnancesScreen.historicList) {
-                _vm.navigateToHome();
-              } else {
-                _vm.navigateToHistoricList();
-              }
-            },
-            child: const Icon(Icons.arrow_back, color: Colors.white),
-          ),
-          const SizedBox(width: 8),
-          const Text(
-            'Financeiro',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
+                      child: Column(
+                        spacing: 6,
+                        children: [
+                          Text(_viewmodel.pagingState.error.toString()),
+                          TextButton(
+                            onPressed: _viewmodel.onRefresh,
+                            child: Text(
+                              'Recarregar lista',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: ColorsTheme.mutedForeground,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    noItemsFoundIndicatorBuilder: (_) =>
+                        FinnancesEmptyStateWidget(),
+                  ),
+                ),
+              ),
             ),
-          ),
-          const Spacer(),
-          GestureDetector(
-            onTap: Modular.to.pop,
-            child: const Icon(Icons.close, color: Colors.white),
-          ),
-        ],
+          ],
+        ),
       ),
     );
-  }
-
-  Widget _buildScreen() {
-    switch (_vm.currentScreen) {
-      case FinnancesScreen.home:
-        return FinnancesEmptyStateWidget(
-          onAddMonth: _vm.showAddMonthPopup,
-        );
-      case FinnancesScreen.historicList:
-        return FinnancesHistoricListWidget(
-          onBack: _vm.navigateToHome,
-          onEditMonth: _vm.showAddMonthPopup,
-        );
-      case FinnancesScreen.transactionList:
-        return FinnancesTransactionListWidget(
-          monthYear: _vm.selectedMonthYear,
-          totalSpent: _vm.totalSpent,
-          totalRemaining: _vm.totalRemaining,
-          onBack: _vm.navigateToHistoricList,
-          onAddTransaction: _vm.showAddTransactionPopup,
-          onEditTransaction: _vm.showEditTransactionPopup,
-          onDeleteTransaction: _vm.showDeleteTransactionPopup,
-          onSaveEdits: () {},
-        );
-    }
-  }
-
-  Widget _buildPopupOverlay() {
-    return Stack(
-      children: [
-        GestureDetector(
-          onTap: _vm.dismissPopup,
-          child: Container(color: Colors.black.withValues(alpha: 0.86)),
-        ),
-        SafeArea(child: _buildPopup()),
-      ],
-    );
-  }
-
-  Widget _buildPopup() {
-    switch (_vm.currentPopup) {
-      case FinnancesPopup.addMonth:
-        return FinnancesAddMonthWidget(
-          onCancel: _vm.dismissPopup,
-          onAdd: () {
-            _vm.dismissPopup();
-            _vm.navigateToHistoricList();
-          },
-        );
-      case FinnancesPopup.addTransaction:
-        return FinnancesAddTransactionWidget(
-          onCancel: _vm.dismissPopup,
-          onAdd: _vm.dismissPopup,
-        );
-      case FinnancesPopup.editTransaction:
-        return FinnancesEditTransactionWidget(
-          onCancel: _vm.dismissPopup,
-          onSave: _vm.dismissPopup,
-        );
-      case FinnancesPopup.deleteTransaction:
-        return FinnancesDeleteTransactionWidget(
-          onCancel: _vm.dismissPopup,
-          onDelete: _vm.dismissPopup,
-        );
-      default:
-        return const SizedBox.shrink();
-    }
   }
 }

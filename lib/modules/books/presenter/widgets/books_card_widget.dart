@@ -73,25 +73,67 @@ class BooksCardWidget extends StatelessWidget {
                 style: const TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 11,
-                  color: ColorsTheme.light,
+                  color: ColorsTheme.mutedForeground,
                 ),
               ),
               Row(
                 children: [
-                  Text(publisher,
-                      style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: ColorsTheme.light)),
-                  const Text(' · ',
-                      style: TextStyle(fontFamily: 'Inter', fontSize: 10, color: ColorsTheme.secondaryLight)),
-                  Text(nationality,
-                      style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: ColorsTheme.light)),
-                  const Text(' · ',
-                      style: TextStyle(fontFamily: 'Inter', fontSize: 10, color: ColorsTheme.secondaryLight)),
-                  Text(pages,
-                      style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: ColorsTheme.light)),
-                  const Text(' · ',
-                      style: TextStyle(fontFamily: 'Inter', fontSize: 10, color: ColorsTheme.secondaryLight)),
-                  Text(year,
-                      style: const TextStyle(fontFamily: 'Inter', fontSize: 10, color: ColorsTheme.light)),
+                  Text(
+                    publisher,
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 10,
+                      color: ColorsTheme.mutedForeground,
+                    ),
+                  ),
+                  const Text(
+                    ' · ',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 10,
+                      color: ColorsTheme.mutedForeground2,
+                    ),
+                  ),
+                  Text(
+                    nationality,
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 10,
+                      color: ColorsTheme.mutedForeground,
+                    ),
+                  ),
+                  const Text(
+                    ' · ',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 10,
+                      color: ColorsTheme.mutedForeground2,
+                    ),
+                  ),
+                  Text(
+                    pages,
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 10,
+                      color: ColorsTheme.mutedForeground,
+                    ),
+                  ),
+                  const Text(
+                    ' · ',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 10,
+                      color: ColorsTheme.mutedForeground2,
+                    ),
+                  ),
+                  Text(
+                    year,
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 10,
+                      color: ColorsTheme.mutedForeground,
+                    ),
+                  ),
                 ],
               ),
             ],

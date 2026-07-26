@@ -28,7 +28,7 @@ class FinnancesEditTransactionWidget extends StatelessWidget {
             const Text(
               'Editando transação: Conta de energia',
               style: TextStyle(
-                color: ColorsTheme.light,
+                color: ColorsTheme.mutedForeground,
                 fontFamily: 'Livvic',
                 fontSize: 16,
                 height: 1.125,
@@ -50,7 +50,10 @@ class FinnancesEditTransactionWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 6),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: ColorsTheme.primary, width: 1),
+                        border: Border.all(
+                          color: ColorsTheme.primary,
+                          width: 1,
+                        ),
                       ),
                       child: const Center(
                         child: Text(
@@ -103,13 +106,13 @@ class FinnancesEditTransactionWidget extends StatelessWidget {
         Text(
           label,
           style: const TextStyle(
-            color: ColorsTheme.secondaryLight,
+            color: ColorsTheme.mutedForeground2,
             fontFamily: 'Inter',
             fontSize: 12,
           ),
         ),
         const SizedBox(height: 4),
-        Container(height: 1, color: ColorsTheme.secondaryLight),
+        Container(height: 1, color: ColorsTheme.mutedForeground2),
       ],
     );
   }

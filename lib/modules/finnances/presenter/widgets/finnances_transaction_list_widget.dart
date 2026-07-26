@@ -44,7 +44,7 @@ class FinnancesTransactionListWidget extends StatelessWidget {
           child: Text(
             'ANO 2024',
             style: TextStyle(
-              color: ColorsTheme.secondaryLight,
+              color: ColorsTheme.mutedForeground2,
               fontFamily: 'Livvic',
               fontSize: 12,
             ),
@@ -95,7 +95,10 @@ class FinnancesTransactionListWidget extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: onBack,
-            child: const Icon(Icons.arrow_back, color: ColorsTheme.light),
+            child: const Icon(
+              Icons.arrow_back,
+              color: ColorsTheme.mutedForeground,
+            ),
           ),
           const Spacer(),
           Image.asset('assets/images/logo.png', width: 70),
@@ -133,7 +136,7 @@ class FinnancesTransactionListWidget extends StatelessWidget {
                   const Text(
                     'Conta de energia',
                     style: TextStyle(
-                      color: ColorsTheme.secondaryLight,
+                      color: ColorsTheme.mutedForeground2,
                       fontFamily: 'Livvic',
                       fontSize: 12,
                     ),
@@ -141,7 +144,7 @@ class FinnancesTransactionListWidget extends StatelessWidget {
                   Text(
                     description,
                     style: const TextStyle(
-                      color: ColorsTheme.secondaryLight,
+                      color: ColorsTheme.mutedForeground2,
                       fontFamily: 'Livvic',
                       fontSize: 12,
                     ),
@@ -152,7 +155,7 @@ class FinnancesTransactionListWidget extends StatelessWidget {
             Text(
               value,
               style: TextStyle(
-                color: ColorsTheme.light,
+                color: ColorsTheme.mutedForeground,
                 fontFamily: 'Inter',
                 fontSize: 14,
               ),
@@ -160,16 +163,24 @@ class FinnancesTransactionListWidget extends StatelessWidget {
             const SizedBox(width: 8),
             GestureDetector(
               onTap: onEditTransaction,
-              child: const Icon(Icons.edit_square, color: ColorsTheme.primaryLight, size: 14),
+              child: const Icon(
+                Icons.edit_square,
+                color: ColorsTheme.primaryLight,
+                size: 14,
+              ),
             ),
             const SizedBox(width: 4),
             GestureDetector(
               onTap: onDeleteTransaction,
-              child: const Icon(Icons.delete_outline, color: ColorsTheme.error, size: 14),
+              child: const Icon(
+                Icons.delete_outline,
+                color: ColorsTheme.error,
+                size: 14,
+              ),
             ),
           ],
         ),
-        const Divider(color: ColorsTheme.secondary, height: 24, thickness: 1),
+        const Divider(color: ColorsTheme.inputInLine, height: 24, thickness: 1),
       ],
     );
   }
@@ -192,7 +203,9 @@ class FinnancesTransactionListWidget extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                totalRemaining.isNotEmpty ? totalRemaining : 'TOTAL RESTANTE: R\$ 190,00',
+                totalRemaining.isNotEmpty
+                    ? totalRemaining
+                    : 'TOTAL RESTANTE: R\$ 190,00',
                 style: const TextStyle(
                   color: ColorsTheme.success,
                   fontFamily: 'Inter',
@@ -207,7 +220,10 @@ class FinnancesTransactionListWidget extends StatelessWidget {
               GestureDetector(
                 onTap: onAddTransaction,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: ColorsTheme.primary,
                     borderRadius: BorderRadius.circular(5),
@@ -233,7 +249,10 @@ class FinnancesTransactionListWidget extends StatelessWidget {
               GestureDetector(
                 onTap: onSaveEdits,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: ColorsTheme.primary, width: 1),

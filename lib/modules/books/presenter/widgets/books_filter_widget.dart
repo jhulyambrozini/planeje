@@ -21,7 +21,7 @@ class BooksFilterWidget extends StatelessWidget {
           style: const TextStyle(
             fontFamily: 'Inter',
             fontSize: 11,
-            color: ColorsTheme.light,
+            color: ColorsTheme.mutedForeground,
           ),
         ),
       ],
@@ -35,7 +35,7 @@ class BooksFilterWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorsTheme.secondaryDark,
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: ColorsTheme.secondary, width: 1),
+        border: Border.all(color: ColorsTheme.inputInLine, width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -49,7 +49,11 @@ class BooksFilterWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 4),
-          const Icon(Icons.keyboard_arrow_down, size: 12, color: ColorsTheme.light),
+          const Icon(
+            Icons.keyboard_arrow_down,
+            size: 12,
+            color: ColorsTheme.mutedForeground,
+          ),
         ],
       ),
     );

@@ -15,7 +15,9 @@
         "flutter_localizations",
         "flutter_modular",
         "flutter_native_splash",
+        "infinite_scroll_pagination",
         "path_provider",
+        "result_dart",
         "sqlite3_flutter_libs",
         "supabase_flutter"
       ],
@@ -135,12 +137,30 @@
       ]
     },
     {
+      "name": "result_dart",
+      "version": "2.2.0",
+      "dependencies": [
+        "meta"
+      ]
+    },
+    {
       "name": "flutter_localizations",
       "version": "0.0.0",
       "dependencies": [
         "flutter",
         "intl",
         "path"
+      ]
+    },
+    {
+      "name": "infinite_scroll_pagination",
+      "version": "5.1.1",
+      "dependencies": [
+        "collection",
+        "flutter",
+        "flutter_staggered_grid_view",
+        "meta",
+        "sliver_tools"
       ]
     },
     {
@@ -741,17 +761,24 @@
       ]
     },
     {
-      "name": "flutter_web_plugins",
-      "version": "0.0.0",
+      "name": "sliver_tools",
+      "version": "0.2.12",
       "dependencies": [
         "flutter"
       ]
     },
     {
-      "name": "result_dart",
-      "version": "2.2.0",
+      "name": "flutter_staggered_grid_view",
+      "version": "0.7.0",
       "dependencies": [
-        "meta"
+        "flutter"
+      ]
+    },
+    {
+      "name": "flutter_web_plugins",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter"
       ]
     },
     {

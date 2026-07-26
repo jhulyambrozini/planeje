@@ -15,14 +15,14 @@ class BooksSearchWidget extends StatelessWidget {
       ),
       child: const Row(
         children: [
-          Icon(Icons.search, size: 16, color: ColorsTheme.light),
+          Icon(Icons.search, size: 16, color: ColorsTheme.mutedForeground),
           SizedBox(width: 8),
           Text(
             'Buscar livro...',
             style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 13,
-              color: ColorsTheme.light,
+              color: ColorsTheme.mutedForeground,
             ),
           ),
         ],

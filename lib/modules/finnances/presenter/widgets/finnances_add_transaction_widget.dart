@@ -49,7 +49,10 @@ class FinnancesAddTransactionWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 6),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: ColorsTheme.primary, width: 1),
+                        border: Border.all(
+                          color: ColorsTheme.primary,
+                          width: 1,
+                        ),
                       ),
                       child: const Center(
                         child: Text(
@@ -102,13 +105,13 @@ class FinnancesAddTransactionWidget extends StatelessWidget {
         Text(
           label,
           style: const TextStyle(
-            color: ColorsTheme.secondaryLight,
+            color: ColorsTheme.mutedForeground2,
             fontFamily: 'Inter',
             fontSize: 12,
           ),
         ),
         const SizedBox(height: 4),
-        Container(height: 1, color: ColorsTheme.secondaryLight),
+        Container(height: 1, color: ColorsTheme.mutedForeground2),
       ],
     );
   }
