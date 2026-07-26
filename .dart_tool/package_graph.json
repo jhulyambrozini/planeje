@@ -19,7 +19,8 @@
         "path_provider",
         "result_dart",
         "sqlite3_flutter_libs",
-        "supabase_flutter"
+        "supabase_flutter",
+        "uuid"
       ],
       "devDependencies": [
         "build_runner",
@@ -150,6 +151,16 @@
         "flutter",
         "intl",
         "path"
+      ]
+    },
+    {
+      "name": "uuid",
+      "version": "4.5.1",
+      "dependencies": [
+        "crypto",
+        "fixnum",
+        "meta",
+        "sprintf"
       ]
     },
     {
@@ -761,6 +772,16 @@
       ]
     },
     {
+      "name": "fixnum",
+      "version": "1.1.1",
+      "dependencies": []
+    },
+    {
+      "name": "sprintf",
+      "version": "7.0.0",
+      "dependencies": []
+    },
+    {
       "name": "sliver_tools",
       "version": "0.2.12",
       "dependencies": [
@@ -939,16 +960,6 @@
       "version": "3.1.2",
       "dependencies": [
         "typed_data"
-      ]
-    },
-    {
-      "name": "uuid",
-      "version": "4.5.1",
-      "dependencies": [
-        "crypto",
-        "fixnum",
-        "meta",
-        "sprintf"
       ]
     },
     {
@@ -1323,16 +1334,6 @@
         "meta",
         "path"
       ]
-    },
-    {
-      "name": "fixnum",
-      "version": "1.1.1",
-      "dependencies": []
-    },
-    {
-      "name": "sprintf",
-      "version": "7.0.0",
-      "dependencies": []
     },
     {
       "name": "posix",

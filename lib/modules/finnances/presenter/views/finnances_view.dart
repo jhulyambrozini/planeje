@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:planeje/modules/core/presenter/factories/snack_bar_factory.dart';
 import 'package:planeje/modules/core/presenter/theme/colors.dart';
 import 'package:planeje/modules/core/presenter/theme/font_sizes.dart';
 import 'package:planeje/modules/core/presenter/widgets/card_failure_fetch_widget.dart';
@@ -18,15 +19,21 @@ class FinnancesView extends StatefulWidget {
 }
 
 class _FinnancesViewState extends State<FinnancesView> {
-  final _viewmodel = Modular.get<FinnacesViewmodel>();
+  final _viewmodel = Modular.get<FinnancesViewmodel>();
 
   _onAddFinnaceMonth() async {
-    final result = await showDialog<bool>(
+    await showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return FinnancesAddMonthWidget(
-          onCancel: () => Navigator.of(context).pop(false),
-          onAdd: () => Navigator.of(context).pop(true),
+          onAdd: () async {
+            Navigator.of(context).pop();
+            final result = await _viewmodel.onCreateFinnance();
+            if (result.isError) return _showSnackbarError(result.message);
+            _showSnackbarSucccess('histórico criado!');
+          },
+          onCancel: () => Navigator.of(context).pop(),
           months: _viewmodel.listMonth,
           years: _viewmodel.listYears,
           yearSelected: _viewmodel.yearSelected,
@@ -36,8 +43,16 @@ class _FinnancesViewState extends State<FinnancesView> {
         );
       },
     );
-    if (result == null) return;
-    if (!result) return;
+  }
+
+  void _showSnackbarError(String message) async {
+    final messenger = ScaffoldMessenger.of(context);
+    SnackBarFactory.error(message: message, messenger: messenger);
+  }
+
+  void _showSnackbarSucccess(String message) async {
+    final messenger = ScaffoldMessenger.of(context);
+    SnackBarFactory.success(message: message, messenger: messenger);
   }
 
   _onEditFinnaceMonth(String id) async {}
@@ -93,13 +108,11 @@ class _FinnancesViewState extends State<FinnancesView> {
                     },
                     firstPageProgressIndicatorBuilder: (_) =>
                         const Center(child: CircularProgressIndicator()),
-                    firstPageErrorIndicatorBuilder: (_) => Align(
-                      alignment: Alignment.topCenter,
-                      child: CardFailureFetchWidget(
-                        message: _viewmodel.pagingState.error.toString(),
-                        onRefresh: _viewmodel.onRefresh,
-                      ),
-                    ),
+                    firstPageErrorIndicatorBuilder: (_) =>
+                        CardFailureFetchWidget(
+                          message: _viewmodel.pagingState.error.toString(),
+                          onRefresh: _viewmodel.onRefresh,
+                        ),
                     newPageProgressIndicatorBuilder: (_) =>
                         const Center(child: CircularProgressIndicator()),
                     newPageErrorIndicatorBuilder: (_) => Align(

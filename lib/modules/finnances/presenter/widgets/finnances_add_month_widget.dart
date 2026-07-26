@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:planeje/modules/core/domain/enums/month_enum.dart';
+import 'package:planeje/modules/core/domain/enums/year_enum.dart';
 import 'package:planeje/modules/core/presenter/dtos/drop_down_selection_dto.dart';
 import 'package:planeje/modules/core/presenter/theme/colors.dart';
 import 'package:planeje/modules/core/presenter/theme/font_sizes.dart';
 import 'package:planeje/modules/core/presenter/widgets/custom_drop_down_widget.dart';
 
 class FinnancesAddMonthWidget extends StatelessWidget {
-  final VoidCallback onCancel;
   final VoidCallback onAdd;
-  final List<DropDownSelectionDto> months;
-  final List<DropDownSelectionDto> years;
-  final DropDownSelectionDto? yearSelected;
-  final DropDownSelectionDto? monthSelected;
-  final void Function(DropDownSelectionDto?) onSelectYear;
-  final void Function(DropDownSelectionDto?) onSelectMonth;
+  final VoidCallback onCancel;
+
+  final List<DropDownSelectionDto<MonthEnum>> months;
+  final List<DropDownSelectionDto<YearEnum>> years;
+  final ValueNotifier<DropDownSelectionDto<YearEnum>?> yearSelected;
+  final ValueNotifier<DropDownSelectionDto<MonthEnum>?> monthSelected;
+  final void Function(DropDownSelectionDto<YearEnum>?) onSelectYear;
+  final void Function(DropDownSelectionDto<MonthEnum>?) onSelectMonth;
 
   const FinnancesAddMonthWidget({
     super.key,
-    required this.onCancel,
     required this.onAdd,
+    required this.onCancel,
+
     required this.months,
     required this.years,
     required this.yearSelected,
@@ -51,7 +55,6 @@ class FinnancesAddMonthWidget extends StatelessWidget {
             ),
           ),
         ),
-
         const SizedBox(width: 10),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -63,7 +66,7 @@ class FinnancesAddMonthWidget extends StatelessWidget {
           ),
           onPressed: onAdd,
           child: Text(
-            'adicionar',
+            'concluir',
             style: TextStyle(
               color: ColorsTheme.primaryDark,
               fontFamily: 'Inter',
@@ -88,17 +91,27 @@ class FinnancesAddMonthWidget extends StatelessWidget {
               ),
             ),
           ),
-          DropdownCustomButton<DropDownSelectionDto>(
-            items: months,
-            selectedValue: monthSelected,
-            onSelectItem: onSelectMonth,
-            titleLabel: 'Selecione o mês',
+          ValueListenableBuilder(
+            valueListenable: monthSelected,
+            builder: (context, value, child) {
+              return DropdownCustomButton<DropDownSelectionDto<MonthEnum>>(
+                items: months,
+                selectedValue: monthSelected.value,
+                onSelectItem: onSelectMonth,
+                titleLabel: 'Selecione o mês',
+              );
+            },
           ),
-          DropdownCustomButton<DropDownSelectionDto>(
-            items: years,
-            selectedValue: yearSelected,
-            onSelectItem: onSelectYear,
-            titleLabel: 'Selecione o ano',
+          ValueListenableBuilder(
+            valueListenable: yearSelected,
+            builder: (context, value, child) {
+              return DropdownCustomButton<DropDownSelectionDto<YearEnum>>(
+                items: years,
+                selectedValue: yearSelected.value,
+                onSelectItem: onSelectYear,
+                titleLabel: 'Selecione o ano',
+              );
+            },
           ),
         ],
       ),

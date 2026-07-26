@@ -2,16 +2,22 @@ import 'package:flutter/widgets.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:planeje/modules/core/domain/enums/month_enum.dart';
 import 'package:planeje/modules/core/domain/enums/year_enum.dart';
+import 'package:planeje/modules/core/domain/models/result_action_model.dart';
 import 'package:planeje/modules/core/domain/value_objects/paging_vo.dart';
 import 'package:planeje/modules/core/presenter/dtos/drop_down_selection_dto.dart';
 import 'package:planeje/modules/finnances/domain/dtos/paging_finnances_dto.dart';
 import 'package:planeje/modules/finnances/domain/entities/finnances_header_entity.dart';
 import 'package:planeje/modules/finnances/domain/get_finnances_paged_usecase.dart';
+import 'package:planeje/modules/finnances/domain/save_finnance_header_usecase.dart';
 
-class FinnacesViewmodel extends ChangeNotifier {
+class FinnancesViewmodel extends ChangeNotifier {
   final GetFinnancesPagedUsecase _getFinnancesPagedUsecase;
+  final SaveFinnanceHeaderUsecase _saveFinnanceHeaderUsecase;
 
-  FinnacesViewmodel(this._getFinnancesPagedUsecase);
+  FinnancesViewmodel(
+    this._getFinnancesPagedUsecase,
+    this._saveFinnanceHeaderUsecase,
+  );
 
   PagingState<int, FinnancesHeaderEntity> pagingState = PagingState(
     hasNextPage: true,
@@ -24,20 +30,39 @@ class FinnacesViewmodel extends ChangeNotifier {
   List<DropDownSelectionDto<MonthEnum>> listMonth = months;
   List<DropDownSelectionDto<YearEnum>> listYears = years;
 
-  DropDownSelectionDto? yearSelected;
-  DropDownSelectionDto? monthSelected;
+  final yearSelected = ValueNotifier<DropDownSelectionDto<YearEnum>?>(null);
+  final monthSelected = ValueNotifier<DropDownSelectionDto<MonthEnum>?>(null);
 
   Future<void> init() async {
     await fetchPage();
   }
 
-  void onSelectYear(DropDownSelectionDto? value) {
-    yearSelected = value;
+  Future<ResultActionModel> onCreateFinnance() async {
+    if (yearSelected.value == null) {
+      return ResultActionModel.failure('Selecione um ano');
+    }
+    final intYear = int.tryParse(yearSelected.value!.description);
+
+    final result = await _saveFinnanceHeaderUsecase(
+      year: intYear,
+      month: monthSelected.value?.description,
+    );
+    if (result.isError()) {
+      return ResultActionModel.failure(result.exceptionOrNull()!.message);
+    }
+    yearSelected.value = null;
+    monthSelected.value = null;
+    await onRefresh();
+    return ResultActionModel.success();
+  }
+
+  void onSelectYear(DropDownSelectionDto<YearEnum>? value) {
+    yearSelected.value = value;
     notifyListeners();
   }
 
-  void onSelectMonth(DropDownSelectionDto? value) {
-    monthSelected = value;
+  void onSelectMonth(DropDownSelectionDto<MonthEnum>? value) {
+    monthSelected.value = value;
     notifyListeners();
   }
 
@@ -56,7 +81,7 @@ class FinnacesViewmodel extends ChangeNotifier {
 
     result.fold(
       (success) {
-        isLastPage = success.lastPage == success.currentPage;
+        isLastPage = success.isLastPage == success.currentPage;
 
         if (success.data.isEmpty) {
           pagingState = pagingState.copyWith(
@@ -78,6 +103,7 @@ class FinnacesViewmodel extends ChangeNotifier {
         notifyListeners();
       },
       (failure) {
+        print(failure.description);
         pagingState = pagingState.copyWith(
           isLoading: false,
           error: failure.message,

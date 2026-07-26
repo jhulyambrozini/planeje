@@ -1,15 +1,14 @@
 class PaginationResponseVo<T> {
   final List<T> data;
   final int currentPage;
-  final int lastPage;
   final int perPage;
-  final int total;
+  final int totalOfPages;
 
+  bool get isLastPage => totalOfPages == 0 || currentPage == totalOfPages;
   PaginationResponseVo({
     required this.data,
     required this.currentPage,
-    required this.lastPage,
     required this.perPage,
-    required this.total,
+    required this.totalOfPages,
   });
 }

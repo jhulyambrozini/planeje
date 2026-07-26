@@ -5,7 +5,6 @@ import 'package:planeje/app_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
 
   return runApp(ModularApp(module: AppModule(), child: const AppWidget()));
 }

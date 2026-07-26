@@ -3,6 +3,8 @@ class ResultActionModel<T> {
   final String message;
   final T? data;
 
+  bool get isError => !success;
+
   ResultActionModel._({
     required this.success,
     required this.message,

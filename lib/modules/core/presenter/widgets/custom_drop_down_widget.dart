@@ -3,7 +3,7 @@ import 'package:planeje/modules/core/presenter/dtos/drop_down_selection_dto.dart
 import 'package:planeje/modules/core/presenter/theme/colors.dart';
 import 'package:planeje/modules/core/presenter/theme/font_sizes.dart';
 
-class DropdownCustomButton<T> extends StatelessWidget {
+class DropdownCustomButton<T extends DropDownSelectionDto> extends StatelessWidget {
   const DropdownCustomButton({
     super.key,
     required this.items,
@@ -19,7 +19,7 @@ class DropdownCustomButton<T> extends StatelessWidget {
     this.hasError = false,
   });
 
-  final List<DropDownSelectionDto> items;
+  final List<T> items;
   final T? selectedValue;
   final void Function(T? value) onSelectItem;
   final bool showIcon;
@@ -85,9 +85,9 @@ class DropdownCustomButton<T> extends StatelessWidget {
               ),
               items: hasItemSelectByDefault
                   ? [
-                      ...items.map((DropDownSelectionDto data) {
+                      ...items.map((T data) {
                         return DropdownMenuItem<T>(
-                          value: data.value,
+                          value: data,
                           child: Text(
                             data.description,
                             style: TextStyle(
@@ -109,9 +109,9 @@ class DropdownCustomButton<T> extends StatelessWidget {
                           ),
                         ),
                       ),
-                      ...items.map((DropDownSelectionDto data) {
+                      ...items.map((T data) {
                         return DropdownMenuItem<T>(
-                          value: data.value,
+                          value: data,
                           child: Text(
                             data.description,
                             style: TextStyle(

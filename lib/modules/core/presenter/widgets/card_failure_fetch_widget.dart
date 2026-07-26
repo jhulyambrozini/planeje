@@ -13,7 +13,8 @@ class CardFailureFetchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Align(
+      alignment: AlignmentDirectional.center,
       child: Column(
         spacing: 16,
         children: [
@@ -33,7 +34,22 @@ class CardFailureFetchWidget extends StatelessWidget {
               fontFamily: 'Inter',
             ),
           ),
-          ElevatedButton(onPressed: onRefresh, child: Text('tente novamente')),
+          ElevatedButton(
+            onPressed: onRefresh,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: ColorsTheme.primary,
+              shape: ContinuousRectangleBorder(
+                borderRadius: BorderRadiusGeometry.circular(12),
+              ),
+            ),
+            child: Text(
+              'tente novamente',
+              style: TextStyle(
+                color: ColorsTheme.primaryDark,
+                fontSize: FontSizesTheme.md,
+              ),
+            ),
+          ),
         ],
       ),
     );

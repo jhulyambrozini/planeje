@@ -53,17 +53,17 @@ class _HomeViewState extends State<HomeView> {
       CardNavigateInfosVo(
         icon: Icons.invert_colors_on_rounded,
         label: 'Ciclo Menstrual',
-        onPressed: () => _navigateTo('/menstrual_cycle'),
+        onPressed: () => _navigateTo('/menstrual_cycle/'),
       ),
       CardNavigateInfosVo(
         icon: Icons.savings_rounded,
         label: 'Financeiro',
-        onPressed: () => _navigateTo('/finnaces'),
+        onPressed: () => _navigateTo('/finnaces/'),
       ),
       CardNavigateInfosVo(
         icon: Icons.auto_stories_rounded,
         label: 'Livros',
-        onPressed: () => _navigateTo('/books'),
+        onPressed: () => _navigateTo('/books/'),
       ),
     ];
 

@@ -1,8 +1,0 @@
-{
-  "elements": {},
-  "imports": [
-    "package:planeje/external/local_database/database.dart",
-    "package:planeje/external/dependency_injector/dependency_injector.dart",
-    "package:planeje/presenter/viewmodels/finances_viewmodel.dart"
-  ]
-}

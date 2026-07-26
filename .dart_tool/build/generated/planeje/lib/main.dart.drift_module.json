@@ -2,11 +2,8 @@
   "elements": {},
   "imports": [
     "package:flutter/material.dart",
-    "package:planeje/presenter/theme/colors.dart",
-    "package:planeje/presenter/utils/routes_utils.dart",
-    "package:planeje/presenter/views/home_view.dart",
-    "package:flutter_dotenv/flutter_dotenv.dart",
-    "package:flutter_native_splash/flutter_native_splash.dart",
-    "package:supabase_flutter/supabase_flutter.dart"
+    "package:flutter_modular/flutter_modular.dart",
+    "package:planeje/app_module.dart",
+    "package:planeje/app_widget.dart"
   ]
 }
