@@ -16,6 +16,8 @@ class AppWidget extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       theme: ThemeData(
+        primaryColor: ColorsTheme.primary,
+
         appBarTheme: AppBarTheme(
           backgroundColor: ColorsTheme.background,
           iconTheme: IconThemeData(color: ColorsTheme.foreground),

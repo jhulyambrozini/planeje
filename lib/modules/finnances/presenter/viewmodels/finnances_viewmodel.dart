@@ -25,11 +25,19 @@ class FinnancesViewmodel extends ChangeNotifier {
   late final ListPaginateState<FinnancesHeaderEntity, GetFinnancesPagedFailure>
   pagingState;
   bool isLastPage = false;
+  bool isFilterOpen = false;
+
   final monthSearch = TextEditingController();
   int? yearFilter;
   bool get listIsNotEmpty => pagingState.listIsNotEmpty;
   List<DropDownSelectionDto<MonthEnum>> listMonth = months;
   List<DropDownSelectionDto<YearEnum>> listYears = years;
+  List<YearEnum> listYearsFilter = [
+    YearEnum.y2027,
+    YearEnum.y2026,
+    YearEnum.y2025,
+    YearEnum.y2024,
+  ];
 
   final yearSelected = ValueNotifier<DropDownSelectionDto<YearEnum>?>(null);
   final monthSelected = ValueNotifier<DropDownSelectionDto<MonthEnum>?>(null);
@@ -64,6 +72,11 @@ class FinnancesViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void toogleFilter() {
+    isFilterOpen = !isFilterOpen;
+    notifyListeners();
+  }
+
   void onSelectMonth(DropDownSelectionDto<MonthEnum>? value) {
     monthSelected.value = value;
     notifyListeners();
@@ -83,6 +96,17 @@ class FinnancesViewmodel extends ChangeNotifier {
         yearFilter: yearFilter,
       ),
     );
+  }
+
+  Future<void> onSearch() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pagingState.onRefresh();
+  }
+
+  Future<void> onSelectFilter(int filter) async {
+    yearFilter = filter;
+    notifyListeners();
+    await pagingState.onRefresh();
   }
 }
 

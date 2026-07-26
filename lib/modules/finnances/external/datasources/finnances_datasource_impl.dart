@@ -26,6 +26,16 @@ class FinnancesDatasourceImpl extends DatabaseAccessor<AppDatabase>
   }
 
   @override
+  Future<bool> verifyIfExistFinnaceHeader(String month, int year) async {
+    final response = await (select(
+      finnacesHeaderTable,
+    )..where((ele) => ele.month.equals(month) & ele.year.equals(year))).get();
+    print(response.isEmpty);
+    if (response.isEmpty) return false;
+    return true;
+  }
+
+  @override
   Future<void> insertHistory(FinnancesHeaderEntity data) async {
     await into(finnacesHeaderTable).insert(
       FinnacesHeaderTableCompanion.insert(

@@ -28,6 +28,24 @@ class SaveFinnanceHeaderUsecaseImpl implements SaveFinnanceHeaderUsecase {
         ),
       );
     }
+    final result = await _repository.verifyIfExistFinnaceHeader(month, year);
+    if (result.isError()) {
+      return Failure(
+        ErrorSaveFinnance(
+          message: result.exceptionOrNull()!.message,
+          description: result.exceptionOrNull()!.description,
+        ),
+      );
+    }
+    final dataExists = result.getOrElse((_) => true);
+    if (dataExists) {
+      return Failure(
+        ErrorSaveFinnance(
+          message: 'Esse registro já existe!',
+          description: '[ERROR/VALIDATE] => eEsse registro já existe!',
+        ),
+      );
+    }
     return _repository.saveFinnacer(
       FinnancesHeaderEntity(
         id: Uuid().v4(),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:planeje/modules/core/domain/value_objects/pagination_response_vo.dart';
-import 'package:planeje/modules/finnances/domain/errors/error_general_contract.dart';
+import 'package:planeje/modules/core/domain/errors/error_general_contract.dart';
 import 'package:result_dart/result_dart.dart';
 
 class ListPaginateState<R, E extends ErrorGeneralContract> with ChangeNotifier {

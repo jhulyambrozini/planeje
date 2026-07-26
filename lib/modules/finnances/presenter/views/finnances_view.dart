@@ -5,6 +5,7 @@ import 'package:planeje/modules/core/presenter/factories/snack_bar_factory.dart'
 import 'package:planeje/modules/core/presenter/theme/colors.dart';
 import 'package:planeje/modules/core/presenter/theme/font_sizes.dart';
 import 'package:planeje/modules/core/presenter/widgets/card_failure_fetch_widget.dart';
+import 'package:planeje/modules/core/presenter/widgets/input_search_widget.dart';
 import 'package:planeje/modules/finnances/domain/entities/finnances_header_entity.dart';
 import 'package:planeje/modules/finnances/presenter/viewmodels/finnances_viewmodel.dart';
 import 'package:planeje/modules/finnances/presenter/widgets/finnances_add_month_widget.dart';
@@ -79,6 +80,69 @@ class _FinnancesViewState extends State<FinnancesView> {
           listenable: _viewmodel,
           builder: (context, _) => Column(
             children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: InputSearchWidget(
+                      onEditingComplete: _viewmodel.onSearch,
+                      hint: 'Pesquise pelo mês',
+                      searchController: _viewmodel.monthSearch,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: _viewmodel.toogleFilter,
+                    icon: Icon(
+                      Icons.filter_alt,
+                      size: 36,
+                      color: _viewmodel.isFilterOpen
+                          ? ColorsTheme.primary
+                          : ColorsTheme.inputLabel,
+                    ),
+                  ),
+                ],
+              ),
+              if (_viewmodel.isFilterOpen) ...[
+                const SizedBox(height: 8),
+                SizedBox(
+                  height: 40,
+                  child: ListView.builder(
+                    itemCount: _viewmodel.listYearsFilter.length,
+                    scrollDirection: Axis.horizontal,
+
+                    itemBuilder: (ctx, i) {
+                      final data = _viewmodel.listYearsFilter[i];
+                      final isSelected = _viewmodel.yearFilter == data.value;
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            fixedSize: Size(60, 30),
+                            shape: ContinuousRectangleBorder(
+                              borderRadius: BorderRadiusGeometry.circular(10),
+                              side: BorderSide(color: ColorsTheme.primary),
+                            ),
+                            backgroundColor: isSelected
+                                ? ColorsTheme.primary
+                                : ColorsTheme.background,
+                          ),
+                          onPressed: () =>
+                              _viewmodel.onSelectFilter(data.value),
+                          child: Text(
+                            data.value.toString(),
+                            style: TextStyle(
+                              color: isSelected
+                                  ? ColorsTheme.primaryDark
+                                  : ColorsTheme.primary,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+              const SizedBox(height: 14),
+
               if (_viewmodel.listIsNotEmpty) ...[
                 const Text(
                   'Esse é seu histórico de gastos',
@@ -89,15 +153,16 @@ class _FinnancesViewState extends State<FinnancesView> {
                     height: 1.2,
                   ),
                 ),
-                const SizedBox(height: 20),
-                Text(
-                  'ANO - 2024',
-                  style: TextStyle(
-                    color: ColorsTheme.primaryLight,
-                    fontFamily: 'Inter',
-                    fontSize: FontSizesTheme.lg,
+                const SizedBox(height: 14),
+                if (_viewmodel.yearFilter != null)
+                  Text(
+                    'ANO - ${_viewmodel.yearFilter}',
+                    style: TextStyle(
+                      color: ColorsTheme.primaryLight,
+                      fontFamily: 'Inter',
+                      fontSize: FontSizesTheme.lg,
+                    ),
                   ),
-                ),
               ],
               Expanded(
                 child: RefreshIndicator(
@@ -109,6 +174,8 @@ class _FinnancesViewState extends State<FinnancesView> {
                       itemBuilder: (context, item, index) {
                         return FinnancesHistoricItemWidget(
                           month: item.month,
+                          totalReceived: item.totalReceived,
+                          totalSpent: item.totalSpent,
                           onTap: () => _onEditFinnaceMonth(item.id),
                         );
                       },

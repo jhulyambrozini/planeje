@@ -4,21 +4,15 @@ class FinnancesSql {
   String getHistoryPaged(PagingFinnancesDto dto) {
     final offset = dto.paging.perPage * (dto.paging.page - 1);
     final conditions = <String>[];
-    final params = <String, dynamic>{};
-    int paramIndex = 1;
 
     // Filtro de mês
     if (dto.monthSearch != null && dto.monthSearch!.isNotEmpty) {
-      conditions.add('month LIKE @month$paramIndex');
-      params['month$paramIndex'] = '%${dto.monthSearch}%';
-      paramIndex++;
+      conditions.add("month LIKE '%${dto.monthSearch}%'");
     }
 
     // Filtro de ano
     if (dto.yearFilter != null) {
-      conditions.add('year LIKE @year$paramIndex');
-      params['year$paramIndex'] = '%${dto.yearFilter}%';
-      paramIndex++;
+      conditions.add("year LIKE '%${dto.yearFilter}%'");
     }
 
     // Monta a query final

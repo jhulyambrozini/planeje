@@ -1,4 +1,4 @@
-import 'package:planeje/modules/finnances/domain/errors/error_general_contract.dart';
+import 'package:planeje/modules/core/domain/errors/error_general_contract.dart';
 
 abstract class GetFinnancesPagedFailure extends ErrorGeneralContract {
   GetFinnancesPagedFailure({
