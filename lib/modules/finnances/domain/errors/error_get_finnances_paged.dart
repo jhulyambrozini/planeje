@@ -1,11 +1,10 @@
-abstract class GetFinnancesPagedFailure {
-  final String title;
-  final String message;
-  final String? description;
+import 'package:planeje/modules/finnances/domain/errors/error_general_contract.dart';
+
+abstract class GetFinnancesPagedFailure extends ErrorGeneralContract {
   GetFinnancesPagedFailure({
-    this.title = 'Buscar Histórico financeiro',
-    required this.message,
-    required this.description,
+    super.title = 'Buscar Histórico financeiro',
+    required super.message,
+    required super.description,
   });
 }
 

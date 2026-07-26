@@ -1,11 +1,10 @@
-abstract class SaveFinnanceFailure {
-  final String title;
-  final String message;
-  final String? description;
+import 'package:planeje/modules/finnances/domain/errors/error_general_contract.dart';
+
+abstract class SaveFinnanceFailure extends ErrorGeneralContract {
   SaveFinnanceFailure({
-    this.title = 'Salvar cabeçalho financeiro',
-    required this.message,
-    required this.description,
+    super.title = 'Salvar cabeçalho financeiro',
+    required super.message,
+    required super.description,
   });
 }
 

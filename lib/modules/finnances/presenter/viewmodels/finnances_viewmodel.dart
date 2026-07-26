@@ -1,14 +1,17 @@
 import 'package:flutter/widgets.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:planeje/modules/core/domain/enums/month_enum.dart';
 import 'package:planeje/modules/core/domain/enums/year_enum.dart';
 import 'package:planeje/modules/core/domain/models/result_action_model.dart';
+import 'package:planeje/modules/core/domain/value_objects/pagination_response_vo.dart';
 import 'package:planeje/modules/core/domain/value_objects/paging_vo.dart';
 import 'package:planeje/modules/core/presenter/dtos/drop_down_selection_dto.dart';
+import 'package:planeje/modules/core/presenter/states/list_paginate_state.dart';
 import 'package:planeje/modules/finnances/domain/dtos/paging_finnances_dto.dart';
 import 'package:planeje/modules/finnances/domain/entities/finnances_header_entity.dart';
+import 'package:planeje/modules/finnances/domain/errors/error_get_finnances_paged.dart';
 import 'package:planeje/modules/finnances/domain/get_finnances_paged_usecase.dart';
 import 'package:planeje/modules/finnances/domain/save_finnance_header_usecase.dart';
+import 'package:result_dart/result_dart.dart';
 
 class FinnancesViewmodel extends ChangeNotifier {
   final GetFinnancesPagedUsecase _getFinnancesPagedUsecase;
@@ -19,14 +22,12 @@ class FinnancesViewmodel extends ChangeNotifier {
     this._saveFinnanceHeaderUsecase,
   );
 
-  PagingState<int, FinnancesHeaderEntity> pagingState = PagingState(
-    hasNextPage: true,
-    isLoading: false,
-  );
+  late final ListPaginateState<FinnancesHeaderEntity, GetFinnancesPagedFailure>
+  pagingState;
   bool isLastPage = false;
   final monthSearch = TextEditingController();
   int? yearFilter;
-  bool get listIsNotEmpty => pagingState.items?.isNotEmpty ?? false;
+  bool get listIsNotEmpty => pagingState.listIsNotEmpty;
   List<DropDownSelectionDto<MonthEnum>> listMonth = months;
   List<DropDownSelectionDto<YearEnum>> listYears = years;
 
@@ -34,7 +35,9 @@ class FinnancesViewmodel extends ChangeNotifier {
   final monthSelected = ValueNotifier<DropDownSelectionDto<MonthEnum>?>(null);
 
   Future<void> init() async {
-    await fetchPage();
+    pagingState = ListPaginateState(fetchFunction: fetchPage);
+    pagingState.addListener(() => notifyListeners());
+    await pagingState.init();
   }
 
   Future<ResultActionModel> onCreateFinnance() async {
@@ -52,7 +55,7 @@ class FinnancesViewmodel extends ChangeNotifier {
     }
     yearSelected.value = null;
     monthSelected.value = null;
-    await onRefresh();
+    await pagingState.onRefresh();
     return ResultActionModel.success();
   }
 
@@ -66,58 +69,20 @@ class FinnancesViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchPage() async {
-    if (pagingState.isLoading || isLastPage) return;
-    pagingState = pagingState.copyWith(isLoading: true, error: null);
-    final newKey = (pagingState.keys?.last ?? 0) + 1;
-
-    final result = await _getFinnancesPagedUsecase(
+  Future<
+    ResultDart<
+      PaginationResponseVo<FinnancesHeaderEntity>,
+      GetFinnancesPagedFailure
+    >
+  >
+  fetchPage(int newKey) {
+    return _getFinnancesPagedUsecase(
       PagingFinnancesDto(
         paging: PagingVo(page: newKey, perPage: 5),
         monthSearch: monthSearch.text,
         yearFilter: yearFilter,
       ),
     );
-
-    result.fold(
-      (success) {
-        isLastPage = success.isLastPage;
-
-        if (success.data.isEmpty) {
-          pagingState = pagingState.copyWith(
-            pages: [],
-            keys: [],
-            hasNextPage: !isLastPage,
-            isLoading: false,
-          );
-          notifyListeners();
-          return;
-        }
-
-        pagingState = pagingState.copyWith(
-          pages: [...?pagingState.pages, success.data],
-          keys: [...?pagingState.keys, newKey],
-          hasNextPage: !isLastPage,
-          isLoading: false,
-        );
-        notifyListeners();
-      },
-      (failure) {
-        print(failure.description);
-        pagingState = pagingState.copyWith(
-          isLoading: false,
-          error: failure.message,
-        );
-        notifyListeners();
-      },
-    );
-  }
-
-  Future<void> onRefresh() async {
-    pagingState = pagingState.reset();
-    isLastPage = false;
-    notifyListeners();
-    await fetchPage();
   }
 }
 

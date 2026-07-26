@@ -101,10 +101,10 @@ class _FinnancesViewState extends State<FinnancesView> {
               ],
               Expanded(
                 child: RefreshIndicator(
-                  onRefresh: () async => _viewmodel.onRefresh(),
+                  onRefresh: () async => _viewmodel.pagingState.onRefresh(),
                   child: PagedListView<int, FinnancesHeaderEntity>(
-                    state: _viewmodel.pagingState,
-                    fetchNextPage: _viewmodel.fetchPage,
+                    state: _viewmodel.pagingState.state,
+                    fetchNextPage: _viewmodel.pagingState.fetchNextPage,
                     builderDelegate: PagedChildBuilderDelegate(
                       itemBuilder: (context, item, index) {
                         return FinnancesHistoricItemWidget(
@@ -116,8 +116,9 @@ class _FinnancesViewState extends State<FinnancesView> {
                           const Center(child: CircularProgressIndicator()),
                       firstPageErrorIndicatorBuilder: (_) =>
                           CardFailureFetchWidget(
-                            message: _viewmodel.pagingState.error.toString(),
-                            onRefresh: _viewmodel.onRefresh,
+                            message: _viewmodel.pagingState.state.error
+                                .toString(),
+                            onRefresh: _viewmodel.pagingState.onRefresh,
                           ),
                       newPageProgressIndicatorBuilder: (_) =>
                           const Center(child: CircularProgressIndicator()),
@@ -127,9 +128,9 @@ class _FinnancesViewState extends State<FinnancesView> {
                         child: Column(
                           spacing: 6,
                           children: [
-                            Text(_viewmodel.pagingState.error.toString()),
+                            Text(_viewmodel.pagingState.state.error.toString()),
                             TextButton(
-                              onPressed: _viewmodel.onRefresh,
+                              onPressed: _viewmodel.pagingState.onRefresh,
                               child: Text(
                                 'Recarregar lista',
                                 style: TextStyle(
