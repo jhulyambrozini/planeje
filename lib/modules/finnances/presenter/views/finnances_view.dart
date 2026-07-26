@@ -21,6 +21,12 @@ class FinnancesView extends StatefulWidget {
 class _FinnancesViewState extends State<FinnancesView> {
   final _viewmodel = Modular.get<FinnancesViewmodel>();
 
+  @override
+  void initState() {
+    super.initState();
+    _viewmodel.init();
+  }
+
   _onAddFinnaceMonth() async {
     await showDialog(
       barrierDismissible: false,
@@ -67,23 +73,24 @@ class _FinnancesViewState extends State<FinnancesView> {
           child: Icon(Icons.add, color: ColorsTheme.primaryDark, size: 32),
         ),
       ),
-      body: ListenableBuilder(
-        listenable: _viewmodel,
-        builder: (context, _) => Column(
-          children: [
-            if (_viewmodel.listIsEmpty) ...[
-              const Text(
-                'Esse é seu histórico\nde gastos',
-                style: TextStyle(
-                  color: ColorsTheme.primaryLight,
-                  fontFamily: 'Livvic',
-                  fontSize: FontSizesTheme.xl,
-                  height: 1.2,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: ListenableBuilder(
+          listenable: _viewmodel,
+          builder: (context, _) => Column(
+            children: [
+              if (_viewmodel.listIsNotEmpty) ...[
+                const Text(
+                  'Esse é seu histórico de gastos',
+                  style: TextStyle(
+                    color: ColorsTheme.primaryLight,
+                    fontFamily: 'Livvic',
+                    fontSize: FontSizesTheme.xl,
+                    height: 1.2,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              const Center(
-                child: Text(
+                const SizedBox(height: 20),
+                Text(
                   'ANO - 2024',
                   style: TextStyle(
                     color: ColorsTheme.primaryLight,
@@ -91,58 +98,58 @@ class _FinnancesViewState extends State<FinnancesView> {
                     fontSize: FontSizesTheme.lg,
                   ),
                 ),
-              ),
-            ],
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: () async => _viewmodel.onRefresh(),
-                child: PagedListView<int, FinnancesHeaderEntity>(
-                  state: _viewmodel.pagingState,
-                  fetchNextPage: _viewmodel.fetchPage,
-                  builderDelegate: PagedChildBuilderDelegate(
-                    itemBuilder: (context, item, index) {
-                      return FinnancesHistoricItemWidget(
-                        month: item.month,
-                        onTap: () => _onEditFinnaceMonth(item.id),
-                      );
-                    },
-                    firstPageProgressIndicatorBuilder: (_) =>
-                        const Center(child: CircularProgressIndicator()),
-                    firstPageErrorIndicatorBuilder: (_) =>
-                        CardFailureFetchWidget(
-                          message: _viewmodel.pagingState.error.toString(),
-                          onRefresh: _viewmodel.onRefresh,
-                        ),
-                    newPageProgressIndicatorBuilder: (_) =>
-                        const Center(child: CircularProgressIndicator()),
-                    newPageErrorIndicatorBuilder: (_) => Align(
-                      alignment: Alignment.topCenter,
+              ],
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () async => _viewmodel.onRefresh(),
+                  child: PagedListView<int, FinnancesHeaderEntity>(
+                    state: _viewmodel.pagingState,
+                    fetchNextPage: _viewmodel.fetchPage,
+                    builderDelegate: PagedChildBuilderDelegate(
+                      itemBuilder: (context, item, index) {
+                        return FinnancesHistoricItemWidget(
+                          month: item.month,
+                          onTap: () => _onEditFinnaceMonth(item.id),
+                        );
+                      },
+                      firstPageProgressIndicatorBuilder: (_) =>
+                          const Center(child: CircularProgressIndicator()),
+                      firstPageErrorIndicatorBuilder: (_) =>
+                          CardFailureFetchWidget(
+                            message: _viewmodel.pagingState.error.toString(),
+                            onRefresh: _viewmodel.onRefresh,
+                          ),
+                      newPageProgressIndicatorBuilder: (_) =>
+                          const Center(child: CircularProgressIndicator()),
+                      newPageErrorIndicatorBuilder: (_) => Align(
+                        alignment: Alignment.topCenter,
 
-                      child: Column(
-                        spacing: 6,
-                        children: [
-                          Text(_viewmodel.pagingState.error.toString()),
-                          TextButton(
-                            onPressed: _viewmodel.onRefresh,
-                            child: Text(
-                              'Recarregar lista',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: ColorsTheme.mutedForeground,
+                        child: Column(
+                          spacing: 6,
+                          children: [
+                            Text(_viewmodel.pagingState.error.toString()),
+                            TextButton(
+                              onPressed: _viewmodel.onRefresh,
+                              child: Text(
+                                'Recarregar lista',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: ColorsTheme.mutedForeground,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
 
-                    noItemsFoundIndicatorBuilder: (_) =>
-                        FinnancesEmptyStateWidget(),
+                      noItemsFoundIndicatorBuilder: (_) =>
+                          FinnancesEmptyStateWidget(),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

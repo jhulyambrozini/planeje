@@ -26,7 +26,7 @@ class FinnancesViewmodel extends ChangeNotifier {
   bool isLastPage = false;
   final monthSearch = TextEditingController();
   int? yearFilter;
-  bool get listIsEmpty => pagingState.items?.isNotEmpty ?? false;
+  bool get listIsNotEmpty => pagingState.items?.isNotEmpty ?? false;
   List<DropDownSelectionDto<MonthEnum>> listMonth = months;
   List<DropDownSelectionDto<YearEnum>> listYears = years;
 
@@ -81,7 +81,7 @@ class FinnancesViewmodel extends ChangeNotifier {
 
     result.fold(
       (success) {
-        isLastPage = success.isLastPage == success.currentPage;
+        isLastPage = success.isLastPage;
 
         if (success.data.isEmpty) {
           pagingState = pagingState.copyWith(
