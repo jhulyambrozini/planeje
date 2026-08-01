@@ -2,8 +2,8 @@ class FinnancesHeaderEntity {
   final String id;
   final int year;
   final String month;
-  final String totalReceived;
-  final String totalSpent;
+  final double totalReceived;
+  final double totalSpent;
 
   FinnancesHeaderEntity({
     required this.id,
@@ -12,4 +12,18 @@ class FinnancesHeaderEntity {
     required this.totalReceived,
     required this.totalSpent,
   });
+
+  double get totalRemaining {
+    return totalReceived - totalSpent;
+  }
+
+  factory FinnancesHeaderEntity.empty() {
+    return FinnancesHeaderEntity(
+      id: '',
+      year: 0,
+      month: '',
+      totalReceived: 0,
+      totalSpent: 0,
+    );
+  }
 }

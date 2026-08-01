@@ -51,8 +51,8 @@ class SaveFinnanceHeaderUsecaseImpl implements SaveFinnanceHeaderUsecase {
         id: Uuid().v4(),
         year: year,
         month: month,
-        totalReceived: '0',
-        totalSpent: '0',
+        totalReceived: 0,
+        totalSpent: 0,
       ),
     );
   }

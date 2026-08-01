@@ -1,4 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:planeje/modules/books/domain/repositories/books_repository.dart';
+import 'package:planeje/modules/books/external/books_datasource_impl.dart';
+import 'package:planeje/modules/books/infra/datasources/books_datasource.dart';
+import 'package:planeje/modules/books/infra/repositories/books_repository_impl.dart';
 import 'package:planeje/modules/books/presenter/views/books_view.dart';
 import 'package:planeje/modules/core/core_module.dart';
 
@@ -6,7 +10,10 @@ class BooksModule extends Module {
   @override
   List<Module> get imports => [CoreModule()];
   @override
-  void binds(i) {}
+  void binds(i) {
+    i.add<BooksDatasource>(BooksDatasourceImpl.new);
+    i.add<BooksRepository>(BooksRepositoryImpl.new);
+  }
 
   @override
   void routes(r) {

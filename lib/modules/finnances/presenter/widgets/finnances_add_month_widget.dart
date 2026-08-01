@@ -5,6 +5,7 @@ import 'package:planeje/modules/core/presenter/dtos/drop_down_selection_dto.dart
 import 'package:planeje/modules/core/presenter/theme/colors.dart';
 import 'package:planeje/modules/core/presenter/theme/font_sizes.dart';
 import 'package:planeje/modules/core/presenter/widgets/custom_drop_down_widget.dart';
+import 'package:planeje/modules/finnances/presenter/widgets/custom_buttom_widget.dart';
 
 class FinnancesAddMonthWidget extends StatelessWidget {
   final VoidCallback onAdd;
@@ -36,44 +37,13 @@ class FinnancesAddMonthWidget extends StatelessWidget {
       backgroundColor: ColorsTheme.background,
       contentPadding: const EdgeInsets.all(20),
       actions: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            backgroundColor: ColorsTheme.background,
-            shape: ContinuousRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-              side: BorderSide(color: ColorsTheme.primary, width: 2),
-            ),
-          ),
+        CustomButtomWidget(
           onPressed: onCancel,
-          child: Text(
-            'cancelar',
-            style: TextStyle(
-              color: ColorsTheme.primary,
-              fontFamily: 'Inter',
-              fontSize: FontSizesTheme.md,
-            ),
-          ),
+          label: 'cancelar',
+          isDense: false,
         ),
         const SizedBox(width: 10),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            backgroundColor: ColorsTheme.primary,
-            shape: ContinuousRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          onPressed: onAdd,
-          child: Text(
-            'concluir',
-            style: TextStyle(
-              color: ColorsTheme.primaryDark,
-              fontFamily: 'Inter',
-              fontSize: FontSizesTheme.md,
-            ),
-          ),
-        ),
+        CustomButtomWidget(onPressed: onAdd, label: 'concluir', isDense: true),
       ],
       content: Column(
         mainAxisSize: MainAxisSize.min,

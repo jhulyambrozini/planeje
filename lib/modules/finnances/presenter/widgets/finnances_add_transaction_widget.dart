@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:planeje/modules/core/presenter/theme/colors.dart';
+import 'package:planeje/modules/finnances/presenter/widgets/custom_buttom_widget.dart';
 
 class FinnancesAddTransactionWidget extends StatelessWidget {
   final VoidCallback onCancel;
   final VoidCallback onAdd;
-
+  final TextEditingController descriptionController;
+  final TextEditingController tagController;
+  final TextEditingController valueController;
   const FinnancesAddTransactionWidget({
     super.key,
     required this.onCancel,
     required this.onAdd,
+    required this.descriptionController,
+    required this.tagController,
+    required this.valueController,
   });
 
   @override
@@ -34,60 +40,27 @@ class FinnancesAddTransactionWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            _buildTextField(label: 'Descrição'),
+            _buildTextField('Descrição', descriptionController),
             const SizedBox(height: 16),
-            _buildTextField(label: 'Tag'),
+            _buildTextField('Tag', tagController),
             const SizedBox(height: 16),
-            _buildTextField(label: 'Valor R\$'),
+            _buildTextField('Valor R\$', valueController),
             const SizedBox(height: 20),
             Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    onTap: onCancel,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: ColorsTheme.primary,
-                          width: 1,
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'cancelar',
-                          style: TextStyle(
-                            color: ColorsTheme.primary,
-                            fontFamily: 'Inter',
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: CustomButtomWidget(
+                    onPressed: onCancel,
+                    label: 'cancelar',
+                    isDense: false,
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: onAdd,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 6),
-                      decoration: BoxDecoration(
-                        color: ColorsTheme.primary,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'adicionar',
-                          style: TextStyle(
-                            color: ColorsTheme.primaryDark,
-                            fontFamily: 'Inter',
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: CustomButtomWidget(
+                    onPressed: onAdd,
+                    label: 'adicionar',
+                    isDense: false,
                   ),
                 ),
               ],
@@ -98,11 +71,14 @@ class FinnancesAddTransactionWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField({required String label}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
+  Widget _buildTextField(String label, TextEditingController controller) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        border: UnderlineInputBorder(
+          borderSide: BorderSide(color: ColorsTheme.mutedForeground2),
+        ),
+        label: Text(
           label,
           style: const TextStyle(
             color: ColorsTheme.mutedForeground2,
@@ -110,9 +86,7 @@ class FinnancesAddTransactionWidget extends StatelessWidget {
             fontSize: 12,
           ),
         ),
-        const SizedBox(height: 4),
-        Container(height: 1, color: ColorsTheme.mutedForeground2),
-      ],
+      ),
     );
   }
 }

@@ -1933,6 +1933,9 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES books_author_table (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _yearOfReadingMeta = const VerificationMeta(
     'yearOfReading',
@@ -1955,6 +1958,9 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES books_gender_table (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _nationalityIdMeta = const VerificationMeta(
     'nationalityId',
@@ -1966,6 +1972,9 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES books_nacionality_table (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _publisherIdMeta = const VerificationMeta(
     'publisherId',
@@ -1977,6 +1986,9 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES books_publishers_table (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _totalNumberOfReadsMeta =
       const VerificationMeta('totalNumberOfReads');
@@ -2610,14 +2622,17 @@ class $FinnancesExpenseTableTable extends FinnancesExpenseTable
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES finnaces_header_table (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _tagMeta = const VerificationMeta('tag');
   @override
-  late final GeneratedColumn<int> tag = GeneratedColumn<int>(
+  late final GeneratedColumn<String> tag = GeneratedColumn<String>(
     'tag',
     aliasedName,
     false,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
   static const VerificationMeta _descriptionMeta = const VerificationMeta(
@@ -2758,7 +2773,7 @@ class $FinnancesExpenseTableTable extends FinnancesExpenseTable
         data['${effectivePrefix}finnaces_id'],
       )!,
       tag: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
+        DriftSqlType.string,
         data['${effectivePrefix}tag'],
       )!,
       description: attachedDatabase.typeMapping.read(
@@ -2790,7 +2805,7 @@ class FinnancesExpenseTableData extends DataClass
     implements Insertable<FinnancesExpenseTableData> {
   final String id;
   final String finnacesId;
-  final int tag;
+  final String tag;
   final String description;
   final String value;
   final DateTime? deletedAt;
@@ -2809,7 +2824,7 @@ class FinnancesExpenseTableData extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['finnaces_id'] = Variable<String>(finnacesId);
-    map['tag'] = Variable<int>(tag);
+    map['tag'] = Variable<String>(tag);
     map['description'] = Variable<String>(description);
     map['value'] = Variable<String>(value);
     if (!nullToAbsent || deletedAt != null) {
@@ -2841,7 +2856,7 @@ class FinnancesExpenseTableData extends DataClass
     return FinnancesExpenseTableData(
       id: serializer.fromJson<String>(json['id']),
       finnacesId: serializer.fromJson<String>(json['finnacesId']),
-      tag: serializer.fromJson<int>(json['tag']),
+      tag: serializer.fromJson<String>(json['tag']),
       description: serializer.fromJson<String>(json['description']),
       value: serializer.fromJson<String>(json['value']),
       deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
@@ -2854,7 +2869,7 @@ class FinnancesExpenseTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'finnacesId': serializer.toJson<String>(finnacesId),
-      'tag': serializer.toJson<int>(tag),
+      'tag': serializer.toJson<String>(tag),
       'description': serializer.toJson<String>(description),
       'value': serializer.toJson<String>(value),
       'deletedAt': serializer.toJson<DateTime?>(deletedAt),
@@ -2865,7 +2880,7 @@ class FinnancesExpenseTableData extends DataClass
   FinnancesExpenseTableData copyWith({
     String? id,
     String? finnacesId,
-    int? tag,
+    String? tag,
     String? description,
     String? value,
     Value<DateTime?> deletedAt = const Value.absent(),
@@ -2938,7 +2953,7 @@ class FinnancesExpenseTableCompanion
     extends UpdateCompanion<FinnancesExpenseTableData> {
   final Value<String> id;
   final Value<String> finnacesId;
-  final Value<int> tag;
+  final Value<String> tag;
   final Value<String> description;
   final Value<String> value;
   final Value<DateTime?> deletedAt;
@@ -2957,7 +2972,7 @@ class FinnancesExpenseTableCompanion
   FinnancesExpenseTableCompanion.insert({
     required String id,
     required String finnacesId,
-    required int tag,
+    required String tag,
     required String description,
     required String value,
     this.deletedAt = const Value.absent(),
@@ -2971,7 +2986,7 @@ class FinnancesExpenseTableCompanion
   static Insertable<FinnancesExpenseTableData> custom({
     Expression<String>? id,
     Expression<String>? finnacesId,
-    Expression<int>? tag,
+    Expression<String>? tag,
     Expression<String>? description,
     Expression<String>? value,
     Expression<DateTime>? deletedAt,
@@ -2993,7 +3008,7 @@ class FinnancesExpenseTableCompanion
   FinnancesExpenseTableCompanion copyWith({
     Value<String>? id,
     Value<String>? finnacesId,
-    Value<int>? tag,
+    Value<String>? tag,
     Value<String>? description,
     Value<String>? value,
     Value<DateTime?>? deletedAt,
@@ -3022,7 +3037,7 @@ class FinnancesExpenseTableCompanion
       map['finnaces_id'] = Variable<String>(finnacesId.value);
     }
     if (tag.present) {
-      map['tag'] = Variable<int>(tag.value);
+      map['tag'] = Variable<String>(tag.value);
     }
     if (description.present) {
       map['description'] = Variable<String>(description.value);
@@ -6808,6 +6823,52 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     recordsAntiomceptivePill,
     reminderAntiomceptivePill,
   ];
+  @override
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'books_author_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [
+        TableUpdate('completed_readings_table', kind: UpdateKind.delete),
+      ],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'books_gender_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [
+        TableUpdate('completed_readings_table', kind: UpdateKind.delete),
+      ],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'books_nacionality_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [
+        TableUpdate('completed_readings_table', kind: UpdateKind.delete),
+      ],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'books_publishers_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [
+        TableUpdate('completed_readings_table', kind: UpdateKind.delete),
+      ],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'finnaces_header_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('finnances_expense_table', kind: UpdateKind.delete)],
+    ),
+  ]);
 }
 
 typedef $$FinnacesHeaderTableTableCreateCompanionBuilder =
@@ -6832,6 +6893,48 @@ typedef $$FinnacesHeaderTableTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
       Value<int> rowid,
     });
+
+final class $$FinnacesHeaderTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $FinnacesHeaderTableTable,
+          FinnacesHeaderTableData
+        > {
+  $$FinnacesHeaderTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static MultiTypedResultKey<
+    $FinnancesExpenseTableTable,
+    List<FinnancesExpenseTableData>
+  >
+  _finnancesExpenseTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.finnancesExpenseTable,
+        aliasName: $_aliasNameGenerator(
+          db.finnacesHeaderTable.id,
+          db.finnancesExpenseTable.finnacesId,
+        ),
+      );
+
+  $$FinnancesExpenseTableTableProcessedTableManager
+  get finnancesExpenseTableRefs {
+    final manager = $$FinnancesExpenseTableTableTableManager(
+      $_db,
+      $_db.finnancesExpenseTable,
+    ).filter((f) => f.finnacesId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _finnancesExpenseTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
 
 class $$FinnacesHeaderTableTableFilterComposer
     extends Composer<_$AppDatabase, $FinnacesHeaderTableTable> {
@@ -6876,6 +6979,32 @@ class $$FinnacesHeaderTableTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> finnancesExpenseTableRefs(
+    Expression<bool> Function($$FinnancesExpenseTableTableFilterComposer f) f,
+  ) {
+    final $$FinnancesExpenseTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.finnancesExpenseTable,
+          getReferencedColumn: (t) => t.finnacesId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$FinnancesExpenseTableTableFilterComposer(
+                $db: $db,
+                $table: $db.finnancesExpenseTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$FinnacesHeaderTableTableOrderingComposer
@@ -6956,6 +7085,32 @@ class $$FinnacesHeaderTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  Expression<T> finnancesExpenseTableRefs<T extends Object>(
+    Expression<T> Function($$FinnancesExpenseTableTableAnnotationComposer a) f,
+  ) {
+    final $$FinnancesExpenseTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.finnancesExpenseTable,
+          getReferencedColumn: (t) => t.finnacesId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$FinnancesExpenseTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.finnancesExpenseTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$FinnacesHeaderTableTableTableManager
@@ -6969,16 +7124,9 @@ class $$FinnacesHeaderTableTableTableManager
           $$FinnacesHeaderTableTableAnnotationComposer,
           $$FinnacesHeaderTableTableCreateCompanionBuilder,
           $$FinnacesHeaderTableTableUpdateCompanionBuilder,
-          (
-            FinnacesHeaderTableData,
-            BaseReferences<
-              _$AppDatabase,
-              $FinnacesHeaderTableTable,
-              FinnacesHeaderTableData
-            >,
-          ),
+          (FinnacesHeaderTableData, $$FinnacesHeaderTableTableReferences),
           FinnacesHeaderTableData,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool finnancesExpenseTableRefs})
         > {
   $$FinnacesHeaderTableTableTableManager(
     _$AppDatabase db,
@@ -7040,9 +7188,45 @@ class $$FinnacesHeaderTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$FinnacesHeaderTableTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({finnancesExpenseTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (finnancesExpenseTableRefs) db.finnancesExpenseTable,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (finnancesExpenseTableRefs)
+                    await $_getPrefetchedData<
+                      FinnacesHeaderTableData,
+                      $FinnacesHeaderTableTable,
+                      FinnancesExpenseTableData
+                    >(
+                      currentTable: table,
+                      referencedTable: $$FinnacesHeaderTableTableReferences
+                          ._finnancesExpenseTableRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$FinnacesHeaderTableTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).finnancesExpenseTableRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.finnacesId == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
         ),
       );
 }
@@ -7057,16 +7241,9 @@ typedef $$FinnacesHeaderTableTableProcessedTableManager =
       $$FinnacesHeaderTableTableAnnotationComposer,
       $$FinnacesHeaderTableTableCreateCompanionBuilder,
       $$FinnacesHeaderTableTableUpdateCompanionBuilder,
-      (
-        FinnacesHeaderTableData,
-        BaseReferences<
-          _$AppDatabase,
-          $FinnacesHeaderTableTable,
-          FinnacesHeaderTableData
-        >,
-      ),
+      (FinnacesHeaderTableData, $$FinnacesHeaderTableTableReferences),
       FinnacesHeaderTableData,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool finnancesExpenseTableRefs})
     >;
 typedef $$BooksAuthorTableTableCreateCompanionBuilder =
     BooksAuthorTableCompanion Function({
@@ -7088,6 +7265,48 @@ typedef $$BooksAuthorTableTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
       Value<int> rowid,
     });
+
+final class $$BooksAuthorTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $BooksAuthorTableTable,
+          BooksAuthorTableData
+        > {
+  $$BooksAuthorTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static MultiTypedResultKey<
+    $CompletedReadingsTableTable,
+    List<CompletedReadingsTableData>
+  >
+  _completedReadingsTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.completedReadingsTable,
+        aliasName: $_aliasNameGenerator(
+          db.booksAuthorTable.id,
+          db.completedReadingsTable.authorId,
+        ),
+      );
+
+  $$CompletedReadingsTableTableProcessedTableManager
+  get completedReadingsTableRefs {
+    final manager = $$CompletedReadingsTableTableTableManager(
+      $_db,
+      $_db.completedReadingsTable,
+    ).filter((f) => f.authorId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _completedReadingsTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
 
 class $$BooksAuthorTableTableFilterComposer
     extends Composer<_$AppDatabase, $BooksAuthorTableTable> {
@@ -7127,6 +7346,32 @@ class $$BooksAuthorTableTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> completedReadingsTableRefs(
+    Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
+  ) {
+    final $$CompletedReadingsTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadingsTable,
+          getReferencedColumn: (t) => t.authorId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadingsTableTableFilterComposer(
+                $db: $db,
+                $table: $db.completedReadingsTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$BooksAuthorTableTableOrderingComposer
@@ -7197,6 +7442,32 @@ class $$BooksAuthorTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  Expression<T> completedReadingsTableRefs<T extends Object>(
+    Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
+  ) {
+    final $$CompletedReadingsTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadingsTable,
+          getReferencedColumn: (t) => t.authorId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadingsTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.completedReadingsTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$BooksAuthorTableTableTableManager
@@ -7210,16 +7481,9 @@ class $$BooksAuthorTableTableTableManager
           $$BooksAuthorTableTableAnnotationComposer,
           $$BooksAuthorTableTableCreateCompanionBuilder,
           $$BooksAuthorTableTableUpdateCompanionBuilder,
-          (
-            BooksAuthorTableData,
-            BaseReferences<
-              _$AppDatabase,
-              $BooksAuthorTableTable,
-              BooksAuthorTableData
-            >,
-          ),
+          (BooksAuthorTableData, $$BooksAuthorTableTableReferences),
           BooksAuthorTableData,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool completedReadingsTableRefs})
         > {
   $$BooksAuthorTableTableTableManager(
     _$AppDatabase db,
@@ -7271,9 +7535,45 @@ class $$BooksAuthorTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$BooksAuthorTableTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({completedReadingsTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (completedReadingsTableRefs) db.completedReadingsTable,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (completedReadingsTableRefs)
+                    await $_getPrefetchedData<
+                      BooksAuthorTableData,
+                      $BooksAuthorTableTable,
+                      CompletedReadingsTableData
+                    >(
+                      currentTable: table,
+                      referencedTable: $$BooksAuthorTableTableReferences
+                          ._completedReadingsTableRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$BooksAuthorTableTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).completedReadingsTableRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.authorId == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
         ),
       );
 }
@@ -7288,16 +7588,9 @@ typedef $$BooksAuthorTableTableProcessedTableManager =
       $$BooksAuthorTableTableAnnotationComposer,
       $$BooksAuthorTableTableCreateCompanionBuilder,
       $$BooksAuthorTableTableUpdateCompanionBuilder,
-      (
-        BooksAuthorTableData,
-        BaseReferences<
-          _$AppDatabase,
-          $BooksAuthorTableTable,
-          BooksAuthorTableData
-        >,
-      ),
+      (BooksAuthorTableData, $$BooksAuthorTableTableReferences),
       BooksAuthorTableData,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool completedReadingsTableRefs})
     >;
 typedef $$BooksGenderTableTableCreateCompanionBuilder =
     BooksGenderTableCompanion Function({
@@ -7315,6 +7608,48 @@ typedef $$BooksGenderTableTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
       Value<int> rowid,
     });
+
+final class $$BooksGenderTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $BooksGenderTableTable,
+          BooksGenderTableData
+        > {
+  $$BooksGenderTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static MultiTypedResultKey<
+    $CompletedReadingsTableTable,
+    List<CompletedReadingsTableData>
+  >
+  _completedReadingsTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.completedReadingsTable,
+        aliasName: $_aliasNameGenerator(
+          db.booksGenderTable.id,
+          db.completedReadingsTable.genderId,
+        ),
+      );
+
+  $$CompletedReadingsTableTableProcessedTableManager
+  get completedReadingsTableRefs {
+    final manager = $$CompletedReadingsTableTableTableManager(
+      $_db,
+      $_db.completedReadingsTable,
+    ).filter((f) => f.genderId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _completedReadingsTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
 
 class $$BooksGenderTableTableFilterComposer
     extends Composer<_$AppDatabase, $BooksGenderTableTable> {
@@ -7344,6 +7679,32 @@ class $$BooksGenderTableTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> completedReadingsTableRefs(
+    Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
+  ) {
+    final $$CompletedReadingsTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadingsTable,
+          getReferencedColumn: (t) => t.genderId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadingsTableTableFilterComposer(
+                $db: $db,
+                $table: $db.completedReadingsTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$BooksGenderTableTableOrderingComposer
@@ -7398,6 +7759,32 @@ class $$BooksGenderTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  Expression<T> completedReadingsTableRefs<T extends Object>(
+    Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
+  ) {
+    final $$CompletedReadingsTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadingsTable,
+          getReferencedColumn: (t) => t.genderId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadingsTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.completedReadingsTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$BooksGenderTableTableTableManager
@@ -7411,16 +7798,9 @@ class $$BooksGenderTableTableTableManager
           $$BooksGenderTableTableAnnotationComposer,
           $$BooksGenderTableTableCreateCompanionBuilder,
           $$BooksGenderTableTableUpdateCompanionBuilder,
-          (
-            BooksGenderTableData,
-            BaseReferences<
-              _$AppDatabase,
-              $BooksGenderTableTable,
-              BooksGenderTableData
-            >,
-          ),
+          (BooksGenderTableData, $$BooksGenderTableTableReferences),
           BooksGenderTableData,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool completedReadingsTableRefs})
         > {
   $$BooksGenderTableTableTableManager(
     _$AppDatabase db,
@@ -7464,9 +7844,45 @@ class $$BooksGenderTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$BooksGenderTableTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({completedReadingsTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (completedReadingsTableRefs) db.completedReadingsTable,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (completedReadingsTableRefs)
+                    await $_getPrefetchedData<
+                      BooksGenderTableData,
+                      $BooksGenderTableTable,
+                      CompletedReadingsTableData
+                    >(
+                      currentTable: table,
+                      referencedTable: $$BooksGenderTableTableReferences
+                          ._completedReadingsTableRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$BooksGenderTableTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).completedReadingsTableRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.genderId == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
         ),
       );
 }
@@ -7481,16 +7897,9 @@ typedef $$BooksGenderTableTableProcessedTableManager =
       $$BooksGenderTableTableAnnotationComposer,
       $$BooksGenderTableTableCreateCompanionBuilder,
       $$BooksGenderTableTableUpdateCompanionBuilder,
-      (
-        BooksGenderTableData,
-        BaseReferences<
-          _$AppDatabase,
-          $BooksGenderTableTable,
-          BooksGenderTableData
-        >,
-      ),
+      (BooksGenderTableData, $$BooksGenderTableTableReferences),
       BooksGenderTableData,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool completedReadingsTableRefs})
     >;
 typedef $$BooksNacionalityTableTableCreateCompanionBuilder =
     BooksNacionalityTableCompanion Function({
@@ -7508,6 +7917,48 @@ typedef $$BooksNacionalityTableTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
       Value<int> rowid,
     });
+
+final class $$BooksNacionalityTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $BooksNacionalityTableTable,
+          BooksNacionalityTableData
+        > {
+  $$BooksNacionalityTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static MultiTypedResultKey<
+    $CompletedReadingsTableTable,
+    List<CompletedReadingsTableData>
+  >
+  _completedReadingsTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.completedReadingsTable,
+        aliasName: $_aliasNameGenerator(
+          db.booksNacionalityTable.id,
+          db.completedReadingsTable.nationalityId,
+        ),
+      );
+
+  $$CompletedReadingsTableTableProcessedTableManager
+  get completedReadingsTableRefs {
+    final manager = $$CompletedReadingsTableTableTableManager(
+      $_db,
+      $_db.completedReadingsTable,
+    ).filter((f) => f.nationalityId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _completedReadingsTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
 
 class $$BooksNacionalityTableTableFilterComposer
     extends Composer<_$AppDatabase, $BooksNacionalityTableTable> {
@@ -7537,6 +7988,32 @@ class $$BooksNacionalityTableTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> completedReadingsTableRefs(
+    Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
+  ) {
+    final $$CompletedReadingsTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadingsTable,
+          getReferencedColumn: (t) => t.nationalityId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadingsTableTableFilterComposer(
+                $db: $db,
+                $table: $db.completedReadingsTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$BooksNacionalityTableTableOrderingComposer
@@ -7591,6 +8068,32 @@ class $$BooksNacionalityTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  Expression<T> completedReadingsTableRefs<T extends Object>(
+    Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
+  ) {
+    final $$CompletedReadingsTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadingsTable,
+          getReferencedColumn: (t) => t.nationalityId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadingsTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.completedReadingsTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$BooksNacionalityTableTableTableManager
@@ -7604,16 +8107,9 @@ class $$BooksNacionalityTableTableTableManager
           $$BooksNacionalityTableTableAnnotationComposer,
           $$BooksNacionalityTableTableCreateCompanionBuilder,
           $$BooksNacionalityTableTableUpdateCompanionBuilder,
-          (
-            BooksNacionalityTableData,
-            BaseReferences<
-              _$AppDatabase,
-              $BooksNacionalityTableTable,
-              BooksNacionalityTableData
-            >,
-          ),
+          (BooksNacionalityTableData, $$BooksNacionalityTableTableReferences),
           BooksNacionalityTableData,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool completedReadingsTableRefs})
         > {
   $$BooksNacionalityTableTableTableManager(
     _$AppDatabase db,
@@ -7666,9 +8162,47 @@ class $$BooksNacionalityTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$BooksNacionalityTableTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({completedReadingsTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (completedReadingsTableRefs) db.completedReadingsTable,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (completedReadingsTableRefs)
+                    await $_getPrefetchedData<
+                      BooksNacionalityTableData,
+                      $BooksNacionalityTableTable,
+                      CompletedReadingsTableData
+                    >(
+                      currentTable: table,
+                      referencedTable: $$BooksNacionalityTableTableReferences
+                          ._completedReadingsTableRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$BooksNacionalityTableTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).completedReadingsTableRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where(
+                            (e) => e.nationalityId == item.id,
+                          ),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
         ),
       );
 }
@@ -7683,16 +8217,9 @@ typedef $$BooksNacionalityTableTableProcessedTableManager =
       $$BooksNacionalityTableTableAnnotationComposer,
       $$BooksNacionalityTableTableCreateCompanionBuilder,
       $$BooksNacionalityTableTableUpdateCompanionBuilder,
-      (
-        BooksNacionalityTableData,
-        BaseReferences<
-          _$AppDatabase,
-          $BooksNacionalityTableTable,
-          BooksNacionalityTableData
-        >,
-      ),
+      (BooksNacionalityTableData, $$BooksNacionalityTableTableReferences),
       BooksNacionalityTableData,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool completedReadingsTableRefs})
     >;
 typedef $$BooksPublishersTableTableCreateCompanionBuilder =
     BooksPublishersTableCompanion Function({
@@ -7712,6 +8239,48 @@ typedef $$BooksPublishersTableTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
       Value<int> rowid,
     });
+
+final class $$BooksPublishersTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $BooksPublishersTableTable,
+          BooksPublishersTableData
+        > {
+  $$BooksPublishersTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static MultiTypedResultKey<
+    $CompletedReadingsTableTable,
+    List<CompletedReadingsTableData>
+  >
+  _completedReadingsTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.completedReadingsTable,
+        aliasName: $_aliasNameGenerator(
+          db.booksPublishersTable.id,
+          db.completedReadingsTable.publisherId,
+        ),
+      );
+
+  $$CompletedReadingsTableTableProcessedTableManager
+  get completedReadingsTableRefs {
+    final manager = $$CompletedReadingsTableTableTableManager(
+      $_db,
+      $_db.completedReadingsTable,
+    ).filter((f) => f.publisherId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _completedReadingsTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
 
 class $$BooksPublishersTableTableFilterComposer
     extends Composer<_$AppDatabase, $BooksPublishersTableTable> {
@@ -7746,6 +8315,32 @@ class $$BooksPublishersTableTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> completedReadingsTableRefs(
+    Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
+  ) {
+    final $$CompletedReadingsTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadingsTable,
+          getReferencedColumn: (t) => t.publisherId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadingsTableTableFilterComposer(
+                $db: $db,
+                $table: $db.completedReadingsTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$BooksPublishersTableTableOrderingComposer
@@ -7808,6 +8403,32 @@ class $$BooksPublishersTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  Expression<T> completedReadingsTableRefs<T extends Object>(
+    Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
+  ) {
+    final $$CompletedReadingsTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadingsTable,
+          getReferencedColumn: (t) => t.publisherId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadingsTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.completedReadingsTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$BooksPublishersTableTableTableManager
@@ -7821,16 +8442,9 @@ class $$BooksPublishersTableTableTableManager
           $$BooksPublishersTableTableAnnotationComposer,
           $$BooksPublishersTableTableCreateCompanionBuilder,
           $$BooksPublishersTableTableUpdateCompanionBuilder,
-          (
-            BooksPublishersTableData,
-            BaseReferences<
-              _$AppDatabase,
-              $BooksPublishersTableTable,
-              BooksPublishersTableData
-            >,
-          ),
+          (BooksPublishersTableData, $$BooksPublishersTableTableReferences),
           BooksPublishersTableData,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool completedReadingsTableRefs})
         > {
   $$BooksPublishersTableTableTableManager(
     _$AppDatabase db,
@@ -7884,9 +8498,47 @@ class $$BooksPublishersTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$BooksPublishersTableTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({completedReadingsTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (completedReadingsTableRefs) db.completedReadingsTable,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (completedReadingsTableRefs)
+                    await $_getPrefetchedData<
+                      BooksPublishersTableData,
+                      $BooksPublishersTableTable,
+                      CompletedReadingsTableData
+                    >(
+                      currentTable: table,
+                      referencedTable: $$BooksPublishersTableTableReferences
+                          ._completedReadingsTableRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$BooksPublishersTableTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).completedReadingsTableRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where(
+                            (e) => e.publisherId == item.id,
+                          ),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
         ),
       );
 }
@@ -7901,16 +8553,9 @@ typedef $$BooksPublishersTableTableProcessedTableManager =
       $$BooksPublishersTableTableAnnotationComposer,
       $$BooksPublishersTableTableCreateCompanionBuilder,
       $$BooksPublishersTableTableUpdateCompanionBuilder,
-      (
-        BooksPublishersTableData,
-        BaseReferences<
-          _$AppDatabase,
-          $BooksPublishersTableTable,
-          BooksPublishersTableData
-        >,
-      ),
+      (BooksPublishersTableData, $$BooksPublishersTableTableReferences),
       BooksPublishersTableData,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool completedReadingsTableRefs})
     >;
 typedef $$CompletedReadingsTableTableCreateCompanionBuilder =
     CompletedReadingsTableCompanion Function({
@@ -7943,6 +8588,108 @@ typedef $$CompletedReadingsTableTableUpdateCompanionBuilder =
       Value<int> rowid,
     });
 
+final class $$CompletedReadingsTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $CompletedReadingsTableTable,
+          CompletedReadingsTableData
+        > {
+  $$CompletedReadingsTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $BooksAuthorTableTable _authorIdTable(_$AppDatabase db) =>
+      db.booksAuthorTable.createAlias(
+        $_aliasNameGenerator(
+          db.completedReadingsTable.authorId,
+          db.booksAuthorTable.id,
+        ),
+      );
+
+  $$BooksAuthorTableTableProcessedTableManager get authorId {
+    final $_column = $_itemColumn<String>('author_id')!;
+
+    final manager = $$BooksAuthorTableTableTableManager(
+      $_db,
+      $_db.booksAuthorTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_authorIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $BooksGenderTableTable _genderIdTable(_$AppDatabase db) =>
+      db.booksGenderTable.createAlias(
+        $_aliasNameGenerator(
+          db.completedReadingsTable.genderId,
+          db.booksGenderTable.id,
+        ),
+      );
+
+  $$BooksGenderTableTableProcessedTableManager get genderId {
+    final $_column = $_itemColumn<String>('gender_id')!;
+
+    final manager = $$BooksGenderTableTableTableManager(
+      $_db,
+      $_db.booksGenderTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_genderIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $BooksNacionalityTableTable _nationalityIdTable(_$AppDatabase db) =>
+      db.booksNacionalityTable.createAlias(
+        $_aliasNameGenerator(
+          db.completedReadingsTable.nationalityId,
+          db.booksNacionalityTable.id,
+        ),
+      );
+
+  $$BooksNacionalityTableTableProcessedTableManager? get nationalityId {
+    final $_column = $_itemColumn<String>('nationality_id');
+    if ($_column == null) return null;
+    final manager = $$BooksNacionalityTableTableTableManager(
+      $_db,
+      $_db.booksNacionalityTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_nationalityIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $BooksPublishersTableTable _publisherIdTable(_$AppDatabase db) =>
+      db.booksPublishersTable.createAlias(
+        $_aliasNameGenerator(
+          db.completedReadingsTable.publisherId,
+          db.booksPublishersTable.id,
+        ),
+      );
+
+  $$BooksPublishersTableTableProcessedTableManager? get publisherId {
+    final $_column = $_itemColumn<String>('publisher_id');
+    if ($_column == null) return null;
+    final manager = $$BooksPublishersTableTableTableManager(
+      $_db,
+      $_db.booksPublishersTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_publisherIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
 class $$CompletedReadingsTableTableFilterComposer
     extends Composer<_$AppDatabase, $CompletedReadingsTableTable> {
   $$CompletedReadingsTableTableFilterComposer({
@@ -7962,28 +8709,8 @@ class $$CompletedReadingsTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get authorId => $composableBuilder(
-    column: $table.authorId,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<String> get yearOfReading => $composableBuilder(
     column: $table.yearOfReading,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get genderId => $composableBuilder(
-    column: $table.genderId,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get nationalityId => $composableBuilder(
-    column: $table.nationalityId,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get publisherId => $composableBuilder(
-    column: $table.publisherId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -8006,6 +8733,99 @@ class $$CompletedReadingsTableTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$BooksAuthorTableTableFilterComposer get authorId {
+    final $$BooksAuthorTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.authorId,
+      referencedTable: $db.booksAuthorTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BooksAuthorTableTableFilterComposer(
+            $db: $db,
+            $table: $db.booksAuthorTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$BooksGenderTableTableFilterComposer get genderId {
+    final $$BooksGenderTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.genderId,
+      referencedTable: $db.booksGenderTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BooksGenderTableTableFilterComposer(
+            $db: $db,
+            $table: $db.booksGenderTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$BooksNacionalityTableTableFilterComposer get nationalityId {
+    final $$BooksNacionalityTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.nationalityId,
+          referencedTable: $db.booksNacionalityTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksNacionalityTableTableFilterComposer(
+                $db: $db,
+                $table: $db.booksNacionalityTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
+
+  $$BooksPublishersTableTableFilterComposer get publisherId {
+    final $$BooksPublishersTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.publisherId,
+      referencedTable: $db.booksPublishersTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BooksPublishersTableTableFilterComposer(
+            $db: $db,
+            $table: $db.booksPublishersTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$CompletedReadingsTableTableOrderingComposer
@@ -8027,28 +8847,8 @@ class $$CompletedReadingsTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get authorId => $composableBuilder(
-    column: $table.authorId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get yearOfReading => $composableBuilder(
     column: $table.yearOfReading,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get genderId => $composableBuilder(
-    column: $table.genderId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get nationalityId => $composableBuilder(
-    column: $table.nationalityId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get publisherId => $composableBuilder(
-    column: $table.publisherId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -8071,6 +8871,100 @@ class $$CompletedReadingsTableTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$BooksAuthorTableTableOrderingComposer get authorId {
+    final $$BooksAuthorTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.authorId,
+      referencedTable: $db.booksAuthorTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BooksAuthorTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.booksAuthorTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$BooksGenderTableTableOrderingComposer get genderId {
+    final $$BooksGenderTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.genderId,
+      referencedTable: $db.booksGenderTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BooksGenderTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.booksGenderTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$BooksNacionalityTableTableOrderingComposer get nationalityId {
+    final $$BooksNacionalityTableTableOrderingComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.nationalityId,
+          referencedTable: $db.booksNacionalityTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksNacionalityTableTableOrderingComposer(
+                $db: $db,
+                $table: $db.booksNacionalityTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
+
+  $$BooksPublishersTableTableOrderingComposer get publisherId {
+    final $$BooksPublishersTableTableOrderingComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.publisherId,
+          referencedTable: $db.booksPublishersTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksPublishersTableTableOrderingComposer(
+                $db: $db,
+                $table: $db.booksPublishersTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 }
 
 class $$CompletedReadingsTableTableAnnotationComposer
@@ -8088,24 +8982,8 @@ class $$CompletedReadingsTableTableAnnotationComposer
   GeneratedColumn<String> get bookName =>
       $composableBuilder(column: $table.bookName, builder: (column) => column);
 
-  GeneratedColumn<String> get authorId =>
-      $composableBuilder(column: $table.authorId, builder: (column) => column);
-
   GeneratedColumn<String> get yearOfReading => $composableBuilder(
     column: $table.yearOfReading,
-    builder: (column) => column,
-  );
-
-  GeneratedColumn<String> get genderId =>
-      $composableBuilder(column: $table.genderId, builder: (column) => column);
-
-  GeneratedColumn<String> get nationalityId => $composableBuilder(
-    column: $table.nationalityId,
-    builder: (column) => column,
-  );
-
-  GeneratedColumn<String> get publisherId => $composableBuilder(
-    column: $table.publisherId,
     builder: (column) => column,
   );
 
@@ -8124,6 +9002,100 @@ class $$CompletedReadingsTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$BooksAuthorTableTableAnnotationComposer get authorId {
+    final $$BooksAuthorTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.authorId,
+      referencedTable: $db.booksAuthorTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BooksAuthorTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.booksAuthorTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$BooksGenderTableTableAnnotationComposer get genderId {
+    final $$BooksGenderTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.genderId,
+      referencedTable: $db.booksGenderTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BooksGenderTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.booksGenderTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$BooksNacionalityTableTableAnnotationComposer get nationalityId {
+    final $$BooksNacionalityTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.nationalityId,
+          referencedTable: $db.booksNacionalityTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksNacionalityTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.booksNacionalityTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
+
+  $$BooksPublishersTableTableAnnotationComposer get publisherId {
+    final $$BooksPublishersTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.publisherId,
+          referencedTable: $db.booksPublishersTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksPublishersTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.booksPublishersTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 }
 
 class $$CompletedReadingsTableTableTableManager
@@ -8137,16 +9109,14 @@ class $$CompletedReadingsTableTableTableManager
           $$CompletedReadingsTableTableAnnotationComposer,
           $$CompletedReadingsTableTableCreateCompanionBuilder,
           $$CompletedReadingsTableTableUpdateCompanionBuilder,
-          (
-            CompletedReadingsTableData,
-            BaseReferences<
-              _$AppDatabase,
-              $CompletedReadingsTableTable,
-              CompletedReadingsTableData
-            >,
-          ),
+          (CompletedReadingsTableData, $$CompletedReadingsTableTableReferences),
           CompletedReadingsTableData,
-          PrefetchHooks Function()
+          PrefetchHooks Function({
+            bool authorId,
+            bool genderId,
+            bool nationalityId,
+            bool publisherId,
+          })
         > {
   $$CompletedReadingsTableTableTableManager(
     _$AppDatabase db,
@@ -8227,9 +9197,107 @@ class $$CompletedReadingsTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$CompletedReadingsTableTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback:
+              ({
+                authorId = false,
+                genderId = false,
+                nationalityId = false,
+                publisherId = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (authorId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.authorId,
+                                    referencedTable:
+                                        $$CompletedReadingsTableTableReferences
+                                            ._authorIdTable(db),
+                                    referencedColumn:
+                                        $$CompletedReadingsTableTableReferences
+                                            ._authorIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (genderId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.genderId,
+                                    referencedTable:
+                                        $$CompletedReadingsTableTableReferences
+                                            ._genderIdTable(db),
+                                    referencedColumn:
+                                        $$CompletedReadingsTableTableReferences
+                                            ._genderIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (nationalityId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.nationalityId,
+                                    referencedTable:
+                                        $$CompletedReadingsTableTableReferences
+                                            ._nationalityIdTable(db),
+                                    referencedColumn:
+                                        $$CompletedReadingsTableTableReferences
+                                            ._nationalityIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (publisherId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.publisherId,
+                                    referencedTable:
+                                        $$CompletedReadingsTableTableReferences
+                                            ._publisherIdTable(db),
+                                    referencedColumn:
+                                        $$CompletedReadingsTableTableReferences
+                                            ._publisherIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
+              },
         ),
       );
 }
@@ -8244,22 +9312,20 @@ typedef $$CompletedReadingsTableTableProcessedTableManager =
       $$CompletedReadingsTableTableAnnotationComposer,
       $$CompletedReadingsTableTableCreateCompanionBuilder,
       $$CompletedReadingsTableTableUpdateCompanionBuilder,
-      (
-        CompletedReadingsTableData,
-        BaseReferences<
-          _$AppDatabase,
-          $CompletedReadingsTableTable,
-          CompletedReadingsTableData
-        >,
-      ),
+      (CompletedReadingsTableData, $$CompletedReadingsTableTableReferences),
       CompletedReadingsTableData,
-      PrefetchHooks Function()
+      PrefetchHooks Function({
+        bool authorId,
+        bool genderId,
+        bool nationalityId,
+        bool publisherId,
+      })
     >;
 typedef $$FinnancesExpenseTableTableCreateCompanionBuilder =
     FinnancesExpenseTableCompanion Function({
       required String id,
       required String finnacesId,
-      required int tag,
+      required String tag,
       required String description,
       required String value,
       Value<DateTime?> deletedAt,
@@ -8270,13 +9336,49 @@ typedef $$FinnancesExpenseTableTableUpdateCompanionBuilder =
     FinnancesExpenseTableCompanion Function({
       Value<String> id,
       Value<String> finnacesId,
-      Value<int> tag,
+      Value<String> tag,
       Value<String> description,
       Value<String> value,
       Value<DateTime?> deletedAt,
       Value<DateTime> createdAt,
       Value<int> rowid,
     });
+
+final class $$FinnancesExpenseTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $FinnancesExpenseTableTable,
+          FinnancesExpenseTableData
+        > {
+  $$FinnancesExpenseTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $FinnacesHeaderTableTable _finnacesIdTable(_$AppDatabase db) =>
+      db.finnacesHeaderTable.createAlias(
+        $_aliasNameGenerator(
+          db.finnancesExpenseTable.finnacesId,
+          db.finnacesHeaderTable.id,
+        ),
+      );
+
+  $$FinnacesHeaderTableTableProcessedTableManager get finnacesId {
+    final $_column = $_itemColumn<String>('finnaces_id')!;
+
+    final manager = $$FinnacesHeaderTableTableTableManager(
+      $_db,
+      $_db.finnacesHeaderTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_finnacesIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
 
 class $$FinnancesExpenseTableTableFilterComposer
     extends Composer<_$AppDatabase, $FinnancesExpenseTableTable> {
@@ -8292,12 +9394,7 @@ class $$FinnancesExpenseTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get finnacesId => $composableBuilder(
-    column: $table.finnacesId,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get tag => $composableBuilder(
+  ColumnFilters<String> get tag => $composableBuilder(
     column: $table.tag,
     builder: (column) => ColumnFilters(column),
   );
@@ -8321,6 +9418,29 @@ class $$FinnancesExpenseTableTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$FinnacesHeaderTableTableFilterComposer get finnacesId {
+    final $$FinnacesHeaderTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.finnacesId,
+      referencedTable: $db.finnacesHeaderTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$FinnacesHeaderTableTableFilterComposer(
+            $db: $db,
+            $table: $db.finnacesHeaderTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$FinnancesExpenseTableTableOrderingComposer
@@ -8337,12 +9457,7 @@ class $$FinnancesExpenseTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get finnacesId => $composableBuilder(
-    column: $table.finnacesId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get tag => $composableBuilder(
+  ColumnOrderings<String> get tag => $composableBuilder(
     column: $table.tag,
     builder: (column) => ColumnOrderings(column),
   );
@@ -8366,6 +9481,30 @@ class $$FinnancesExpenseTableTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$FinnacesHeaderTableTableOrderingComposer get finnacesId {
+    final $$FinnacesHeaderTableTableOrderingComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.finnacesId,
+          referencedTable: $db.finnacesHeaderTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$FinnacesHeaderTableTableOrderingComposer(
+                $db: $db,
+                $table: $db.finnacesHeaderTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 }
 
 class $$FinnancesExpenseTableTableAnnotationComposer
@@ -8380,12 +9519,7 @@ class $$FinnancesExpenseTableTableAnnotationComposer
   GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get finnacesId => $composableBuilder(
-    column: $table.finnacesId,
-    builder: (column) => column,
-  );
-
-  GeneratedColumn<int> get tag =>
+  GeneratedColumn<String> get tag =>
       $composableBuilder(column: $table.tag, builder: (column) => column);
 
   GeneratedColumn<String> get description => $composableBuilder(
@@ -8401,6 +9535,30 @@ class $$FinnancesExpenseTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$FinnacesHeaderTableTableAnnotationComposer get finnacesId {
+    final $$FinnacesHeaderTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.finnacesId,
+          referencedTable: $db.finnacesHeaderTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$FinnacesHeaderTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.finnacesHeaderTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 }
 
 class $$FinnancesExpenseTableTableTableManager
@@ -8414,16 +9572,9 @@ class $$FinnancesExpenseTableTableTableManager
           $$FinnancesExpenseTableTableAnnotationComposer,
           $$FinnancesExpenseTableTableCreateCompanionBuilder,
           $$FinnancesExpenseTableTableUpdateCompanionBuilder,
-          (
-            FinnancesExpenseTableData,
-            BaseReferences<
-              _$AppDatabase,
-              $FinnancesExpenseTableTable,
-              FinnancesExpenseTableData
-            >,
-          ),
+          (FinnancesExpenseTableData, $$FinnancesExpenseTableTableReferences),
           FinnancesExpenseTableData,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool finnacesId})
         > {
   $$FinnancesExpenseTableTableTableManager(
     _$AppDatabase db,
@@ -8451,7 +9602,7 @@ class $$FinnancesExpenseTableTableTableManager
               ({
                 Value<String> id = const Value.absent(),
                 Value<String> finnacesId = const Value.absent(),
-                Value<int> tag = const Value.absent(),
+                Value<String> tag = const Value.absent(),
                 Value<String> description = const Value.absent(),
                 Value<String> value = const Value.absent(),
                 Value<DateTime?> deletedAt = const Value.absent(),
@@ -8471,7 +9622,7 @@ class $$FinnancesExpenseTableTableTableManager
               ({
                 required String id,
                 required String finnacesId,
-                required int tag,
+                required String tag,
                 required String description,
                 required String value,
                 Value<DateTime?> deletedAt = const Value.absent(),
@@ -8488,9 +9639,56 @@ class $$FinnancesExpenseTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$FinnancesExpenseTableTableReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({finnacesId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (finnacesId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.finnacesId,
+                                referencedTable:
+                                    $$FinnancesExpenseTableTableReferences
+                                        ._finnacesIdTable(db),
+                                referencedColumn:
+                                    $$FinnancesExpenseTableTableReferences
+                                        ._finnacesIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -8505,16 +9703,9 @@ typedef $$FinnancesExpenseTableTableProcessedTableManager =
       $$FinnancesExpenseTableTableAnnotationComposer,
       $$FinnancesExpenseTableTableCreateCompanionBuilder,
       $$FinnancesExpenseTableTableUpdateCompanionBuilder,
-      (
-        FinnancesExpenseTableData,
-        BaseReferences<
-          _$AppDatabase,
-          $FinnancesExpenseTableTable,
-          FinnancesExpenseTableData
-        >,
-      ),
+      (FinnancesExpenseTableData, $$FinnancesExpenseTableTableReferences),
       FinnancesExpenseTableData,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool finnacesId})
     >;
 typedef $$MenstrualCyclePredictionTableCreateCompanionBuilder =
     MenstrualCyclePredictionCompanion Function({

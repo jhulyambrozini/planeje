@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planeje/modules/core/presenter/theme/colors.dart';
+import 'package:planeje/modules/finnances/presenter/widgets/custom_buttom_widget.dart';
 
 class FinnancesDeleteTransactionWidget extends StatelessWidget {
   final VoidCallback onCancel;
@@ -49,51 +50,18 @@ class FinnancesDeleteTransactionWidget extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    onTap: onCancel,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: ColorsTheme.primary,
-                          width: 1,
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'cancelar',
-                          style: TextStyle(
-                            color: ColorsTheme.primary,
-                            fontFamily: 'Inter',
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: CustomButtomWidget(
+                    onPressed: onCancel,
+                    label: 'cancelar',
+                    isDense: false,
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: onDelete,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 6),
-                      decoration: BoxDecoration(
-                        color: ColorsTheme.primary,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'excluir',
-                          style: TextStyle(
-                            color: ColorsTheme.primaryDark,
-                            fontFamily: 'Inter',
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: CustomButtomWidget(
+                    onPressed: onDelete,
+                    label: 'excluir',
+                    isDense: true,
                   ),
                 ),
               ],

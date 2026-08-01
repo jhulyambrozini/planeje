@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planeje/modules/core/presenter/theme/colors.dart';
+import 'package:planeje/modules/finnances/presenter/widgets/custom_buttom_widget.dart';
 
 class FinnancesEditTransactionWidget extends StatelessWidget {
   final VoidCallback onCancel;
@@ -44,51 +45,18 @@ class FinnancesEditTransactionWidget extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    onTap: onCancel,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: ColorsTheme.primary,
-                          width: 1,
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'cancelar',
-                          style: TextStyle(
-                            color: ColorsTheme.primary,
-                            fontFamily: 'Inter',
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: CustomButtomWidget(
+                    onPressed: onCancel,
+                    label: 'cancelar',
+                    isDense: false,
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: onSave,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 6),
-                      decoration: BoxDecoration(
-                        color: ColorsTheme.primary,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'salvar edição',
-                          style: TextStyle(
-                            color: ColorsTheme.primaryDark,
-                            fontFamily: 'Inter',
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: CustomButtomWidget(
+                    onPressed: onSave,
+                    label: 'salvar edição',
+                    isDense: true,
                   ),
                 ),
               ],

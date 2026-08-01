@@ -5,8 +5,8 @@ import 'package:planeje/modules/core/presenter/theme/font_sizes.dart';
 class FinnancesHistoricItemWidget extends StatelessWidget {
   final void Function() onTap;
   final String month;
-  final String totalReceived;
-  final String totalSpent;
+  final double totalReceived;
+  final double totalSpent;
   const FinnancesHistoricItemWidget({
     super.key,
     required this.onTap,
@@ -48,14 +48,14 @@ class FinnancesHistoricItemWidget extends StatelessWidget {
         ),
 
         Text(
-          'TOTAL GASTO: R\$ ${totalSpent}',
+          'TOTAL GASTO: R\$ $totalSpent',
           style: TextStyle(
             color: ColorsTheme.error,
             fontSize: FontSizesTheme.sm,
           ),
         ),
         Text(
-          'TOTAL RECEBIDO: R\$ ${totalReceived}',
+          'TOTAL RECEBIDO: R\$ $totalReceived',
           style: TextStyle(
             color: ColorsTheme.success,
             fontSize: FontSizesTheme.sm,

@@ -9,8 +9,8 @@ import 'package:planeje/modules/core/presenter/states/list_paginate_state.dart';
 import 'package:planeje/modules/finnances/domain/dtos/paging_finnances_dto.dart';
 import 'package:planeje/modules/finnances/domain/entities/finnances_header_entity.dart';
 import 'package:planeje/modules/finnances/domain/errors/error_get_finnances_paged.dart';
-import 'package:planeje/modules/finnances/domain/get_finnances_paged_usecase.dart';
-import 'package:planeje/modules/finnances/domain/save_finnance_header_usecase.dart';
+import 'package:planeje/modules/finnances/domain/usecases/get_finnances_paged_usecase.dart';
+import 'package:planeje/modules/finnances/domain/usecases/save_finnance_header_usecase.dart';
 import 'package:result_dart/result_dart.dart';
 
 class FinnancesViewmodel extends ChangeNotifier {

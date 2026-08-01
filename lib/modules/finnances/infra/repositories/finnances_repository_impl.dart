@@ -1,6 +1,8 @@
 import 'package:planeje/modules/core/domain/value_objects/pagination_response_vo.dart';
 import 'package:planeje/modules/finnances/domain/dtos/paging_finnances_dto.dart';
+import 'package:planeje/modules/finnances/domain/entities/finnance_transaction_entity.dart';
 import 'package:planeje/modules/finnances/domain/entities/finnances_header_entity.dart';
+import 'package:planeje/modules/finnances/domain/errors/error_get_finnance_transactions.dart';
 import 'package:planeje/modules/finnances/domain/errors/error_get_finnances_paged.dart';
 import 'package:planeje/modules/finnances/domain/errors/error_save_finnance.dart';
 import 'package:planeje/modules/finnances/domain/errors/error_verify_finnance_exists.dart';
@@ -76,6 +78,26 @@ class FinnancesRepositoryImpl implements FinnancesRepository {
       return Failure(
         ErrorSaveFinnance(
           message: 'Ocorreu um erro ao salvar informações do financeiro',
+          description: '[ERROR/DB] => $error',
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<
+    ResultDart<List<FinnancesTransactionEntity>, GetFinnanceTransactionFailure>
+  >
+  getTransactionsBy(String finnacesId) async {
+    try {
+      final response = await _datasource.getTransactionsBy(finnacesId);
+
+      final data = response.map(FinnancesMappers.expensesFromMap).toList();
+      return Success(data);
+    } catch (error) {
+      return Failure(
+        ErrorGetFinnanceTransaction(
+          message: 'Ocorreu um erro ao buscar lista de gastos',
           description: '[ERROR/DB] => $error',
         ),
       );

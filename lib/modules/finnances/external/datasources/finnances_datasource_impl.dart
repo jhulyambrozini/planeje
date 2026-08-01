@@ -30,7 +30,6 @@ class FinnancesDatasourceImpl extends DatabaseAccessor<AppDatabase>
     final response = await (select(
       finnacesHeaderTable,
     )..where((ele) => ele.month.equals(month) & ele.year.equals(year))).get();
-    print(response.isEmpty);
     if (response.isEmpty) return false;
     return true;
   }
@@ -42,8 +41,8 @@ class FinnancesDatasourceImpl extends DatabaseAccessor<AppDatabase>
         id: data.id,
         year: data.year,
         month: data.month,
-        totalReceived: data.totalReceived,
-        totalSpent: data.totalSpent,
+        totalReceived: data.totalReceived.toString(),
+        totalSpent: data.totalSpent.toString(),
       ),
     );
   }
@@ -52,5 +51,15 @@ class FinnancesDatasourceImpl extends DatabaseAccessor<AppDatabase>
   Future<int> countHistory() async {
     final response = await select(finnacesHeaderTable).get();
     return response.length;
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> getTransactionsBy(
+    String finnacesId,
+  ) async {
+    final response = await (select(
+      finnancesExpenseTable,
+    )..where((ele) => ele.finnacesId.equals(finnacesId))).get();
+    return response.map((ele) => ele.toJson()).toList();
   }
 }

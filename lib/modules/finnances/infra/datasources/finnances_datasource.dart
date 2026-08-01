@@ -3,6 +3,7 @@ import 'package:planeje/modules/finnances/domain/entities/finnances_header_entit
 
 abstract class FinnancesDatasource {
   Future<List<Map<String, dynamic>>> getHistoryPaged(PagingFinnancesDto dto);
+  Future<List<Map<String, dynamic>>> getTransactionsBy(String finnacesId);
 
   Future<int> countHistory();
 
