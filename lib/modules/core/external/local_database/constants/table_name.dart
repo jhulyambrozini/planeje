@@ -2,7 +2,7 @@ class TableName {
   static const finnancesHeader = 'finnaces_header_table';
   static const finnancesExpense = 'finnaces_expense_table';
   static const booksAuthor = 'books_author_table';
-  static const booksPublesher = 'books_publisher_table';
+  static const booksPublisher = 'books_publisher_table';
   static const booksGender = 'books_gender_table';
   static const booksNationality = 'books_nationality_table';
   static const completedReadings = 'completed_readings_table';

@@ -6,9 +6,11 @@ class PagingBooksDto {
   final int? yearFilter;
   final List<int> authorIds;
   final String searchBookName;
+  final bool orderMostRecent;
 
   PagingBooksDto({
     required this.paging,
+    required this.orderMostRecent,
     required this.genderIds,
     required this.yearFilter,
     required this.authorIds,

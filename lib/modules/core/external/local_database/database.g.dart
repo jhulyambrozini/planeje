@@ -474,6 +474,327 @@ class FinnacesHeaderTableCompanion
   }
 }
 
+class $BooksNacionalityTableTable extends BooksNacionalityTable
+    with TableInfo<$BooksNacionalityTableTable, BooksNacionalityTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BooksNacionalityTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, description, deletedAt, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'books_nacionality_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<BooksNacionalityTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  BooksNacionalityTableData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return BooksNacionalityTableData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}deleted_at'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $BooksNacionalityTableTable createAlias(String alias) {
+    return $BooksNacionalityTableTable(attachedDatabase, alias);
+  }
+}
+
+class BooksNacionalityTableData extends DataClass
+    implements Insertable<BooksNacionalityTableData> {
+  final String id;
+  final String description;
+  final DateTime? deletedAt;
+  final DateTime createdAt;
+  const BooksNacionalityTableData({
+    required this.id,
+    required this.description,
+    this.deletedAt,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['description'] = Variable<String>(description);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  BooksNacionalityTableCompanion toCompanion(bool nullToAbsent) {
+    return BooksNacionalityTableCompanion(
+      id: Value(id),
+      description: Value(description),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory BooksNacionalityTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return BooksNacionalityTableData(
+      id: serializer.fromJson<String>(json['id']),
+      description: serializer.fromJson<String>(json['description']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'description': serializer.toJson<String>(description),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  BooksNacionalityTableData copyWith({
+    String? id,
+    String? description,
+    Value<DateTime?> deletedAt = const Value.absent(),
+    DateTime? createdAt,
+  }) => BooksNacionalityTableData(
+    id: id ?? this.id,
+    description: description ?? this.description,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  BooksNacionalityTableData copyWithCompanion(
+    BooksNacionalityTableCompanion data,
+  ) {
+    return BooksNacionalityTableData(
+      id: data.id.present ? data.id.value : this.id,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BooksNacionalityTableData(')
+          ..write('id: $id, ')
+          ..write('description: $description, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, description, deletedAt, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is BooksNacionalityTableData &&
+          other.id == this.id &&
+          other.description == this.description &&
+          other.deletedAt == this.deletedAt &&
+          other.createdAt == this.createdAt);
+}
+
+class BooksNacionalityTableCompanion
+    extends UpdateCompanion<BooksNacionalityTableData> {
+  final Value<String> id;
+  final Value<String> description;
+  final Value<DateTime?> deletedAt;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const BooksNacionalityTableCompanion({
+    this.id = const Value.absent(),
+    this.description = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  BooksNacionalityTableCompanion.insert({
+    required String id,
+    required String description,
+    this.deletedAt = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       description = Value(description);
+  static Insertable<BooksNacionalityTableData> custom({
+    Expression<String>? id,
+    Expression<String>? description,
+    Expression<DateTime>? deletedAt,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (description != null) 'description': description,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  BooksNacionalityTableCompanion copyWith({
+    Value<String>? id,
+    Value<String>? description,
+    Value<DateTime?>? deletedAt,
+    Value<DateTime>? createdAt,
+    Value<int>? rowid,
+  }) {
+    return BooksNacionalityTableCompanion(
+      id: id ?? this.id,
+      description: description ?? this.description,
+      deletedAt: deletedAt ?? this.deletedAt,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BooksNacionalityTableCompanion(')
+          ..write('id: $id, ')
+          ..write('description: $description, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $BooksAuthorTableTable extends BooksAuthorTable
     with TableInfo<$BooksAuthorTableTable, BooksAuthorTableData> {
   @override
@@ -519,6 +840,9 @@ class $BooksAuthorTableTable extends BooksAuthorTable
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES books_nacionality_table (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -1204,327 +1528,6 @@ class BooksGenderTableCompanion extends UpdateCompanion<BooksGenderTableData> {
   }
 }
 
-class $BooksNacionalityTableTable extends BooksNacionalityTable
-    with TableInfo<$BooksNacionalityTableTable, BooksNacionalityTableData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $BooksNacionalityTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<String> id = GeneratedColumn<String>(
-    'id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _descriptionMeta = const VerificationMeta(
-    'description',
-  );
-  @override
-  late final GeneratedColumn<String> description = GeneratedColumn<String>(
-    'description',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
-    'deletedAt',
-  );
-  @override
-  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
-    'deleted_at',
-    aliasedName,
-    true,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: false,
-  );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
-  @override
-  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
-    'created_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: false,
-    defaultValue: currentDateAndTime,
-  );
-  @override
-  List<GeneratedColumn> get $columns => [id, description, deletedAt, createdAt];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'books_nacionality_table';
-  @override
-  VerificationContext validateIntegrity(
-    Insertable<BooksNacionalityTableData> instance, {
-    bool isInserting = false,
-  }) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    } else if (isInserting) {
-      context.missing(_idMeta);
-    }
-    if (data.containsKey('description')) {
-      context.handle(
-        _descriptionMeta,
-        description.isAcceptableOrUnknown(
-          data['description']!,
-          _descriptionMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_descriptionMeta);
-    }
-    if (data.containsKey('deleted_at')) {
-      context.handle(
-        _deletedAtMeta,
-        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
-      );
-    }
-    if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  BooksNacionalityTableData map(
-    Map<String, dynamic> data, {
-    String? tablePrefix,
-  }) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return BooksNacionalityTableData(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      description: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}description'],
-      )!,
-      deletedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}deleted_at'],
-      ),
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-    );
-  }
-
-  @override
-  $BooksNacionalityTableTable createAlias(String alias) {
-    return $BooksNacionalityTableTable(attachedDatabase, alias);
-  }
-}
-
-class BooksNacionalityTableData extends DataClass
-    implements Insertable<BooksNacionalityTableData> {
-  final String id;
-  final String description;
-  final DateTime? deletedAt;
-  final DateTime createdAt;
-  const BooksNacionalityTableData({
-    required this.id,
-    required this.description,
-    this.deletedAt,
-    required this.createdAt,
-  });
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<String>(id);
-    map['description'] = Variable<String>(description);
-    if (!nullToAbsent || deletedAt != null) {
-      map['deleted_at'] = Variable<DateTime>(deletedAt);
-    }
-    map['created_at'] = Variable<DateTime>(createdAt);
-    return map;
-  }
-
-  BooksNacionalityTableCompanion toCompanion(bool nullToAbsent) {
-    return BooksNacionalityTableCompanion(
-      id: Value(id),
-      description: Value(description),
-      deletedAt: deletedAt == null && nullToAbsent
-          ? const Value.absent()
-          : Value(deletedAt),
-      createdAt: Value(createdAt),
-    );
-  }
-
-  factory BooksNacionalityTableData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return BooksNacionalityTableData(
-      id: serializer.fromJson<String>(json['id']),
-      description: serializer.fromJson<String>(json['description']),
-      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
-      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'description': serializer.toJson<String>(description),
-      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
-      'createdAt': serializer.toJson<DateTime>(createdAt),
-    };
-  }
-
-  BooksNacionalityTableData copyWith({
-    String? id,
-    String? description,
-    Value<DateTime?> deletedAt = const Value.absent(),
-    DateTime? createdAt,
-  }) => BooksNacionalityTableData(
-    id: id ?? this.id,
-    description: description ?? this.description,
-    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
-    createdAt: createdAt ?? this.createdAt,
-  );
-  BooksNacionalityTableData copyWithCompanion(
-    BooksNacionalityTableCompanion data,
-  ) {
-    return BooksNacionalityTableData(
-      id: data.id.present ? data.id.value : this.id,
-      description: data.description.present
-          ? data.description.value
-          : this.description,
-      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
-      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('BooksNacionalityTableData(')
-          ..write('id: $id, ')
-          ..write('description: $description, ')
-          ..write('deletedAt: $deletedAt, ')
-          ..write('createdAt: $createdAt')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, description, deletedAt, createdAt);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is BooksNacionalityTableData &&
-          other.id == this.id &&
-          other.description == this.description &&
-          other.deletedAt == this.deletedAt &&
-          other.createdAt == this.createdAt);
-}
-
-class BooksNacionalityTableCompanion
-    extends UpdateCompanion<BooksNacionalityTableData> {
-  final Value<String> id;
-  final Value<String> description;
-  final Value<DateTime?> deletedAt;
-  final Value<DateTime> createdAt;
-  final Value<int> rowid;
-  const BooksNacionalityTableCompanion({
-    this.id = const Value.absent(),
-    this.description = const Value.absent(),
-    this.deletedAt = const Value.absent(),
-    this.createdAt = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  BooksNacionalityTableCompanion.insert({
-    required String id,
-    required String description,
-    this.deletedAt = const Value.absent(),
-    this.createdAt = const Value.absent(),
-    this.rowid = const Value.absent(),
-  }) : id = Value(id),
-       description = Value(description);
-  static Insertable<BooksNacionalityTableData> custom({
-    Expression<String>? id,
-    Expression<String>? description,
-    Expression<DateTime>? deletedAt,
-    Expression<DateTime>? createdAt,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (description != null) 'description': description,
-      if (deletedAt != null) 'deleted_at': deletedAt,
-      if (createdAt != null) 'created_at': createdAt,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  BooksNacionalityTableCompanion copyWith({
-    Value<String>? id,
-    Value<String>? description,
-    Value<DateTime?>? deletedAt,
-    Value<DateTime>? createdAt,
-    Value<int>? rowid,
-  }) {
-    return BooksNacionalityTableCompanion(
-      id: id ?? this.id,
-      description: description ?? this.description,
-      deletedAt: deletedAt ?? this.deletedAt,
-      createdAt: createdAt ?? this.createdAt,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<String>(id.value);
-    }
-    if (description.present) {
-      map['description'] = Variable<String>(description.value);
-    }
-    if (deletedAt.present) {
-      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
-    }
-    if (createdAt.present) {
-      map['created_at'] = Variable<DateTime>(createdAt.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('BooksNacionalityTableCompanion(')
-          ..write('id: $id, ')
-          ..write('description: $description, ')
-          ..write('deletedAt: $deletedAt, ')
-          ..write('createdAt: $createdAt, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class $BooksPublishersTableTable extends BooksPublishersTable
     with TableInfo<$BooksPublishersTableTable, BooksPublishersTableData> {
   @override
@@ -1549,16 +1552,19 @@ class $BooksPublishersTableTable extends BooksPublishersTable
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _nationalityMeta = const VerificationMeta(
-    'nationality',
+  static const VerificationMeta _nationalityIdMeta = const VerificationMeta(
+    'nationalityId',
   );
   @override
-  late final GeneratedColumn<String> nationality = GeneratedColumn<String>(
-    'nationality',
+  late final GeneratedColumn<String> nationalityId = GeneratedColumn<String>(
+    'nationality_id',
     aliasedName,
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES books_nacionality_table (id) ON DELETE CASCADE',
+    ),
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -1587,7 +1593,7 @@ class $BooksPublishersTableTable extends BooksPublishersTable
   List<GeneratedColumn> get $columns => [
     id,
     name,
-    nationality,
+    nationalityId,
     deletedAt,
     createdAt,
   ];
@@ -1616,12 +1622,12 @@ class $BooksPublishersTableTable extends BooksPublishersTable
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
-    if (data.containsKey('nationality')) {
+    if (data.containsKey('nationality_id')) {
       context.handle(
-        _nationalityMeta,
-        nationality.isAcceptableOrUnknown(
-          data['nationality']!,
-          _nationalityMeta,
+        _nationalityIdMeta,
+        nationalityId.isAcceptableOrUnknown(
+          data['nationality_id']!,
+          _nationalityIdMeta,
         ),
       );
     }
@@ -1657,9 +1663,9 @@ class $BooksPublishersTableTable extends BooksPublishersTable
         DriftSqlType.string,
         data['${effectivePrefix}name'],
       )!,
-      nationality: attachedDatabase.typeMapping.read(
+      nationalityId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
-        data['${effectivePrefix}nationality'],
+        data['${effectivePrefix}nationality_id'],
       ),
       deletedAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
@@ -1682,13 +1688,13 @@ class BooksPublishersTableData extends DataClass
     implements Insertable<BooksPublishersTableData> {
   final String id;
   final String name;
-  final String? nationality;
+  final String? nationalityId;
   final DateTime? deletedAt;
   final DateTime createdAt;
   const BooksPublishersTableData({
     required this.id,
     required this.name,
-    this.nationality,
+    this.nationalityId,
     this.deletedAt,
     required this.createdAt,
   });
@@ -1697,8 +1703,8 @@ class BooksPublishersTableData extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['name'] = Variable<String>(name);
-    if (!nullToAbsent || nationality != null) {
-      map['nationality'] = Variable<String>(nationality);
+    if (!nullToAbsent || nationalityId != null) {
+      map['nationality_id'] = Variable<String>(nationalityId);
     }
     if (!nullToAbsent || deletedAt != null) {
       map['deleted_at'] = Variable<DateTime>(deletedAt);
@@ -1711,9 +1717,9 @@ class BooksPublishersTableData extends DataClass
     return BooksPublishersTableCompanion(
       id: Value(id),
       name: Value(name),
-      nationality: nationality == null && nullToAbsent
+      nationalityId: nationalityId == null && nullToAbsent
           ? const Value.absent()
-          : Value(nationality),
+          : Value(nationalityId),
       deletedAt: deletedAt == null && nullToAbsent
           ? const Value.absent()
           : Value(deletedAt),
@@ -1729,7 +1735,7 @@ class BooksPublishersTableData extends DataClass
     return BooksPublishersTableData(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
-      nationality: serializer.fromJson<String?>(json['nationality']),
+      nationalityId: serializer.fromJson<String?>(json['nationalityId']),
       deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
@@ -1740,7 +1746,7 @@ class BooksPublishersTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
-      'nationality': serializer.toJson<String?>(nationality),
+      'nationalityId': serializer.toJson<String?>(nationalityId),
       'deletedAt': serializer.toJson<DateTime?>(deletedAt),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
@@ -1749,13 +1755,15 @@ class BooksPublishersTableData extends DataClass
   BooksPublishersTableData copyWith({
     String? id,
     String? name,
-    Value<String?> nationality = const Value.absent(),
+    Value<String?> nationalityId = const Value.absent(),
     Value<DateTime?> deletedAt = const Value.absent(),
     DateTime? createdAt,
   }) => BooksPublishersTableData(
     id: id ?? this.id,
     name: name ?? this.name,
-    nationality: nationality.present ? nationality.value : this.nationality,
+    nationalityId: nationalityId.present
+        ? nationalityId.value
+        : this.nationalityId,
     deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
     createdAt: createdAt ?? this.createdAt,
   );
@@ -1765,9 +1773,9 @@ class BooksPublishersTableData extends DataClass
     return BooksPublishersTableData(
       id: data.id.present ? data.id.value : this.id,
       name: data.name.present ? data.name.value : this.name,
-      nationality: data.nationality.present
-          ? data.nationality.value
-          : this.nationality,
+      nationalityId: data.nationalityId.present
+          ? data.nationalityId.value
+          : this.nationalityId,
       deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
@@ -1778,7 +1786,7 @@ class BooksPublishersTableData extends DataClass
     return (StringBuffer('BooksPublishersTableData(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('nationality: $nationality, ')
+          ..write('nationalityId: $nationalityId, ')
           ..write('deletedAt: $deletedAt, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -1786,14 +1794,15 @@ class BooksPublishersTableData extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(id, name, nationality, deletedAt, createdAt);
+  int get hashCode =>
+      Object.hash(id, name, nationalityId, deletedAt, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is BooksPublishersTableData &&
           other.id == this.id &&
           other.name == this.name &&
-          other.nationality == this.nationality &&
+          other.nationalityId == this.nationalityId &&
           other.deletedAt == this.deletedAt &&
           other.createdAt == this.createdAt);
 }
@@ -1802,14 +1811,14 @@ class BooksPublishersTableCompanion
     extends UpdateCompanion<BooksPublishersTableData> {
   final Value<String> id;
   final Value<String> name;
-  final Value<String?> nationality;
+  final Value<String?> nationalityId;
   final Value<DateTime?> deletedAt;
   final Value<DateTime> createdAt;
   final Value<int> rowid;
   const BooksPublishersTableCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
-    this.nationality = const Value.absent(),
+    this.nationalityId = const Value.absent(),
     this.deletedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -1817,7 +1826,7 @@ class BooksPublishersTableCompanion
   BooksPublishersTableCompanion.insert({
     required String id,
     required String name,
-    this.nationality = const Value.absent(),
+    this.nationalityId = const Value.absent(),
     this.deletedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -1826,7 +1835,7 @@ class BooksPublishersTableCompanion
   static Insertable<BooksPublishersTableData> custom({
     Expression<String>? id,
     Expression<String>? name,
-    Expression<String>? nationality,
+    Expression<String>? nationalityId,
     Expression<DateTime>? deletedAt,
     Expression<DateTime>? createdAt,
     Expression<int>? rowid,
@@ -1834,7 +1843,7 @@ class BooksPublishersTableCompanion
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
-      if (nationality != null) 'nationality': nationality,
+      if (nationalityId != null) 'nationality_id': nationalityId,
       if (deletedAt != null) 'deleted_at': deletedAt,
       if (createdAt != null) 'created_at': createdAt,
       if (rowid != null) 'rowid': rowid,
@@ -1844,7 +1853,7 @@ class BooksPublishersTableCompanion
   BooksPublishersTableCompanion copyWith({
     Value<String>? id,
     Value<String>? name,
-    Value<String?>? nationality,
+    Value<String?>? nationalityId,
     Value<DateTime?>? deletedAt,
     Value<DateTime>? createdAt,
     Value<int>? rowid,
@@ -1852,7 +1861,7 @@ class BooksPublishersTableCompanion
     return BooksPublishersTableCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
-      nationality: nationality ?? this.nationality,
+      nationalityId: nationalityId ?? this.nationalityId,
       deletedAt: deletedAt ?? this.deletedAt,
       createdAt: createdAt ?? this.createdAt,
       rowid: rowid ?? this.rowid,
@@ -1868,8 +1877,8 @@ class BooksPublishersTableCompanion
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
-    if (nationality.present) {
-      map['nationality'] = Variable<String>(nationality.value);
+    if (nationalityId.present) {
+      map['nationality_id'] = Variable<String>(nationalityId.value);
     }
     if (deletedAt.present) {
       map['deleted_at'] = Variable<DateTime>(deletedAt.value);
@@ -1888,7 +1897,7 @@ class BooksPublishersTableCompanion
     return (StringBuffer('BooksPublishersTableCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('nationality: $nationality, ')
+          ..write('nationalityId: $nationalityId, ')
           ..write('deletedAt: $deletedAt, ')
           ..write('createdAt: $createdAt, ')
           ..write('rowid: $rowid')
@@ -2655,6 +2664,20 @@ class $FinnancesExpenseTableTable extends FinnancesExpenseTable
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _isCashInflowMeta = const VerificationMeta(
+    'isCashInflow',
+  );
+  @override
+  late final GeneratedColumn<bool> isCashInflow = GeneratedColumn<bool>(
+    'is_cash_inflow',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_cash_inflow" IN (0, 1))',
+    ),
+  );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
   );
@@ -2685,6 +2708,7 @@ class $FinnancesExpenseTableTable extends FinnancesExpenseTable
     tag,
     description,
     value,
+    isCashInflow,
     deletedAt,
     createdAt,
   ];
@@ -2740,6 +2764,17 @@ class $FinnancesExpenseTableTable extends FinnancesExpenseTable
     } else if (isInserting) {
       context.missing(_valueMeta);
     }
+    if (data.containsKey('is_cash_inflow')) {
+      context.handle(
+        _isCashInflowMeta,
+        isCashInflow.isAcceptableOrUnknown(
+          data['is_cash_inflow']!,
+          _isCashInflowMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_isCashInflowMeta);
+    }
     if (data.containsKey('deleted_at')) {
       context.handle(
         _deletedAtMeta,
@@ -2784,6 +2819,10 @@ class $FinnancesExpenseTableTable extends FinnancesExpenseTable
         DriftSqlType.string,
         data['${effectivePrefix}value'],
       )!,
+      isCashInflow: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_cash_inflow'],
+      )!,
       deletedAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}deleted_at'],
@@ -2808,6 +2847,7 @@ class FinnancesExpenseTableData extends DataClass
   final String tag;
   final String description;
   final String value;
+  final bool isCashInflow;
   final DateTime? deletedAt;
   final DateTime createdAt;
   const FinnancesExpenseTableData({
@@ -2816,6 +2856,7 @@ class FinnancesExpenseTableData extends DataClass
     required this.tag,
     required this.description,
     required this.value,
+    required this.isCashInflow,
     this.deletedAt,
     required this.createdAt,
   });
@@ -2827,6 +2868,7 @@ class FinnancesExpenseTableData extends DataClass
     map['tag'] = Variable<String>(tag);
     map['description'] = Variable<String>(description);
     map['value'] = Variable<String>(value);
+    map['is_cash_inflow'] = Variable<bool>(isCashInflow);
     if (!nullToAbsent || deletedAt != null) {
       map['deleted_at'] = Variable<DateTime>(deletedAt);
     }
@@ -2841,6 +2883,7 @@ class FinnancesExpenseTableData extends DataClass
       tag: Value(tag),
       description: Value(description),
       value: Value(value),
+      isCashInflow: Value(isCashInflow),
       deletedAt: deletedAt == null && nullToAbsent
           ? const Value.absent()
           : Value(deletedAt),
@@ -2859,6 +2902,7 @@ class FinnancesExpenseTableData extends DataClass
       tag: serializer.fromJson<String>(json['tag']),
       description: serializer.fromJson<String>(json['description']),
       value: serializer.fromJson<String>(json['value']),
+      isCashInflow: serializer.fromJson<bool>(json['isCashInflow']),
       deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
@@ -2872,6 +2916,7 @@ class FinnancesExpenseTableData extends DataClass
       'tag': serializer.toJson<String>(tag),
       'description': serializer.toJson<String>(description),
       'value': serializer.toJson<String>(value),
+      'isCashInflow': serializer.toJson<bool>(isCashInflow),
       'deletedAt': serializer.toJson<DateTime?>(deletedAt),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
@@ -2883,6 +2928,7 @@ class FinnancesExpenseTableData extends DataClass
     String? tag,
     String? description,
     String? value,
+    bool? isCashInflow,
     Value<DateTime?> deletedAt = const Value.absent(),
     DateTime? createdAt,
   }) => FinnancesExpenseTableData(
@@ -2891,6 +2937,7 @@ class FinnancesExpenseTableData extends DataClass
     tag: tag ?? this.tag,
     description: description ?? this.description,
     value: value ?? this.value,
+    isCashInflow: isCashInflow ?? this.isCashInflow,
     deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
     createdAt: createdAt ?? this.createdAt,
   );
@@ -2907,6 +2954,9 @@ class FinnancesExpenseTableData extends DataClass
           ? data.description.value
           : this.description,
       value: data.value.present ? data.value.value : this.value,
+      isCashInflow: data.isCashInflow.present
+          ? data.isCashInflow.value
+          : this.isCashInflow,
       deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
@@ -2920,6 +2970,7 @@ class FinnancesExpenseTableData extends DataClass
           ..write('tag: $tag, ')
           ..write('description: $description, ')
           ..write('value: $value, ')
+          ..write('isCashInflow: $isCashInflow, ')
           ..write('deletedAt: $deletedAt, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -2933,6 +2984,7 @@ class FinnancesExpenseTableData extends DataClass
     tag,
     description,
     value,
+    isCashInflow,
     deletedAt,
     createdAt,
   );
@@ -2945,6 +2997,7 @@ class FinnancesExpenseTableData extends DataClass
           other.tag == this.tag &&
           other.description == this.description &&
           other.value == this.value &&
+          other.isCashInflow == this.isCashInflow &&
           other.deletedAt == this.deletedAt &&
           other.createdAt == this.createdAt);
 }
@@ -2956,6 +3009,7 @@ class FinnancesExpenseTableCompanion
   final Value<String> tag;
   final Value<String> description;
   final Value<String> value;
+  final Value<bool> isCashInflow;
   final Value<DateTime?> deletedAt;
   final Value<DateTime> createdAt;
   final Value<int> rowid;
@@ -2965,6 +3019,7 @@ class FinnancesExpenseTableCompanion
     this.tag = const Value.absent(),
     this.description = const Value.absent(),
     this.value = const Value.absent(),
+    this.isCashInflow = const Value.absent(),
     this.deletedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -2975,6 +3030,7 @@ class FinnancesExpenseTableCompanion
     required String tag,
     required String description,
     required String value,
+    required bool isCashInflow,
     this.deletedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -2982,13 +3038,15 @@ class FinnancesExpenseTableCompanion
        finnacesId = Value(finnacesId),
        tag = Value(tag),
        description = Value(description),
-       value = Value(value);
+       value = Value(value),
+       isCashInflow = Value(isCashInflow);
   static Insertable<FinnancesExpenseTableData> custom({
     Expression<String>? id,
     Expression<String>? finnacesId,
     Expression<String>? tag,
     Expression<String>? description,
     Expression<String>? value,
+    Expression<bool>? isCashInflow,
     Expression<DateTime>? deletedAt,
     Expression<DateTime>? createdAt,
     Expression<int>? rowid,
@@ -2999,6 +3057,7 @@ class FinnancesExpenseTableCompanion
       if (tag != null) 'tag': tag,
       if (description != null) 'description': description,
       if (value != null) 'value': value,
+      if (isCashInflow != null) 'is_cash_inflow': isCashInflow,
       if (deletedAt != null) 'deleted_at': deletedAt,
       if (createdAt != null) 'created_at': createdAt,
       if (rowid != null) 'rowid': rowid,
@@ -3011,6 +3070,7 @@ class FinnancesExpenseTableCompanion
     Value<String>? tag,
     Value<String>? description,
     Value<String>? value,
+    Value<bool>? isCashInflow,
     Value<DateTime?>? deletedAt,
     Value<DateTime>? createdAt,
     Value<int>? rowid,
@@ -3021,6 +3081,7 @@ class FinnancesExpenseTableCompanion
       tag: tag ?? this.tag,
       description: description ?? this.description,
       value: value ?? this.value,
+      isCashInflow: isCashInflow ?? this.isCashInflow,
       deletedAt: deletedAt ?? this.deletedAt,
       createdAt: createdAt ?? this.createdAt,
       rowid: rowid ?? this.rowid,
@@ -3045,6 +3106,9 @@ class FinnancesExpenseTableCompanion
     if (value.present) {
       map['value'] = Variable<String>(value.value);
     }
+    if (isCashInflow.present) {
+      map['is_cash_inflow'] = Variable<bool>(isCashInflow.value);
+    }
     if (deletedAt.present) {
       map['deleted_at'] = Variable<DateTime>(deletedAt.value);
     }
@@ -3065,6 +3129,7 @@ class FinnancesExpenseTableCompanion
           ..write('tag: $tag, ')
           ..write('description: $description, ')
           ..write('value: $value, ')
+          ..write('isCashInflow: $isCashInflow, ')
           ..write('deletedAt: $deletedAt, ')
           ..write('createdAt: $createdAt, ')
           ..write('rowid: $rowid')
@@ -6781,14 +6846,14 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $FinnacesHeaderTableTable finnacesHeaderTable =
       $FinnacesHeaderTableTable(this);
+  late final $BooksNacionalityTableTable booksNacionalityTable =
+      $BooksNacionalityTableTable(this);
   late final $BooksAuthorTableTable booksAuthorTable = $BooksAuthorTableTable(
     this,
   );
   late final $BooksGenderTableTable booksGenderTable = $BooksGenderTableTable(
     this,
   );
-  late final $BooksNacionalityTableTable booksNacionalityTable =
-      $BooksNacionalityTableTable(this);
   late final $BooksPublishersTableTable booksPublishersTable =
       $BooksPublishersTableTable(this);
   late final $CompletedReadingsTableTable completedReadingsTable =
@@ -6811,9 +6876,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     finnacesHeaderTable,
+    booksNacionalityTable,
     booksAuthorTable,
     booksGenderTable,
-    booksNacionalityTable,
     booksPublishersTable,
     completedReadingsTable,
     finnancesExpenseTable,
@@ -6825,6 +6890,20 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'books_nacionality_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('books_author_table', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'books_nacionality_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('books_publishers_table', kind: UpdateKind.delete)],
+    ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
         'books_author_table',
@@ -7245,6 +7324,538 @@ typedef $$FinnacesHeaderTableTableProcessedTableManager =
       FinnacesHeaderTableData,
       PrefetchHooks Function({bool finnancesExpenseTableRefs})
     >;
+typedef $$BooksNacionalityTableTableCreateCompanionBuilder =
+    BooksNacionalityTableCompanion Function({
+      required String id,
+      required String description,
+      Value<DateTime?> deletedAt,
+      Value<DateTime> createdAt,
+      Value<int> rowid,
+    });
+typedef $$BooksNacionalityTableTableUpdateCompanionBuilder =
+    BooksNacionalityTableCompanion Function({
+      Value<String> id,
+      Value<String> description,
+      Value<DateTime?> deletedAt,
+      Value<DateTime> createdAt,
+      Value<int> rowid,
+    });
+
+final class $$BooksNacionalityTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $BooksNacionalityTableTable,
+          BooksNacionalityTableData
+        > {
+  $$BooksNacionalityTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static MultiTypedResultKey<$BooksAuthorTableTable, List<BooksAuthorTableData>>
+  _booksAuthorTableRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.booksAuthorTable,
+    aliasName: $_aliasNameGenerator(
+      db.booksNacionalityTable.id,
+      db.booksAuthorTable.nationality,
+    ),
+  );
+
+  $$BooksAuthorTableTableProcessedTableManager get booksAuthorTableRefs {
+    final manager = $$BooksAuthorTableTableTableManager(
+      $_db,
+      $_db.booksAuthorTable,
+    ).filter((f) => f.nationality.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _booksAuthorTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $BooksPublishersTableTable,
+    List<BooksPublishersTableData>
+  >
+  _booksPublishersTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.booksPublishersTable,
+        aliasName: $_aliasNameGenerator(
+          db.booksNacionalityTable.id,
+          db.booksPublishersTable.nationalityId,
+        ),
+      );
+
+  $$BooksPublishersTableTableProcessedTableManager
+  get booksPublishersTableRefs {
+    final manager = $$BooksPublishersTableTableTableManager(
+      $_db,
+      $_db.booksPublishersTable,
+    ).filter((f) => f.nationalityId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _booksPublishersTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $CompletedReadingsTableTable,
+    List<CompletedReadingsTableData>
+  >
+  _completedReadingsTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.completedReadingsTable,
+        aliasName: $_aliasNameGenerator(
+          db.booksNacionalityTable.id,
+          db.completedReadingsTable.nationalityId,
+        ),
+      );
+
+  $$CompletedReadingsTableTableProcessedTableManager
+  get completedReadingsTableRefs {
+    final manager = $$CompletedReadingsTableTableTableManager(
+      $_db,
+      $_db.completedReadingsTable,
+    ).filter((f) => f.nationalityId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _completedReadingsTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$BooksNacionalityTableTableFilterComposer
+    extends Composer<_$AppDatabase, $BooksNacionalityTableTable> {
+  $$BooksNacionalityTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  Expression<bool> booksAuthorTableRefs(
+    Expression<bool> Function($$BooksAuthorTableTableFilterComposer f) f,
+  ) {
+    final $$BooksAuthorTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.booksAuthorTable,
+      getReferencedColumn: (t) => t.nationality,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BooksAuthorTableTableFilterComposer(
+            $db: $db,
+            $table: $db.booksAuthorTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> booksPublishersTableRefs(
+    Expression<bool> Function($$BooksPublishersTableTableFilterComposer f) f,
+  ) {
+    final $$BooksPublishersTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.booksPublishersTable,
+      getReferencedColumn: (t) => t.nationalityId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BooksPublishersTableTableFilterComposer(
+            $db: $db,
+            $table: $db.booksPublishersTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> completedReadingsTableRefs(
+    Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
+  ) {
+    final $$CompletedReadingsTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadingsTable,
+          getReferencedColumn: (t) => t.nationalityId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadingsTableTableFilterComposer(
+                $db: $db,
+                $table: $db.completedReadingsTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+}
+
+class $$BooksNacionalityTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $BooksNacionalityTableTable> {
+  $$BooksNacionalityTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$BooksNacionalityTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $BooksNacionalityTableTable> {
+  $$BooksNacionalityTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  Expression<T> booksAuthorTableRefs<T extends Object>(
+    Expression<T> Function($$BooksAuthorTableTableAnnotationComposer a) f,
+  ) {
+    final $$BooksAuthorTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.booksAuthorTable,
+      getReferencedColumn: (t) => t.nationality,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BooksAuthorTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.booksAuthorTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> booksPublishersTableRefs<T extends Object>(
+    Expression<T> Function($$BooksPublishersTableTableAnnotationComposer a) f,
+  ) {
+    final $$BooksPublishersTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.booksPublishersTable,
+          getReferencedColumn: (t) => t.nationalityId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksPublishersTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.booksPublishersTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> completedReadingsTableRefs<T extends Object>(
+    Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
+  ) {
+    final $$CompletedReadingsTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadingsTable,
+          getReferencedColumn: (t) => t.nationalityId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadingsTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.completedReadingsTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+}
+
+class $$BooksNacionalityTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $BooksNacionalityTableTable,
+          BooksNacionalityTableData,
+          $$BooksNacionalityTableTableFilterComposer,
+          $$BooksNacionalityTableTableOrderingComposer,
+          $$BooksNacionalityTableTableAnnotationComposer,
+          $$BooksNacionalityTableTableCreateCompanionBuilder,
+          $$BooksNacionalityTableTableUpdateCompanionBuilder,
+          (BooksNacionalityTableData, $$BooksNacionalityTableTableReferences),
+          BooksNacionalityTableData,
+          PrefetchHooks Function({
+            bool booksAuthorTableRefs,
+            bool booksPublishersTableRefs,
+            bool completedReadingsTableRefs,
+          })
+        > {
+  $$BooksNacionalityTableTableTableManager(
+    _$AppDatabase db,
+    $BooksNacionalityTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$BooksNacionalityTableTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$BooksNacionalityTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$BooksNacionalityTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> description = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => BooksNacionalityTableCompanion(
+                id: id,
+                description: description,
+                deletedAt: deletedAt,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String description,
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => BooksNacionalityTableCompanion.insert(
+                id: id,
+                description: description,
+                deletedAt: deletedAt,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$BooksNacionalityTableTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                booksAuthorTableRefs = false,
+                booksPublishersTableRefs = false,
+                completedReadingsTableRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (booksAuthorTableRefs) db.booksAuthorTable,
+                    if (booksPublishersTableRefs) db.booksPublishersTable,
+                    if (completedReadingsTableRefs) db.completedReadingsTable,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (booksAuthorTableRefs)
+                        await $_getPrefetchedData<
+                          BooksNacionalityTableData,
+                          $BooksNacionalityTableTable,
+                          BooksAuthorTableData
+                        >(
+                          currentTable: table,
+                          referencedTable:
+                              $$BooksNacionalityTableTableReferences
+                                  ._booksAuthorTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$BooksNacionalityTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).booksAuthorTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.nationality == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (booksPublishersTableRefs)
+                        await $_getPrefetchedData<
+                          BooksNacionalityTableData,
+                          $BooksNacionalityTableTable,
+                          BooksPublishersTableData
+                        >(
+                          currentTable: table,
+                          referencedTable:
+                              $$BooksNacionalityTableTableReferences
+                                  ._booksPublishersTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$BooksNacionalityTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).booksPublishersTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.nationalityId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (completedReadingsTableRefs)
+                        await $_getPrefetchedData<
+                          BooksNacionalityTableData,
+                          $BooksNacionalityTableTable,
+                          CompletedReadingsTableData
+                        >(
+                          currentTable: table,
+                          referencedTable:
+                              $$BooksNacionalityTableTableReferences
+                                  ._completedReadingsTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$BooksNacionalityTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).completedReadingsTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.nationalityId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$BooksNacionalityTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $BooksNacionalityTableTable,
+      BooksNacionalityTableData,
+      $$BooksNacionalityTableTableFilterComposer,
+      $$BooksNacionalityTableTableOrderingComposer,
+      $$BooksNacionalityTableTableAnnotationComposer,
+      $$BooksNacionalityTableTableCreateCompanionBuilder,
+      $$BooksNacionalityTableTableUpdateCompanionBuilder,
+      (BooksNacionalityTableData, $$BooksNacionalityTableTableReferences),
+      BooksNacionalityTableData,
+      PrefetchHooks Function({
+        bool booksAuthorTableRefs,
+        bool booksPublishersTableRefs,
+        bool completedReadingsTableRefs,
+      })
+    >;
 typedef $$BooksAuthorTableTableCreateCompanionBuilder =
     BooksAuthorTableCompanion Function({
       required String id,
@@ -7278,6 +7889,28 @@ final class $$BooksAuthorTableTableReferences
     super.$_table,
     super.$_typedResult,
   );
+
+  static $BooksNacionalityTableTable _nationalityTable(_$AppDatabase db) =>
+      db.booksNacionalityTable.createAlias(
+        $_aliasNameGenerator(
+          db.booksAuthorTable.nationality,
+          db.booksNacionalityTable.id,
+        ),
+      );
+
+  $$BooksNacionalityTableTableProcessedTableManager? get nationality {
+    final $_column = $_itemColumn<String>('nationality');
+    if ($_column == null) return null;
+    final manager = $$BooksNacionalityTableTableTableManager(
+      $_db,
+      $_db.booksNacionalityTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_nationalityTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
 
   static MultiTypedResultKey<
     $CompletedReadingsTableTable,
@@ -7332,11 +7965,6 @@ class $$BooksAuthorTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get nationality => $composableBuilder(
-    column: $table.nationality,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<DateTime> get deletedAt => $composableBuilder(
     column: $table.deletedAt,
     builder: (column) => ColumnFilters(column),
@@ -7346,6 +7974,30 @@ class $$BooksAuthorTableTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$BooksNacionalityTableTableFilterComposer get nationality {
+    final $$BooksNacionalityTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.nationality,
+          referencedTable: $db.booksNacionalityTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksNacionalityTableTableFilterComposer(
+                $db: $db,
+                $table: $db.booksNacionalityTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 
   Expression<bool> completedReadingsTableRefs(
     Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
@@ -7398,11 +8050,6 @@ class $$BooksAuthorTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get nationality => $composableBuilder(
-    column: $table.nationality,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
     column: $table.deletedAt,
     builder: (column) => ColumnOrderings(column),
@@ -7412,6 +8059,30 @@ class $$BooksAuthorTableTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$BooksNacionalityTableTableOrderingComposer get nationality {
+    final $$BooksNacionalityTableTableOrderingComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.nationality,
+          referencedTable: $db.booksNacionalityTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksNacionalityTableTableOrderingComposer(
+                $db: $db,
+                $table: $db.booksNacionalityTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 }
 
 class $$BooksAuthorTableTableAnnotationComposer
@@ -7432,16 +8103,35 @@ class $$BooksAuthorTableTableAnnotationComposer
   GeneratedColumn<String> get gender =>
       $composableBuilder(column: $table.gender, builder: (column) => column);
 
-  GeneratedColumn<String> get nationality => $composableBuilder(
-    column: $table.nationality,
-    builder: (column) => column,
-  );
-
   GeneratedColumn<DateTime> get deletedAt =>
       $composableBuilder(column: $table.deletedAt, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$BooksNacionalityTableTableAnnotationComposer get nationality {
+    final $$BooksNacionalityTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.nationality,
+          referencedTable: $db.booksNacionalityTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksNacionalityTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.booksNacionalityTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 
   Expression<T> completedReadingsTableRefs<T extends Object>(
     Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
@@ -7483,7 +8173,10 @@ class $$BooksAuthorTableTableTableManager
           $$BooksAuthorTableTableUpdateCompanionBuilder,
           (BooksAuthorTableData, $$BooksAuthorTableTableReferences),
           BooksAuthorTableData,
-          PrefetchHooks Function({bool completedReadingsTableRefs})
+          PrefetchHooks Function({
+            bool nationality,
+            bool completedReadingsTableRefs,
+          })
         > {
   $$BooksAuthorTableTableTableManager(
     _$AppDatabase db,
@@ -7542,38 +8235,74 @@ class $$BooksAuthorTableTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({completedReadingsTableRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (completedReadingsTableRefs) db.completedReadingsTable,
-              ],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (completedReadingsTableRefs)
-                    await $_getPrefetchedData<
-                      BooksAuthorTableData,
-                      $BooksAuthorTableTable,
-                      CompletedReadingsTableData
-                    >(
-                      currentTable: table,
-                      referencedTable: $$BooksAuthorTableTableReferences
-                          ._completedReadingsTableRefsTable(db),
-                      managerFromTypedResult: (p0) =>
-                          $$BooksAuthorTableTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).completedReadingsTableRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.authorId == item.id),
-                      typedResults: items,
-                    ),
-                ];
+          prefetchHooksCallback:
+              ({nationality = false, completedReadingsTableRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (completedReadingsTableRefs) db.completedReadingsTable,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (nationality) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.nationality,
+                                    referencedTable:
+                                        $$BooksAuthorTableTableReferences
+                                            ._nationalityTable(db),
+                                    referencedColumn:
+                                        $$BooksAuthorTableTableReferences
+                                            ._nationalityTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (completedReadingsTableRefs)
+                        await $_getPrefetchedData<
+                          BooksAuthorTableData,
+                          $BooksAuthorTableTable,
+                          CompletedReadingsTableData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$BooksAuthorTableTableReferences
+                              ._completedReadingsTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$BooksAuthorTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).completedReadingsTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.authorId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -7590,7 +8319,10 @@ typedef $$BooksAuthorTableTableProcessedTableManager =
       $$BooksAuthorTableTableUpdateCompanionBuilder,
       (BooksAuthorTableData, $$BooksAuthorTableTableReferences),
       BooksAuthorTableData,
-      PrefetchHooks Function({bool completedReadingsTableRefs})
+      PrefetchHooks Function({
+        bool nationality,
+        bool completedReadingsTableRefs,
+      })
     >;
 typedef $$BooksGenderTableTableCreateCompanionBuilder =
     BooksGenderTableCompanion Function({
@@ -7901,331 +8633,11 @@ typedef $$BooksGenderTableTableProcessedTableManager =
       BooksGenderTableData,
       PrefetchHooks Function({bool completedReadingsTableRefs})
     >;
-typedef $$BooksNacionalityTableTableCreateCompanionBuilder =
-    BooksNacionalityTableCompanion Function({
-      required String id,
-      required String description,
-      Value<DateTime?> deletedAt,
-      Value<DateTime> createdAt,
-      Value<int> rowid,
-    });
-typedef $$BooksNacionalityTableTableUpdateCompanionBuilder =
-    BooksNacionalityTableCompanion Function({
-      Value<String> id,
-      Value<String> description,
-      Value<DateTime?> deletedAt,
-      Value<DateTime> createdAt,
-      Value<int> rowid,
-    });
-
-final class $$BooksNacionalityTableTableReferences
-    extends
-        BaseReferences<
-          _$AppDatabase,
-          $BooksNacionalityTableTable,
-          BooksNacionalityTableData
-        > {
-  $$BooksNacionalityTableTableReferences(
-    super.$_db,
-    super.$_table,
-    super.$_typedResult,
-  );
-
-  static MultiTypedResultKey<
-    $CompletedReadingsTableTable,
-    List<CompletedReadingsTableData>
-  >
-  _completedReadingsTableRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(
-        db.completedReadingsTable,
-        aliasName: $_aliasNameGenerator(
-          db.booksNacionalityTable.id,
-          db.completedReadingsTable.nationalityId,
-        ),
-      );
-
-  $$CompletedReadingsTableTableProcessedTableManager
-  get completedReadingsTableRefs {
-    final manager = $$CompletedReadingsTableTableTableManager(
-      $_db,
-      $_db.completedReadingsTable,
-    ).filter((f) => f.nationalityId.id.sqlEquals($_itemColumn<String>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(
-      _completedReadingsTableRefsTable($_db),
-    );
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
-  }
-}
-
-class $$BooksNacionalityTableTableFilterComposer
-    extends Composer<_$AppDatabase, $BooksNacionalityTableTable> {
-  $$BooksNacionalityTableTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get description => $composableBuilder(
-    column: $table.description,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
-    column: $table.deletedAt,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  Expression<bool> completedReadingsTableRefs(
-    Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
-  ) {
-    final $$CompletedReadingsTableTableFilterComposer composer =
-        $composerBuilder(
-          composer: this,
-          getCurrentColumn: (t) => t.id,
-          referencedTable: $db.completedReadingsTable,
-          getReferencedColumn: (t) => t.nationalityId,
-          builder:
-              (
-                joinBuilder, {
-                $addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer,
-              }) => $$CompletedReadingsTableTableFilterComposer(
-                $db: $db,
-                $table: $db.completedReadingsTable,
-                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-                joinBuilder: joinBuilder,
-                $removeJoinBuilderFromRootComposer:
-                    $removeJoinBuilderFromRootComposer,
-              ),
-        );
-    return f(composer);
-  }
-}
-
-class $$BooksNacionalityTableTableOrderingComposer
-    extends Composer<_$AppDatabase, $BooksNacionalityTableTable> {
-  $$BooksNacionalityTableTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get description => $composableBuilder(
-    column: $table.description,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
-    column: $table.deletedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
-}
-
-class $$BooksNacionalityTableTableAnnotationComposer
-    extends Composer<_$AppDatabase, $BooksNacionalityTableTable> {
-  $$BooksNacionalityTableTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<String> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get description => $composableBuilder(
-    column: $table.description,
-    builder: (column) => column,
-  );
-
-  GeneratedColumn<DateTime> get deletedAt =>
-      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => column);
-
-  Expression<T> completedReadingsTableRefs<T extends Object>(
-    Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
-  ) {
-    final $$CompletedReadingsTableTableAnnotationComposer composer =
-        $composerBuilder(
-          composer: this,
-          getCurrentColumn: (t) => t.id,
-          referencedTable: $db.completedReadingsTable,
-          getReferencedColumn: (t) => t.nationalityId,
-          builder:
-              (
-                joinBuilder, {
-                $addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer,
-              }) => $$CompletedReadingsTableTableAnnotationComposer(
-                $db: $db,
-                $table: $db.completedReadingsTable,
-                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-                joinBuilder: joinBuilder,
-                $removeJoinBuilderFromRootComposer:
-                    $removeJoinBuilderFromRootComposer,
-              ),
-        );
-    return f(composer);
-  }
-}
-
-class $$BooksNacionalityTableTableTableManager
-    extends
-        RootTableManager<
-          _$AppDatabase,
-          $BooksNacionalityTableTable,
-          BooksNacionalityTableData,
-          $$BooksNacionalityTableTableFilterComposer,
-          $$BooksNacionalityTableTableOrderingComposer,
-          $$BooksNacionalityTableTableAnnotationComposer,
-          $$BooksNacionalityTableTableCreateCompanionBuilder,
-          $$BooksNacionalityTableTableUpdateCompanionBuilder,
-          (BooksNacionalityTableData, $$BooksNacionalityTableTableReferences),
-          BooksNacionalityTableData,
-          PrefetchHooks Function({bool completedReadingsTableRefs})
-        > {
-  $$BooksNacionalityTableTableTableManager(
-    _$AppDatabase db,
-    $BooksNacionalityTableTable table,
-  ) : super(
-        TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$BooksNacionalityTableTableFilterComposer(
-                $db: db,
-                $table: table,
-              ),
-          createOrderingComposer: () =>
-              $$BooksNacionalityTableTableOrderingComposer(
-                $db: db,
-                $table: table,
-              ),
-          createComputedFieldComposer: () =>
-              $$BooksNacionalityTableTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
-          updateCompanionCallback:
-              ({
-                Value<String> id = const Value.absent(),
-                Value<String> description = const Value.absent(),
-                Value<DateTime?> deletedAt = const Value.absent(),
-                Value<DateTime> createdAt = const Value.absent(),
-                Value<int> rowid = const Value.absent(),
-              }) => BooksNacionalityTableCompanion(
-                id: id,
-                description: description,
-                deletedAt: deletedAt,
-                createdAt: createdAt,
-                rowid: rowid,
-              ),
-          createCompanionCallback:
-              ({
-                required String id,
-                required String description,
-                Value<DateTime?> deletedAt = const Value.absent(),
-                Value<DateTime> createdAt = const Value.absent(),
-                Value<int> rowid = const Value.absent(),
-              }) => BooksNacionalityTableCompanion.insert(
-                id: id,
-                description: description,
-                deletedAt: deletedAt,
-                createdAt: createdAt,
-                rowid: rowid,
-              ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$BooksNacionalityTableTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
-          prefetchHooksCallback: ({completedReadingsTableRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (completedReadingsTableRefs) db.completedReadingsTable,
-              ],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (completedReadingsTableRefs)
-                    await $_getPrefetchedData<
-                      BooksNacionalityTableData,
-                      $BooksNacionalityTableTable,
-                      CompletedReadingsTableData
-                    >(
-                      currentTable: table,
-                      referencedTable: $$BooksNacionalityTableTableReferences
-                          ._completedReadingsTableRefsTable(db),
-                      managerFromTypedResult: (p0) =>
-                          $$BooksNacionalityTableTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).completedReadingsTableRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where(
-                            (e) => e.nationalityId == item.id,
-                          ),
-                      typedResults: items,
-                    ),
-                ];
-              },
-            );
-          },
-        ),
-      );
-}
-
-typedef $$BooksNacionalityTableTableProcessedTableManager =
-    ProcessedTableManager<
-      _$AppDatabase,
-      $BooksNacionalityTableTable,
-      BooksNacionalityTableData,
-      $$BooksNacionalityTableTableFilterComposer,
-      $$BooksNacionalityTableTableOrderingComposer,
-      $$BooksNacionalityTableTableAnnotationComposer,
-      $$BooksNacionalityTableTableCreateCompanionBuilder,
-      $$BooksNacionalityTableTableUpdateCompanionBuilder,
-      (BooksNacionalityTableData, $$BooksNacionalityTableTableReferences),
-      BooksNacionalityTableData,
-      PrefetchHooks Function({bool completedReadingsTableRefs})
-    >;
 typedef $$BooksPublishersTableTableCreateCompanionBuilder =
     BooksPublishersTableCompanion Function({
       required String id,
       required String name,
-      Value<String?> nationality,
+      Value<String?> nationalityId,
       Value<DateTime?> deletedAt,
       Value<DateTime> createdAt,
       Value<int> rowid,
@@ -8234,7 +8646,7 @@ typedef $$BooksPublishersTableTableUpdateCompanionBuilder =
     BooksPublishersTableCompanion Function({
       Value<String> id,
       Value<String> name,
-      Value<String?> nationality,
+      Value<String?> nationalityId,
       Value<DateTime?> deletedAt,
       Value<DateTime> createdAt,
       Value<int> rowid,
@@ -8252,6 +8664,28 @@ final class $$BooksPublishersTableTableReferences
     super.$_table,
     super.$_typedResult,
   );
+
+  static $BooksNacionalityTableTable _nationalityIdTable(_$AppDatabase db) =>
+      db.booksNacionalityTable.createAlias(
+        $_aliasNameGenerator(
+          db.booksPublishersTable.nationalityId,
+          db.booksNacionalityTable.id,
+        ),
+      );
+
+  $$BooksNacionalityTableTableProcessedTableManager? get nationalityId {
+    final $_column = $_itemColumn<String>('nationality_id');
+    if ($_column == null) return null;
+    final manager = $$BooksNacionalityTableTableTableManager(
+      $_db,
+      $_db.booksNacionalityTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_nationalityIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
 
   static MultiTypedResultKey<
     $CompletedReadingsTableTable,
@@ -8301,11 +8735,6 @@ class $$BooksPublishersTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get nationality => $composableBuilder(
-    column: $table.nationality,
-    builder: (column) => ColumnFilters(column),
-  );
-
   ColumnFilters<DateTime> get deletedAt => $composableBuilder(
     column: $table.deletedAt,
     builder: (column) => ColumnFilters(column),
@@ -8315,6 +8744,30 @@ class $$BooksPublishersTableTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  $$BooksNacionalityTableTableFilterComposer get nationalityId {
+    final $$BooksNacionalityTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.nationalityId,
+          referencedTable: $db.booksNacionalityTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksNacionalityTableTableFilterComposer(
+                $db: $db,
+                $table: $db.booksNacionalityTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 
   Expression<bool> completedReadingsTableRefs(
     Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
@@ -8362,11 +8815,6 @@ class $$BooksPublishersTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get nationality => $composableBuilder(
-    column: $table.nationality,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
     column: $table.deletedAt,
     builder: (column) => ColumnOrderings(column),
@@ -8376,6 +8824,30 @@ class $$BooksPublishersTableTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  $$BooksNacionalityTableTableOrderingComposer get nationalityId {
+    final $$BooksNacionalityTableTableOrderingComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.nationalityId,
+          referencedTable: $db.booksNacionalityTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksNacionalityTableTableOrderingComposer(
+                $db: $db,
+                $table: $db.booksNacionalityTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 }
 
 class $$BooksPublishersTableTableAnnotationComposer
@@ -8393,16 +8865,35 @@ class $$BooksPublishersTableTableAnnotationComposer
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
 
-  GeneratedColumn<String> get nationality => $composableBuilder(
-    column: $table.nationality,
-    builder: (column) => column,
-  );
-
   GeneratedColumn<DateTime> get deletedAt =>
       $composableBuilder(column: $table.deletedAt, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$BooksNacionalityTableTableAnnotationComposer get nationalityId {
+    final $$BooksNacionalityTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.nationalityId,
+          referencedTable: $db.booksNacionalityTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$BooksNacionalityTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.booksNacionalityTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
 
   Expression<T> completedReadingsTableRefs<T extends Object>(
     Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
@@ -8444,7 +8935,10 @@ class $$BooksPublishersTableTableTableManager
           $$BooksPublishersTableTableUpdateCompanionBuilder,
           (BooksPublishersTableData, $$BooksPublishersTableTableReferences),
           BooksPublishersTableData,
-          PrefetchHooks Function({bool completedReadingsTableRefs})
+          PrefetchHooks Function({
+            bool nationalityId,
+            bool completedReadingsTableRefs,
+          })
         > {
   $$BooksPublishersTableTableTableManager(
     _$AppDatabase db,
@@ -8469,14 +8963,14 @@ class $$BooksPublishersTableTableTableManager
               ({
                 Value<String> id = const Value.absent(),
                 Value<String> name = const Value.absent(),
-                Value<String?> nationality = const Value.absent(),
+                Value<String?> nationalityId = const Value.absent(),
                 Value<DateTime?> deletedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => BooksPublishersTableCompanion(
                 id: id,
                 name: name,
-                nationality: nationality,
+                nationalityId: nationalityId,
                 deletedAt: deletedAt,
                 createdAt: createdAt,
                 rowid: rowid,
@@ -8485,14 +8979,14 @@ class $$BooksPublishersTableTableTableManager
               ({
                 required String id,
                 required String name,
-                Value<String?> nationality = const Value.absent(),
+                Value<String?> nationalityId = const Value.absent(),
                 Value<DateTime?> deletedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => BooksPublishersTableCompanion.insert(
                 id: id,
                 name: name,
-                nationality: nationality,
+                nationalityId: nationalityId,
                 deletedAt: deletedAt,
                 createdAt: createdAt,
                 rowid: rowid,
@@ -8505,40 +8999,74 @@ class $$BooksPublishersTableTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({completedReadingsTableRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (completedReadingsTableRefs) db.completedReadingsTable,
-              ],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (completedReadingsTableRefs)
-                    await $_getPrefetchedData<
-                      BooksPublishersTableData,
-                      $BooksPublishersTableTable,
-                      CompletedReadingsTableData
-                    >(
-                      currentTable: table,
-                      referencedTable: $$BooksPublishersTableTableReferences
-                          ._completedReadingsTableRefsTable(db),
-                      managerFromTypedResult: (p0) =>
-                          $$BooksPublishersTableTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).completedReadingsTableRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where(
-                            (e) => e.publisherId == item.id,
-                          ),
-                      typedResults: items,
-                    ),
-                ];
+          prefetchHooksCallback:
+              ({nationalityId = false, completedReadingsTableRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (completedReadingsTableRefs) db.completedReadingsTable,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (nationalityId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.nationalityId,
+                                    referencedTable:
+                                        $$BooksPublishersTableTableReferences
+                                            ._nationalityIdTable(db),
+                                    referencedColumn:
+                                        $$BooksPublishersTableTableReferences
+                                            ._nationalityIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (completedReadingsTableRefs)
+                        await $_getPrefetchedData<
+                          BooksPublishersTableData,
+                          $BooksPublishersTableTable,
+                          CompletedReadingsTableData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$BooksPublishersTableTableReferences
+                              ._completedReadingsTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$BooksPublishersTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).completedReadingsTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.publisherId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -8555,7 +9083,10 @@ typedef $$BooksPublishersTableTableProcessedTableManager =
       $$BooksPublishersTableTableUpdateCompanionBuilder,
       (BooksPublishersTableData, $$BooksPublishersTableTableReferences),
       BooksPublishersTableData,
-      PrefetchHooks Function({bool completedReadingsTableRefs})
+      PrefetchHooks Function({
+        bool nationalityId,
+        bool completedReadingsTableRefs,
+      })
     >;
 typedef $$CompletedReadingsTableTableCreateCompanionBuilder =
     CompletedReadingsTableCompanion Function({
@@ -9328,6 +9859,7 @@ typedef $$FinnancesExpenseTableTableCreateCompanionBuilder =
       required String tag,
       required String description,
       required String value,
+      required bool isCashInflow,
       Value<DateTime?> deletedAt,
       Value<DateTime> createdAt,
       Value<int> rowid,
@@ -9339,6 +9871,7 @@ typedef $$FinnancesExpenseTableTableUpdateCompanionBuilder =
       Value<String> tag,
       Value<String> description,
       Value<String> value,
+      Value<bool> isCashInflow,
       Value<DateTime?> deletedAt,
       Value<DateTime> createdAt,
       Value<int> rowid,
@@ -9409,6 +9942,11 @@ class $$FinnancesExpenseTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<bool> get isCashInflow => $composableBuilder(
+    column: $table.isCashInflow,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<DateTime> get deletedAt => $composableBuilder(
     column: $table.deletedAt,
     builder: (column) => ColumnFilters(column),
@@ -9472,6 +10010,11 @@ class $$FinnancesExpenseTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get isCashInflow => $composableBuilder(
+    column: $table.isCashInflow,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
     column: $table.deletedAt,
     builder: (column) => ColumnOrderings(column),
@@ -9529,6 +10072,11 @@ class $$FinnancesExpenseTableTableAnnotationComposer
 
   GeneratedColumn<String> get value =>
       $composableBuilder(column: $table.value, builder: (column) => column);
+
+  GeneratedColumn<bool> get isCashInflow => $composableBuilder(
+    column: $table.isCashInflow,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<DateTime> get deletedAt =>
       $composableBuilder(column: $table.deletedAt, builder: (column) => column);
@@ -9605,6 +10153,7 @@ class $$FinnancesExpenseTableTableTableManager
                 Value<String> tag = const Value.absent(),
                 Value<String> description = const Value.absent(),
                 Value<String> value = const Value.absent(),
+                Value<bool> isCashInflow = const Value.absent(),
                 Value<DateTime?> deletedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -9614,6 +10163,7 @@ class $$FinnancesExpenseTableTableTableManager
                 tag: tag,
                 description: description,
                 value: value,
+                isCashInflow: isCashInflow,
                 deletedAt: deletedAt,
                 createdAt: createdAt,
                 rowid: rowid,
@@ -9625,6 +10175,7 @@ class $$FinnancesExpenseTableTableTableManager
                 required String tag,
                 required String description,
                 required String value,
+                required bool isCashInflow,
                 Value<DateTime?> deletedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -9634,6 +10185,7 @@ class $$FinnancesExpenseTableTableTableManager
                 tag: tag,
                 description: description,
                 value: value,
+                isCashInflow: isCashInflow,
                 deletedAt: deletedAt,
                 createdAt: createdAt,
                 rowid: rowid,
@@ -11494,12 +12046,12 @@ class $AppDatabaseManager {
   $AppDatabaseManager(this._db);
   $$FinnacesHeaderTableTableTableManager get finnacesHeaderTable =>
       $$FinnacesHeaderTableTableTableManager(_db, _db.finnacesHeaderTable);
+  $$BooksNacionalityTableTableTableManager get booksNacionalityTable =>
+      $$BooksNacionalityTableTableTableManager(_db, _db.booksNacionalityTable);
   $$BooksAuthorTableTableTableManager get booksAuthorTable =>
       $$BooksAuthorTableTableTableManager(_db, _db.booksAuthorTable);
   $$BooksGenderTableTableTableManager get booksGenderTable =>
       $$BooksGenderTableTableTableManager(_db, _db.booksGenderTable);
-  $$BooksNacionalityTableTableTableManager get booksNacionalityTable =>
-      $$BooksNacionalityTableTableTableManager(_db, _db.booksNacionalityTable);
   $$BooksPublishersTableTableTableManager get booksPublishersTable =>
       $$BooksPublishersTableTableTableManager(_db, _db.booksPublishersTable);
   $$CompletedReadingsTableTableTableManager get completedReadingsTable =>
