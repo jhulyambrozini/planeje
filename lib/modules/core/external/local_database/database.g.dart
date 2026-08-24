@@ -830,12 +830,12 @@ class $BooksAuthorTableTable extends BooksAuthorTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _nationalityMeta = const VerificationMeta(
-    'nationality',
+  static const VerificationMeta _nacionalityMeta = const VerificationMeta(
+    'nacionality',
   );
   @override
-  late final GeneratedColumn<String> nationality = GeneratedColumn<String>(
-    'nationality',
+  late final GeneratedColumn<String> nacionality = GeneratedColumn<String>(
+    'nacionality',
     aliasedName,
     true,
     type: DriftSqlType.string,
@@ -872,7 +872,7 @@ class $BooksAuthorTableTable extends BooksAuthorTable
     id,
     fullName,
     gender,
-    nationality,
+    nacionality,
     deletedAt,
     createdAt,
   ];
@@ -907,12 +907,12 @@ class $BooksAuthorTableTable extends BooksAuthorTable
         gender.isAcceptableOrUnknown(data['gender']!, _genderMeta),
       );
     }
-    if (data.containsKey('nationality')) {
+    if (data.containsKey('nacionality')) {
       context.handle(
-        _nationalityMeta,
-        nationality.isAcceptableOrUnknown(
-          data['nationality']!,
-          _nationalityMeta,
+        _nacionalityMeta,
+        nacionality.isAcceptableOrUnknown(
+          data['nacionality']!,
+          _nacionalityMeta,
         ),
       );
     }
@@ -949,9 +949,9 @@ class $BooksAuthorTableTable extends BooksAuthorTable
         DriftSqlType.string,
         data['${effectivePrefix}gender'],
       ),
-      nationality: attachedDatabase.typeMapping.read(
+      nacionality: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
-        data['${effectivePrefix}nationality'],
+        data['${effectivePrefix}nacionality'],
       ),
       deletedAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
@@ -975,14 +975,14 @@ class BooksAuthorTableData extends DataClass
   final String id;
   final String fullName;
   final String? gender;
-  final String? nationality;
+  final String? nacionality;
   final DateTime? deletedAt;
   final DateTime createdAt;
   const BooksAuthorTableData({
     required this.id,
     required this.fullName,
     this.gender,
-    this.nationality,
+    this.nacionality,
     this.deletedAt,
     required this.createdAt,
   });
@@ -994,8 +994,8 @@ class BooksAuthorTableData extends DataClass
     if (!nullToAbsent || gender != null) {
       map['gender'] = Variable<String>(gender);
     }
-    if (!nullToAbsent || nationality != null) {
-      map['nationality'] = Variable<String>(nationality);
+    if (!nullToAbsent || nacionality != null) {
+      map['nacionality'] = Variable<String>(nacionality);
     }
     if (!nullToAbsent || deletedAt != null) {
       map['deleted_at'] = Variable<DateTime>(deletedAt);
@@ -1011,9 +1011,9 @@ class BooksAuthorTableData extends DataClass
       gender: gender == null && nullToAbsent
           ? const Value.absent()
           : Value(gender),
-      nationality: nationality == null && nullToAbsent
+      nacionality: nacionality == null && nullToAbsent
           ? const Value.absent()
-          : Value(nationality),
+          : Value(nacionality),
       deletedAt: deletedAt == null && nullToAbsent
           ? const Value.absent()
           : Value(deletedAt),
@@ -1030,7 +1030,7 @@ class BooksAuthorTableData extends DataClass
       id: serializer.fromJson<String>(json['id']),
       fullName: serializer.fromJson<String>(json['fullName']),
       gender: serializer.fromJson<String?>(json['gender']),
-      nationality: serializer.fromJson<String?>(json['nationality']),
+      nacionality: serializer.fromJson<String?>(json['nacionality']),
       deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
@@ -1042,7 +1042,7 @@ class BooksAuthorTableData extends DataClass
       'id': serializer.toJson<String>(id),
       'fullName': serializer.toJson<String>(fullName),
       'gender': serializer.toJson<String?>(gender),
-      'nationality': serializer.toJson<String?>(nationality),
+      'nacionality': serializer.toJson<String?>(nacionality),
       'deletedAt': serializer.toJson<DateTime?>(deletedAt),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
@@ -1052,14 +1052,14 @@ class BooksAuthorTableData extends DataClass
     String? id,
     String? fullName,
     Value<String?> gender = const Value.absent(),
-    Value<String?> nationality = const Value.absent(),
+    Value<String?> nacionality = const Value.absent(),
     Value<DateTime?> deletedAt = const Value.absent(),
     DateTime? createdAt,
   }) => BooksAuthorTableData(
     id: id ?? this.id,
     fullName: fullName ?? this.fullName,
     gender: gender.present ? gender.value : this.gender,
-    nationality: nationality.present ? nationality.value : this.nationality,
+    nacionality: nacionality.present ? nacionality.value : this.nacionality,
     deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
     createdAt: createdAt ?? this.createdAt,
   );
@@ -1068,9 +1068,9 @@ class BooksAuthorTableData extends DataClass
       id: data.id.present ? data.id.value : this.id,
       fullName: data.fullName.present ? data.fullName.value : this.fullName,
       gender: data.gender.present ? data.gender.value : this.gender,
-      nationality: data.nationality.present
-          ? data.nationality.value
-          : this.nationality,
+      nacionality: data.nacionality.present
+          ? data.nacionality.value
+          : this.nacionality,
       deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
@@ -1082,7 +1082,7 @@ class BooksAuthorTableData extends DataClass
           ..write('id: $id, ')
           ..write('fullName: $fullName, ')
           ..write('gender: $gender, ')
-          ..write('nationality: $nationality, ')
+          ..write('nacionality: $nacionality, ')
           ..write('deletedAt: $deletedAt, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -1091,7 +1091,7 @@ class BooksAuthorTableData extends DataClass
 
   @override
   int get hashCode =>
-      Object.hash(id, fullName, gender, nationality, deletedAt, createdAt);
+      Object.hash(id, fullName, gender, nacionality, deletedAt, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1099,7 +1099,7 @@ class BooksAuthorTableData extends DataClass
           other.id == this.id &&
           other.fullName == this.fullName &&
           other.gender == this.gender &&
-          other.nationality == this.nationality &&
+          other.nacionality == this.nacionality &&
           other.deletedAt == this.deletedAt &&
           other.createdAt == this.createdAt);
 }
@@ -1108,7 +1108,7 @@ class BooksAuthorTableCompanion extends UpdateCompanion<BooksAuthorTableData> {
   final Value<String> id;
   final Value<String> fullName;
   final Value<String?> gender;
-  final Value<String?> nationality;
+  final Value<String?> nacionality;
   final Value<DateTime?> deletedAt;
   final Value<DateTime> createdAt;
   final Value<int> rowid;
@@ -1116,7 +1116,7 @@ class BooksAuthorTableCompanion extends UpdateCompanion<BooksAuthorTableData> {
     this.id = const Value.absent(),
     this.fullName = const Value.absent(),
     this.gender = const Value.absent(),
-    this.nationality = const Value.absent(),
+    this.nacionality = const Value.absent(),
     this.deletedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -1125,7 +1125,7 @@ class BooksAuthorTableCompanion extends UpdateCompanion<BooksAuthorTableData> {
     required String id,
     required String fullName,
     this.gender = const Value.absent(),
-    this.nationality = const Value.absent(),
+    this.nacionality = const Value.absent(),
     this.deletedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -1135,7 +1135,7 @@ class BooksAuthorTableCompanion extends UpdateCompanion<BooksAuthorTableData> {
     Expression<String>? id,
     Expression<String>? fullName,
     Expression<String>? gender,
-    Expression<String>? nationality,
+    Expression<String>? nacionality,
     Expression<DateTime>? deletedAt,
     Expression<DateTime>? createdAt,
     Expression<int>? rowid,
@@ -1144,7 +1144,7 @@ class BooksAuthorTableCompanion extends UpdateCompanion<BooksAuthorTableData> {
       if (id != null) 'id': id,
       if (fullName != null) 'full_name': fullName,
       if (gender != null) 'gender': gender,
-      if (nationality != null) 'nationality': nationality,
+      if (nacionality != null) 'nacionality': nacionality,
       if (deletedAt != null) 'deleted_at': deletedAt,
       if (createdAt != null) 'created_at': createdAt,
       if (rowid != null) 'rowid': rowid,
@@ -1155,7 +1155,7 @@ class BooksAuthorTableCompanion extends UpdateCompanion<BooksAuthorTableData> {
     Value<String>? id,
     Value<String>? fullName,
     Value<String?>? gender,
-    Value<String?>? nationality,
+    Value<String?>? nacionality,
     Value<DateTime?>? deletedAt,
     Value<DateTime>? createdAt,
     Value<int>? rowid,
@@ -1164,7 +1164,7 @@ class BooksAuthorTableCompanion extends UpdateCompanion<BooksAuthorTableData> {
       id: id ?? this.id,
       fullName: fullName ?? this.fullName,
       gender: gender ?? this.gender,
-      nationality: nationality ?? this.nationality,
+      nacionality: nacionality ?? this.nacionality,
       deletedAt: deletedAt ?? this.deletedAt,
       createdAt: createdAt ?? this.createdAt,
       rowid: rowid ?? this.rowid,
@@ -1183,8 +1183,8 @@ class BooksAuthorTableCompanion extends UpdateCompanion<BooksAuthorTableData> {
     if (gender.present) {
       map['gender'] = Variable<String>(gender.value);
     }
-    if (nationality.present) {
-      map['nationality'] = Variable<String>(nationality.value);
+    if (nacionality.present) {
+      map['nacionality'] = Variable<String>(nacionality.value);
     }
     if (deletedAt.present) {
       map['deleted_at'] = Variable<DateTime>(deletedAt.value);
@@ -1204,7 +1204,7 @@ class BooksAuthorTableCompanion extends UpdateCompanion<BooksAuthorTableData> {
           ..write('id: $id, ')
           ..write('fullName: $fullName, ')
           ..write('gender: $gender, ')
-          ..write('nationality: $nationality, ')
+          ..write('nacionality: $nacionality, ')
           ..write('deletedAt: $deletedAt, ')
           ..write('createdAt: $createdAt, ')
           ..write('rowid: $rowid')
@@ -1552,12 +1552,12 @@ class $BooksPublishersTableTable extends BooksPublishersTable
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _nationalityIdMeta = const VerificationMeta(
-    'nationalityId',
+  static const VerificationMeta _nacionalityIdMeta = const VerificationMeta(
+    'nacionalityId',
   );
   @override
-  late final GeneratedColumn<String> nationalityId = GeneratedColumn<String>(
-    'nationality_id',
+  late final GeneratedColumn<String> nacionalityId = GeneratedColumn<String>(
+    'nacionality_id',
     aliasedName,
     true,
     type: DriftSqlType.string,
@@ -1593,7 +1593,7 @@ class $BooksPublishersTableTable extends BooksPublishersTable
   List<GeneratedColumn> get $columns => [
     id,
     name,
-    nationalityId,
+    nacionalityId,
     deletedAt,
     createdAt,
   ];
@@ -1622,12 +1622,12 @@ class $BooksPublishersTableTable extends BooksPublishersTable
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
-    if (data.containsKey('nationality_id')) {
+    if (data.containsKey('nacionality_id')) {
       context.handle(
-        _nationalityIdMeta,
-        nationalityId.isAcceptableOrUnknown(
-          data['nationality_id']!,
-          _nationalityIdMeta,
+        _nacionalityIdMeta,
+        nacionalityId.isAcceptableOrUnknown(
+          data['nacionality_id']!,
+          _nacionalityIdMeta,
         ),
       );
     }
@@ -1663,9 +1663,9 @@ class $BooksPublishersTableTable extends BooksPublishersTable
         DriftSqlType.string,
         data['${effectivePrefix}name'],
       )!,
-      nationalityId: attachedDatabase.typeMapping.read(
+      nacionalityId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
-        data['${effectivePrefix}nationality_id'],
+        data['${effectivePrefix}nacionality_id'],
       ),
       deletedAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
@@ -1688,13 +1688,13 @@ class BooksPublishersTableData extends DataClass
     implements Insertable<BooksPublishersTableData> {
   final String id;
   final String name;
-  final String? nationalityId;
+  final String? nacionalityId;
   final DateTime? deletedAt;
   final DateTime createdAt;
   const BooksPublishersTableData({
     required this.id,
     required this.name,
-    this.nationalityId,
+    this.nacionalityId,
     this.deletedAt,
     required this.createdAt,
   });
@@ -1703,8 +1703,8 @@ class BooksPublishersTableData extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['name'] = Variable<String>(name);
-    if (!nullToAbsent || nationalityId != null) {
-      map['nationality_id'] = Variable<String>(nationalityId);
+    if (!nullToAbsent || nacionalityId != null) {
+      map['nacionality_id'] = Variable<String>(nacionalityId);
     }
     if (!nullToAbsent || deletedAt != null) {
       map['deleted_at'] = Variable<DateTime>(deletedAt);
@@ -1717,9 +1717,9 @@ class BooksPublishersTableData extends DataClass
     return BooksPublishersTableCompanion(
       id: Value(id),
       name: Value(name),
-      nationalityId: nationalityId == null && nullToAbsent
+      nacionalityId: nacionalityId == null && nullToAbsent
           ? const Value.absent()
-          : Value(nationalityId),
+          : Value(nacionalityId),
       deletedAt: deletedAt == null && nullToAbsent
           ? const Value.absent()
           : Value(deletedAt),
@@ -1735,7 +1735,7 @@ class BooksPublishersTableData extends DataClass
     return BooksPublishersTableData(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
-      nationalityId: serializer.fromJson<String?>(json['nationalityId']),
+      nacionalityId: serializer.fromJson<String?>(json['nacionalityId']),
       deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
@@ -1746,7 +1746,7 @@ class BooksPublishersTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
-      'nationalityId': serializer.toJson<String?>(nationalityId),
+      'nacionalityId': serializer.toJson<String?>(nacionalityId),
       'deletedAt': serializer.toJson<DateTime?>(deletedAt),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
@@ -1755,15 +1755,15 @@ class BooksPublishersTableData extends DataClass
   BooksPublishersTableData copyWith({
     String? id,
     String? name,
-    Value<String?> nationalityId = const Value.absent(),
+    Value<String?> nacionalityId = const Value.absent(),
     Value<DateTime?> deletedAt = const Value.absent(),
     DateTime? createdAt,
   }) => BooksPublishersTableData(
     id: id ?? this.id,
     name: name ?? this.name,
-    nationalityId: nationalityId.present
-        ? nationalityId.value
-        : this.nationalityId,
+    nacionalityId: nacionalityId.present
+        ? nacionalityId.value
+        : this.nacionalityId,
     deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
     createdAt: createdAt ?? this.createdAt,
   );
@@ -1773,9 +1773,9 @@ class BooksPublishersTableData extends DataClass
     return BooksPublishersTableData(
       id: data.id.present ? data.id.value : this.id,
       name: data.name.present ? data.name.value : this.name,
-      nationalityId: data.nationalityId.present
-          ? data.nationalityId.value
-          : this.nationalityId,
+      nacionalityId: data.nacionalityId.present
+          ? data.nacionalityId.value
+          : this.nacionalityId,
       deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
@@ -1786,7 +1786,7 @@ class BooksPublishersTableData extends DataClass
     return (StringBuffer('BooksPublishersTableData(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('nationalityId: $nationalityId, ')
+          ..write('nacionalityId: $nacionalityId, ')
           ..write('deletedAt: $deletedAt, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -1795,14 +1795,14 @@ class BooksPublishersTableData extends DataClass
 
   @override
   int get hashCode =>
-      Object.hash(id, name, nationalityId, deletedAt, createdAt);
+      Object.hash(id, name, nacionalityId, deletedAt, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is BooksPublishersTableData &&
           other.id == this.id &&
           other.name == this.name &&
-          other.nationalityId == this.nationalityId &&
+          other.nacionalityId == this.nacionalityId &&
           other.deletedAt == this.deletedAt &&
           other.createdAt == this.createdAt);
 }
@@ -1811,14 +1811,14 @@ class BooksPublishersTableCompanion
     extends UpdateCompanion<BooksPublishersTableData> {
   final Value<String> id;
   final Value<String> name;
-  final Value<String?> nationalityId;
+  final Value<String?> nacionalityId;
   final Value<DateTime?> deletedAt;
   final Value<DateTime> createdAt;
   final Value<int> rowid;
   const BooksPublishersTableCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
-    this.nationalityId = const Value.absent(),
+    this.nacionalityId = const Value.absent(),
     this.deletedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -1826,7 +1826,7 @@ class BooksPublishersTableCompanion
   BooksPublishersTableCompanion.insert({
     required String id,
     required String name,
-    this.nationalityId = const Value.absent(),
+    this.nacionalityId = const Value.absent(),
     this.deletedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -1835,7 +1835,7 @@ class BooksPublishersTableCompanion
   static Insertable<BooksPublishersTableData> custom({
     Expression<String>? id,
     Expression<String>? name,
-    Expression<String>? nationalityId,
+    Expression<String>? nacionalityId,
     Expression<DateTime>? deletedAt,
     Expression<DateTime>? createdAt,
     Expression<int>? rowid,
@@ -1843,7 +1843,7 @@ class BooksPublishersTableCompanion
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
-      if (nationalityId != null) 'nationality_id': nationalityId,
+      if (nacionalityId != null) 'nacionality_id': nacionalityId,
       if (deletedAt != null) 'deleted_at': deletedAt,
       if (createdAt != null) 'created_at': createdAt,
       if (rowid != null) 'rowid': rowid,
@@ -1853,7 +1853,7 @@ class BooksPublishersTableCompanion
   BooksPublishersTableCompanion copyWith({
     Value<String>? id,
     Value<String>? name,
-    Value<String?>? nationalityId,
+    Value<String?>? nacionalityId,
     Value<DateTime?>? deletedAt,
     Value<DateTime>? createdAt,
     Value<int>? rowid,
@@ -1861,7 +1861,7 @@ class BooksPublishersTableCompanion
     return BooksPublishersTableCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
-      nationalityId: nationalityId ?? this.nationalityId,
+      nacionalityId: nacionalityId ?? this.nacionalityId,
       deletedAt: deletedAt ?? this.deletedAt,
       createdAt: createdAt ?? this.createdAt,
       rowid: rowid ?? this.rowid,
@@ -1877,8 +1877,8 @@ class BooksPublishersTableCompanion
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
-    if (nationalityId.present) {
-      map['nationality_id'] = Variable<String>(nationalityId.value);
+    if (nacionalityId.present) {
+      map['nacionality_id'] = Variable<String>(nacionalityId.value);
     }
     if (deletedAt.present) {
       map['deleted_at'] = Variable<DateTime>(deletedAt.value);
@@ -1897,7 +1897,7 @@ class BooksPublishersTableCompanion
     return (StringBuffer('BooksPublishersTableCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('nationalityId: $nationalityId, ')
+          ..write('nacionalityId: $nacionalityId, ')
           ..write('deletedAt: $deletedAt, ')
           ..write('createdAt: $createdAt, ')
           ..write('rowid: $rowid')
@@ -1906,12 +1906,12 @@ class BooksPublishersTableCompanion
   }
 }
 
-class $CompletedReadingsTableTable extends CompletedReadingsTable
-    with TableInfo<$CompletedReadingsTableTable, CompletedReadingsTableData> {
+class $CompletedReadTableTable extends CompletedReadTable
+    with TableInfo<$CompletedReadTableTable, CompletedReadTableData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $CompletedReadingsTableTable(this.attachedDatabase, [this._alias]);
+  $CompletedReadTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
@@ -1932,20 +1932,6 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _authorIdMeta = const VerificationMeta(
-    'authorId',
-  );
-  @override
-  late final GeneratedColumn<String> authorId = GeneratedColumn<String>(
-    'author_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES books_author_table (id) ON DELETE CASCADE',
-    ),
-  );
   static const VerificationMeta _yearOfReadingMeta = const VerificationMeta(
     'yearOfReading',
   );
@@ -1957,26 +1943,12 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _genderIdMeta = const VerificationMeta(
-    'genderId',
+  static const VerificationMeta _nacionalityIdMeta = const VerificationMeta(
+    'nacionalityId',
   );
   @override
-  late final GeneratedColumn<String> genderId = GeneratedColumn<String>(
-    'gender_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES books_gender_table (id) ON DELETE CASCADE',
-    ),
-  );
-  static const VerificationMeta _nationalityIdMeta = const VerificationMeta(
-    'nationalityId',
-  );
-  @override
-  late final GeneratedColumn<String> nationalityId = GeneratedColumn<String>(
-    'nationality_id',
+  late final GeneratedColumn<String> nacionalityId = GeneratedColumn<String>(
+    'nacionality_id',
     aliasedName,
     true,
     type: DriftSqlType.string,
@@ -2047,10 +2019,8 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
   List<GeneratedColumn> get $columns => [
     id,
     bookName,
-    authorId,
     yearOfReading,
-    genderId,
-    nationalityId,
+    nacionalityId,
     publisherId,
     totalNumberOfReads,
     totalPages,
@@ -2061,10 +2031,10 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'completed_readings_table';
+  static const String $name = 'completed_read_table';
   @override
   VerificationContext validateIntegrity(
-    Insertable<CompletedReadingsTableData> instance, {
+    Insertable<CompletedReadTableData> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -2082,14 +2052,6 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
     } else if (isInserting) {
       context.missing(_bookNameMeta);
     }
-    if (data.containsKey('author_id')) {
-      context.handle(
-        _authorIdMeta,
-        authorId.isAcceptableOrUnknown(data['author_id']!, _authorIdMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_authorIdMeta);
-    }
     if (data.containsKey('year_of_reading')) {
       context.handle(
         _yearOfReadingMeta,
@@ -2101,20 +2063,12 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
     } else if (isInserting) {
       context.missing(_yearOfReadingMeta);
     }
-    if (data.containsKey('gender_id')) {
+    if (data.containsKey('nacionality_id')) {
       context.handle(
-        _genderIdMeta,
-        genderId.isAcceptableOrUnknown(data['gender_id']!, _genderIdMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_genderIdMeta);
-    }
-    if (data.containsKey('nationality_id')) {
-      context.handle(
-        _nationalityIdMeta,
-        nationalityId.isAcceptableOrUnknown(
-          data['nationality_id']!,
-          _nationalityIdMeta,
+        _nacionalityIdMeta,
+        nacionalityId.isAcceptableOrUnknown(
+          data['nacionality_id']!,
+          _nacionalityIdMeta,
         ),
       );
     }
@@ -2164,12 +2118,9 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  CompletedReadingsTableData map(
-    Map<String, dynamic> data, {
-    String? tablePrefix,
-  }) {
+  CompletedReadTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return CompletedReadingsTableData(
+    return CompletedReadTableData(
       id: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}id'],
@@ -2178,21 +2129,13 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
         DriftSqlType.string,
         data['${effectivePrefix}book_name'],
       )!,
-      authorId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}author_id'],
-      )!,
       yearOfReading: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}year_of_reading'],
       )!,
-      genderId: attachedDatabase.typeMapping.read(
+      nacionalityId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
-        data['${effectivePrefix}gender_id'],
-      )!,
-      nationalityId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}nationality_id'],
+        data['${effectivePrefix}nacionality_id'],
       ),
       publisherId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
@@ -2218,31 +2161,27 @@ class $CompletedReadingsTableTable extends CompletedReadingsTable
   }
 
   @override
-  $CompletedReadingsTableTable createAlias(String alias) {
-    return $CompletedReadingsTableTable(attachedDatabase, alias);
+  $CompletedReadTableTable createAlias(String alias) {
+    return $CompletedReadTableTable(attachedDatabase, alias);
   }
 }
 
-class CompletedReadingsTableData extends DataClass
-    implements Insertable<CompletedReadingsTableData> {
+class CompletedReadTableData extends DataClass
+    implements Insertable<CompletedReadTableData> {
   final String id;
   final String bookName;
-  final String authorId;
   final String yearOfReading;
-  final String genderId;
-  final String? nationalityId;
+  final String? nacionalityId;
   final String? publisherId;
   final int totalNumberOfReads;
   final int totalPages;
   final DateTime? deletedAt;
   final DateTime createdAt;
-  const CompletedReadingsTableData({
+  const CompletedReadTableData({
     required this.id,
     required this.bookName,
-    required this.authorId,
     required this.yearOfReading,
-    required this.genderId,
-    this.nationalityId,
+    this.nacionalityId,
     this.publisherId,
     required this.totalNumberOfReads,
     required this.totalPages,
@@ -2254,11 +2193,9 @@ class CompletedReadingsTableData extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['book_name'] = Variable<String>(bookName);
-    map['author_id'] = Variable<String>(authorId);
     map['year_of_reading'] = Variable<String>(yearOfReading);
-    map['gender_id'] = Variable<String>(genderId);
-    if (!nullToAbsent || nationalityId != null) {
-      map['nationality_id'] = Variable<String>(nationalityId);
+    if (!nullToAbsent || nacionalityId != null) {
+      map['nacionality_id'] = Variable<String>(nacionalityId);
     }
     if (!nullToAbsent || publisherId != null) {
       map['publisher_id'] = Variable<String>(publisherId);
@@ -2272,16 +2209,14 @@ class CompletedReadingsTableData extends DataClass
     return map;
   }
 
-  CompletedReadingsTableCompanion toCompanion(bool nullToAbsent) {
-    return CompletedReadingsTableCompanion(
+  CompletedReadTableCompanion toCompanion(bool nullToAbsent) {
+    return CompletedReadTableCompanion(
       id: Value(id),
       bookName: Value(bookName),
-      authorId: Value(authorId),
       yearOfReading: Value(yearOfReading),
-      genderId: Value(genderId),
-      nationalityId: nationalityId == null && nullToAbsent
+      nacionalityId: nacionalityId == null && nullToAbsent
           ? const Value.absent()
-          : Value(nationalityId),
+          : Value(nacionalityId),
       publisherId: publisherId == null && nullToAbsent
           ? const Value.absent()
           : Value(publisherId),
@@ -2294,18 +2229,16 @@ class CompletedReadingsTableData extends DataClass
     );
   }
 
-  factory CompletedReadingsTableData.fromJson(
+  factory CompletedReadTableData.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return CompletedReadingsTableData(
+    return CompletedReadTableData(
       id: serializer.fromJson<String>(json['id']),
       bookName: serializer.fromJson<String>(json['bookName']),
-      authorId: serializer.fromJson<String>(json['authorId']),
       yearOfReading: serializer.fromJson<String>(json['yearOfReading']),
-      genderId: serializer.fromJson<String>(json['genderId']),
-      nationalityId: serializer.fromJson<String?>(json['nationalityId']),
+      nacionalityId: serializer.fromJson<String?>(json['nacionalityId']),
       publisherId: serializer.fromJson<String?>(json['publisherId']),
       totalNumberOfReads: serializer.fromJson<int>(json['totalNumberOfReads']),
       totalPages: serializer.fromJson<int>(json['totalPages']),
@@ -2319,10 +2252,8 @@ class CompletedReadingsTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'bookName': serializer.toJson<String>(bookName),
-      'authorId': serializer.toJson<String>(authorId),
       'yearOfReading': serializer.toJson<String>(yearOfReading),
-      'genderId': serializer.toJson<String>(genderId),
-      'nationalityId': serializer.toJson<String?>(nationalityId),
+      'nacionalityId': serializer.toJson<String?>(nacionalityId),
       'publisherId': serializer.toJson<String?>(publisherId),
       'totalNumberOfReads': serializer.toJson<int>(totalNumberOfReads),
       'totalPages': serializer.toJson<int>(totalPages),
@@ -2331,47 +2262,39 @@ class CompletedReadingsTableData extends DataClass
     };
   }
 
-  CompletedReadingsTableData copyWith({
+  CompletedReadTableData copyWith({
     String? id,
     String? bookName,
-    String? authorId,
     String? yearOfReading,
-    String? genderId,
-    Value<String?> nationalityId = const Value.absent(),
+    Value<String?> nacionalityId = const Value.absent(),
     Value<String?> publisherId = const Value.absent(),
     int? totalNumberOfReads,
     int? totalPages,
     Value<DateTime?> deletedAt = const Value.absent(),
     DateTime? createdAt,
-  }) => CompletedReadingsTableData(
+  }) => CompletedReadTableData(
     id: id ?? this.id,
     bookName: bookName ?? this.bookName,
-    authorId: authorId ?? this.authorId,
     yearOfReading: yearOfReading ?? this.yearOfReading,
-    genderId: genderId ?? this.genderId,
-    nationalityId: nationalityId.present
-        ? nationalityId.value
-        : this.nationalityId,
+    nacionalityId: nacionalityId.present
+        ? nacionalityId.value
+        : this.nacionalityId,
     publisherId: publisherId.present ? publisherId.value : this.publisherId,
     totalNumberOfReads: totalNumberOfReads ?? this.totalNumberOfReads,
     totalPages: totalPages ?? this.totalPages,
     deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
     createdAt: createdAt ?? this.createdAt,
   );
-  CompletedReadingsTableData copyWithCompanion(
-    CompletedReadingsTableCompanion data,
-  ) {
-    return CompletedReadingsTableData(
+  CompletedReadTableData copyWithCompanion(CompletedReadTableCompanion data) {
+    return CompletedReadTableData(
       id: data.id.present ? data.id.value : this.id,
       bookName: data.bookName.present ? data.bookName.value : this.bookName,
-      authorId: data.authorId.present ? data.authorId.value : this.authorId,
       yearOfReading: data.yearOfReading.present
           ? data.yearOfReading.value
           : this.yearOfReading,
-      genderId: data.genderId.present ? data.genderId.value : this.genderId,
-      nationalityId: data.nationalityId.present
-          ? data.nationalityId.value
-          : this.nationalityId,
+      nacionalityId: data.nacionalityId.present
+          ? data.nacionalityId.value
+          : this.nacionalityId,
       publisherId: data.publisherId.present
           ? data.publisherId.value
           : this.publisherId,
@@ -2388,13 +2311,11 @@ class CompletedReadingsTableData extends DataClass
 
   @override
   String toString() {
-    return (StringBuffer('CompletedReadingsTableData(')
+    return (StringBuffer('CompletedReadTableData(')
           ..write('id: $id, ')
           ..write('bookName: $bookName, ')
-          ..write('authorId: $authorId, ')
           ..write('yearOfReading: $yearOfReading, ')
-          ..write('genderId: $genderId, ')
-          ..write('nationalityId: $nationalityId, ')
+          ..write('nacionalityId: $nacionalityId, ')
           ..write('publisherId: $publisherId, ')
           ..write('totalNumberOfReads: $totalNumberOfReads, ')
           ..write('totalPages: $totalPages, ')
@@ -2408,10 +2329,8 @@ class CompletedReadingsTableData extends DataClass
   int get hashCode => Object.hash(
     id,
     bookName,
-    authorId,
     yearOfReading,
-    genderId,
-    nationalityId,
+    nacionalityId,
     publisherId,
     totalNumberOfReads,
     totalPages,
@@ -2421,13 +2340,11 @@ class CompletedReadingsTableData extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is CompletedReadingsTableData &&
+      (other is CompletedReadTableData &&
           other.id == this.id &&
           other.bookName == this.bookName &&
-          other.authorId == this.authorId &&
           other.yearOfReading == this.yearOfReading &&
-          other.genderId == this.genderId &&
-          other.nationalityId == this.nationalityId &&
+          other.nacionalityId == this.nacionalityId &&
           other.publisherId == this.publisherId &&
           other.totalNumberOfReads == this.totalNumberOfReads &&
           other.totalPages == this.totalPages &&
@@ -2435,27 +2352,23 @@ class CompletedReadingsTableData extends DataClass
           other.createdAt == this.createdAt);
 }
 
-class CompletedReadingsTableCompanion
-    extends UpdateCompanion<CompletedReadingsTableData> {
+class CompletedReadTableCompanion
+    extends UpdateCompanion<CompletedReadTableData> {
   final Value<String> id;
   final Value<String> bookName;
-  final Value<String> authorId;
   final Value<String> yearOfReading;
-  final Value<String> genderId;
-  final Value<String?> nationalityId;
+  final Value<String?> nacionalityId;
   final Value<String?> publisherId;
   final Value<int> totalNumberOfReads;
   final Value<int> totalPages;
   final Value<DateTime?> deletedAt;
   final Value<DateTime> createdAt;
   final Value<int> rowid;
-  const CompletedReadingsTableCompanion({
+  const CompletedReadTableCompanion({
     this.id = const Value.absent(),
     this.bookName = const Value.absent(),
-    this.authorId = const Value.absent(),
     this.yearOfReading = const Value.absent(),
-    this.genderId = const Value.absent(),
-    this.nationalityId = const Value.absent(),
+    this.nacionalityId = const Value.absent(),
     this.publisherId = const Value.absent(),
     this.totalNumberOfReads = const Value.absent(),
     this.totalPages = const Value.absent(),
@@ -2463,13 +2376,11 @@ class CompletedReadingsTableCompanion
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  CompletedReadingsTableCompanion.insert({
+  CompletedReadTableCompanion.insert({
     required String id,
     required String bookName,
-    required String authorId,
     required String yearOfReading,
-    required String genderId,
-    this.nationalityId = const Value.absent(),
+    this.nacionalityId = const Value.absent(),
     this.publisherId = const Value.absent(),
     required int totalNumberOfReads,
     required int totalPages,
@@ -2478,18 +2389,14 @@ class CompletedReadingsTableCompanion
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        bookName = Value(bookName),
-       authorId = Value(authorId),
        yearOfReading = Value(yearOfReading),
-       genderId = Value(genderId),
        totalNumberOfReads = Value(totalNumberOfReads),
        totalPages = Value(totalPages);
-  static Insertable<CompletedReadingsTableData> custom({
+  static Insertable<CompletedReadTableData> custom({
     Expression<String>? id,
     Expression<String>? bookName,
-    Expression<String>? authorId,
     Expression<String>? yearOfReading,
-    Expression<String>? genderId,
-    Expression<String>? nationalityId,
+    Expression<String>? nacionalityId,
     Expression<String>? publisherId,
     Expression<int>? totalNumberOfReads,
     Expression<int>? totalPages,
@@ -2500,10 +2407,8 @@ class CompletedReadingsTableCompanion
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (bookName != null) 'book_name': bookName,
-      if (authorId != null) 'author_id': authorId,
       if (yearOfReading != null) 'year_of_reading': yearOfReading,
-      if (genderId != null) 'gender_id': genderId,
-      if (nationalityId != null) 'nationality_id': nationalityId,
+      if (nacionalityId != null) 'nacionality_id': nacionalityId,
       if (publisherId != null) 'publisher_id': publisherId,
       if (totalNumberOfReads != null)
         'total_number_of_reads': totalNumberOfReads,
@@ -2514,13 +2419,11 @@ class CompletedReadingsTableCompanion
     });
   }
 
-  CompletedReadingsTableCompanion copyWith({
+  CompletedReadTableCompanion copyWith({
     Value<String>? id,
     Value<String>? bookName,
-    Value<String>? authorId,
     Value<String>? yearOfReading,
-    Value<String>? genderId,
-    Value<String?>? nationalityId,
+    Value<String?>? nacionalityId,
     Value<String?>? publisherId,
     Value<int>? totalNumberOfReads,
     Value<int>? totalPages,
@@ -2528,13 +2431,11 @@ class CompletedReadingsTableCompanion
     Value<DateTime>? createdAt,
     Value<int>? rowid,
   }) {
-    return CompletedReadingsTableCompanion(
+    return CompletedReadTableCompanion(
       id: id ?? this.id,
       bookName: bookName ?? this.bookName,
-      authorId: authorId ?? this.authorId,
       yearOfReading: yearOfReading ?? this.yearOfReading,
-      genderId: genderId ?? this.genderId,
-      nationalityId: nationalityId ?? this.nationalityId,
+      nacionalityId: nacionalityId ?? this.nacionalityId,
       publisherId: publisherId ?? this.publisherId,
       totalNumberOfReads: totalNumberOfReads ?? this.totalNumberOfReads,
       totalPages: totalPages ?? this.totalPages,
@@ -2553,17 +2454,11 @@ class CompletedReadingsTableCompanion
     if (bookName.present) {
       map['book_name'] = Variable<String>(bookName.value);
     }
-    if (authorId.present) {
-      map['author_id'] = Variable<String>(authorId.value);
-    }
     if (yearOfReading.present) {
       map['year_of_reading'] = Variable<String>(yearOfReading.value);
     }
-    if (genderId.present) {
-      map['gender_id'] = Variable<String>(genderId.value);
-    }
-    if (nationalityId.present) {
-      map['nationality_id'] = Variable<String>(nationalityId.value);
+    if (nacionalityId.present) {
+      map['nacionality_id'] = Variable<String>(nacionalityId.value);
     }
     if (publisherId.present) {
       map['publisher_id'] = Variable<String>(publisherId.value);
@@ -2588,13 +2483,11 @@ class CompletedReadingsTableCompanion
 
   @override
   String toString() {
-    return (StringBuffer('CompletedReadingsTableCompanion(')
+    return (StringBuffer('CompletedReadTableCompanion(')
           ..write('id: $id, ')
           ..write('bookName: $bookName, ')
-          ..write('authorId: $authorId, ')
           ..write('yearOfReading: $yearOfReading, ')
-          ..write('genderId: $genderId, ')
-          ..write('nationalityId: $nationalityId, ')
+          ..write('nacionalityId: $nacionalityId, ')
           ..write('publisherId: $publisherId, ')
           ..write('totalNumberOfReads: $totalNumberOfReads, ')
           ..write('totalPages: $totalPages, ')
@@ -6841,6 +6734,558 @@ class ReminderAntiomceptivePillCompanion
   }
 }
 
+class $CompletedReadGenderTableTable extends CompletedReadGenderTable
+    with
+        TableInfo<
+          $CompletedReadGenderTableTable,
+          CompletedReadGenderTableData
+        > {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CompletedReadGenderTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bookIdMeta = const VerificationMeta('bookId');
+  @override
+  late final GeneratedColumn<String> bookId = GeneratedColumn<String>(
+    'book_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES completed_read_table (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _genderIdMeta = const VerificationMeta(
+    'genderId',
+  );
+  @override
+  late final GeneratedColumn<String> genderId = GeneratedColumn<String>(
+    'gender_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, bookId, genderId];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'completed_read_gender_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<CompletedReadGenderTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('book_id')) {
+      context.handle(
+        _bookIdMeta,
+        bookId.isAcceptableOrUnknown(data['book_id']!, _bookIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_bookIdMeta);
+    }
+    if (data.containsKey('gender_id')) {
+      context.handle(
+        _genderIdMeta,
+        genderId.isAcceptableOrUnknown(data['gender_id']!, _genderIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_genderIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  CompletedReadGenderTableData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CompletedReadGenderTableData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      bookId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}book_id'],
+      )!,
+      genderId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}gender_id'],
+      )!,
+    );
+  }
+
+  @override
+  $CompletedReadGenderTableTable createAlias(String alias) {
+    return $CompletedReadGenderTableTable(attachedDatabase, alias);
+  }
+}
+
+class CompletedReadGenderTableData extends DataClass
+    implements Insertable<CompletedReadGenderTableData> {
+  final String id;
+  final String bookId;
+  final String genderId;
+  const CompletedReadGenderTableData({
+    required this.id,
+    required this.bookId,
+    required this.genderId,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['book_id'] = Variable<String>(bookId);
+    map['gender_id'] = Variable<String>(genderId);
+    return map;
+  }
+
+  CompletedReadGenderTableCompanion toCompanion(bool nullToAbsent) {
+    return CompletedReadGenderTableCompanion(
+      id: Value(id),
+      bookId: Value(bookId),
+      genderId: Value(genderId),
+    );
+  }
+
+  factory CompletedReadGenderTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CompletedReadGenderTableData(
+      id: serializer.fromJson<String>(json['id']),
+      bookId: serializer.fromJson<String>(json['bookId']),
+      genderId: serializer.fromJson<String>(json['genderId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'bookId': serializer.toJson<String>(bookId),
+      'genderId': serializer.toJson<String>(genderId),
+    };
+  }
+
+  CompletedReadGenderTableData copyWith({
+    String? id,
+    String? bookId,
+    String? genderId,
+  }) => CompletedReadGenderTableData(
+    id: id ?? this.id,
+    bookId: bookId ?? this.bookId,
+    genderId: genderId ?? this.genderId,
+  );
+  CompletedReadGenderTableData copyWithCompanion(
+    CompletedReadGenderTableCompanion data,
+  ) {
+    return CompletedReadGenderTableData(
+      id: data.id.present ? data.id.value : this.id,
+      bookId: data.bookId.present ? data.bookId.value : this.bookId,
+      genderId: data.genderId.present ? data.genderId.value : this.genderId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CompletedReadGenderTableData(')
+          ..write('id: $id, ')
+          ..write('bookId: $bookId, ')
+          ..write('genderId: $genderId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, bookId, genderId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CompletedReadGenderTableData &&
+          other.id == this.id &&
+          other.bookId == this.bookId &&
+          other.genderId == this.genderId);
+}
+
+class CompletedReadGenderTableCompanion
+    extends UpdateCompanion<CompletedReadGenderTableData> {
+  final Value<String> id;
+  final Value<String> bookId;
+  final Value<String> genderId;
+  final Value<int> rowid;
+  const CompletedReadGenderTableCompanion({
+    this.id = const Value.absent(),
+    this.bookId = const Value.absent(),
+    this.genderId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CompletedReadGenderTableCompanion.insert({
+    required String id,
+    required String bookId,
+    required String genderId,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       bookId = Value(bookId),
+       genderId = Value(genderId);
+  static Insertable<CompletedReadGenderTableData> custom({
+    Expression<String>? id,
+    Expression<String>? bookId,
+    Expression<String>? genderId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (bookId != null) 'book_id': bookId,
+      if (genderId != null) 'gender_id': genderId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CompletedReadGenderTableCompanion copyWith({
+    Value<String>? id,
+    Value<String>? bookId,
+    Value<String>? genderId,
+    Value<int>? rowid,
+  }) {
+    return CompletedReadGenderTableCompanion(
+      id: id ?? this.id,
+      bookId: bookId ?? this.bookId,
+      genderId: genderId ?? this.genderId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (bookId.present) {
+      map['book_id'] = Variable<String>(bookId.value);
+    }
+    if (genderId.present) {
+      map['gender_id'] = Variable<String>(genderId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CompletedReadGenderTableCompanion(')
+          ..write('id: $id, ')
+          ..write('bookId: $bookId, ')
+          ..write('genderId: $genderId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CompletedReadAuthorTableTable extends CompletedReadAuthorTable
+    with
+        TableInfo<
+          $CompletedReadAuthorTableTable,
+          CompletedReadAuthorTableData
+        > {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CompletedReadAuthorTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bookIdMeta = const VerificationMeta('bookId');
+  @override
+  late final GeneratedColumn<String> bookId = GeneratedColumn<String>(
+    'book_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES completed_read_table (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _authorIdMeta = const VerificationMeta(
+    'authorId',
+  );
+  @override
+  late final GeneratedColumn<String> authorId = GeneratedColumn<String>(
+    'author_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, bookId, authorId];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'completed_read_author_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<CompletedReadAuthorTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('book_id')) {
+      context.handle(
+        _bookIdMeta,
+        bookId.isAcceptableOrUnknown(data['book_id']!, _bookIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_bookIdMeta);
+    }
+    if (data.containsKey('author_id')) {
+      context.handle(
+        _authorIdMeta,
+        authorId.isAcceptableOrUnknown(data['author_id']!, _authorIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_authorIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  CompletedReadAuthorTableData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CompletedReadAuthorTableData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      bookId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}book_id'],
+      )!,
+      authorId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}author_id'],
+      )!,
+    );
+  }
+
+  @override
+  $CompletedReadAuthorTableTable createAlias(String alias) {
+    return $CompletedReadAuthorTableTable(attachedDatabase, alias);
+  }
+}
+
+class CompletedReadAuthorTableData extends DataClass
+    implements Insertable<CompletedReadAuthorTableData> {
+  final String id;
+  final String bookId;
+  final String authorId;
+  const CompletedReadAuthorTableData({
+    required this.id,
+    required this.bookId,
+    required this.authorId,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['book_id'] = Variable<String>(bookId);
+    map['author_id'] = Variable<String>(authorId);
+    return map;
+  }
+
+  CompletedReadAuthorTableCompanion toCompanion(bool nullToAbsent) {
+    return CompletedReadAuthorTableCompanion(
+      id: Value(id),
+      bookId: Value(bookId),
+      authorId: Value(authorId),
+    );
+  }
+
+  factory CompletedReadAuthorTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CompletedReadAuthorTableData(
+      id: serializer.fromJson<String>(json['id']),
+      bookId: serializer.fromJson<String>(json['bookId']),
+      authorId: serializer.fromJson<String>(json['authorId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'bookId': serializer.toJson<String>(bookId),
+      'authorId': serializer.toJson<String>(authorId),
+    };
+  }
+
+  CompletedReadAuthorTableData copyWith({
+    String? id,
+    String? bookId,
+    String? authorId,
+  }) => CompletedReadAuthorTableData(
+    id: id ?? this.id,
+    bookId: bookId ?? this.bookId,
+    authorId: authorId ?? this.authorId,
+  );
+  CompletedReadAuthorTableData copyWithCompanion(
+    CompletedReadAuthorTableCompanion data,
+  ) {
+    return CompletedReadAuthorTableData(
+      id: data.id.present ? data.id.value : this.id,
+      bookId: data.bookId.present ? data.bookId.value : this.bookId,
+      authorId: data.authorId.present ? data.authorId.value : this.authorId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CompletedReadAuthorTableData(')
+          ..write('id: $id, ')
+          ..write('bookId: $bookId, ')
+          ..write('authorId: $authorId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, bookId, authorId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CompletedReadAuthorTableData &&
+          other.id == this.id &&
+          other.bookId == this.bookId &&
+          other.authorId == this.authorId);
+}
+
+class CompletedReadAuthorTableCompanion
+    extends UpdateCompanion<CompletedReadAuthorTableData> {
+  final Value<String> id;
+  final Value<String> bookId;
+  final Value<String> authorId;
+  final Value<int> rowid;
+  const CompletedReadAuthorTableCompanion({
+    this.id = const Value.absent(),
+    this.bookId = const Value.absent(),
+    this.authorId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CompletedReadAuthorTableCompanion.insert({
+    required String id,
+    required String bookId,
+    required String authorId,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       bookId = Value(bookId),
+       authorId = Value(authorId);
+  static Insertable<CompletedReadAuthorTableData> custom({
+    Expression<String>? id,
+    Expression<String>? bookId,
+    Expression<String>? authorId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (bookId != null) 'book_id': bookId,
+      if (authorId != null) 'author_id': authorId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CompletedReadAuthorTableCompanion copyWith({
+    Value<String>? id,
+    Value<String>? bookId,
+    Value<String>? authorId,
+    Value<int>? rowid,
+  }) {
+    return CompletedReadAuthorTableCompanion(
+      id: id ?? this.id,
+      bookId: bookId ?? this.bookId,
+      authorId: authorId ?? this.authorId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (bookId.present) {
+      map['book_id'] = Variable<String>(bookId.value);
+    }
+    if (authorId.present) {
+      map['author_id'] = Variable<String>(authorId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CompletedReadAuthorTableCompanion(')
+          ..write('id: $id, ')
+          ..write('bookId: $bookId, ')
+          ..write('authorId: $authorId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -6856,8 +7301,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   );
   late final $BooksPublishersTableTable booksPublishersTable =
       $BooksPublishersTableTable(this);
-  late final $CompletedReadingsTableTable completedReadingsTable =
-      $CompletedReadingsTableTable(this);
+  late final $CompletedReadTableTable completedReadTable =
+      $CompletedReadTableTable(this);
   late final $FinnancesExpenseTableTable finnancesExpenseTable =
       $FinnancesExpenseTableTable(this);
   late final $MenstrualCyclePredictionTable menstrualCyclePrediction =
@@ -6870,6 +7315,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $RecordsAntiomceptivePillTable(this);
   late final $ReminderAntiomceptivePillTable reminderAntiomceptivePill =
       $ReminderAntiomceptivePillTable(this);
+  late final $CompletedReadGenderTableTable completedReadGenderTable =
+      $CompletedReadGenderTableTable(this);
+  late final $CompletedReadAuthorTableTable completedReadAuthorTable =
+      $CompletedReadAuthorTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -6880,13 +7329,15 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     booksAuthorTable,
     booksGenderTable,
     booksPublishersTable,
-    completedReadingsTable,
+    completedReadTable,
     finnancesExpenseTable,
     menstrualCyclePrediction,
     menstrualCycleTrackingTable,
     mesnstrualCycleUserInfosTable,
     recordsAntiomceptivePill,
     reminderAntiomceptivePill,
+    completedReadGenderTable,
+    completedReadAuthorTable,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -6906,39 +7357,17 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
-        'books_author_table',
-        limitUpdateKind: UpdateKind.delete,
-      ),
-      result: [
-        TableUpdate('completed_readings_table', kind: UpdateKind.delete),
-      ],
-    ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'books_gender_table',
-        limitUpdateKind: UpdateKind.delete,
-      ),
-      result: [
-        TableUpdate('completed_readings_table', kind: UpdateKind.delete),
-      ],
-    ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName(
         'books_nacionality_table',
         limitUpdateKind: UpdateKind.delete,
       ),
-      result: [
-        TableUpdate('completed_readings_table', kind: UpdateKind.delete),
-      ],
+      result: [TableUpdate('completed_read_table', kind: UpdateKind.delete)],
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
         'books_publishers_table',
         limitUpdateKind: UpdateKind.delete,
       ),
-      result: [
-        TableUpdate('completed_readings_table', kind: UpdateKind.delete),
-      ],
+      result: [TableUpdate('completed_read_table', kind: UpdateKind.delete)],
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
@@ -6946,6 +7375,24 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         limitUpdateKind: UpdateKind.delete,
       ),
       result: [TableUpdate('finnances_expense_table', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'completed_read_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [
+        TableUpdate('completed_read_gender_table', kind: UpdateKind.delete),
+      ],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'completed_read_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [
+        TableUpdate('completed_read_author_table', kind: UpdateKind.delete),
+      ],
     ),
   ]);
 }
@@ -7359,7 +7806,7 @@ final class $$BooksNacionalityTableTableReferences
     db.booksAuthorTable,
     aliasName: $_aliasNameGenerator(
       db.booksNacionalityTable.id,
-      db.booksAuthorTable.nationality,
+      db.booksAuthorTable.nacionality,
     ),
   );
 
@@ -7367,7 +7814,7 @@ final class $$BooksNacionalityTableTableReferences
     final manager = $$BooksAuthorTableTableTableManager(
       $_db,
       $_db.booksAuthorTable,
-    ).filter((f) => f.nationality.id.sqlEquals($_itemColumn<String>('id')!));
+    ).filter((f) => f.nacionality.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(
       _booksAuthorTableRefsTable($_db),
@@ -7386,7 +7833,7 @@ final class $$BooksNacionalityTableTableReferences
         db.booksPublishersTable,
         aliasName: $_aliasNameGenerator(
           db.booksNacionalityTable.id,
-          db.booksPublishersTable.nationalityId,
+          db.booksPublishersTable.nacionalityId,
         ),
       );
 
@@ -7395,7 +7842,7 @@ final class $$BooksNacionalityTableTableReferences
     final manager = $$BooksPublishersTableTableTableManager(
       $_db,
       $_db.booksPublishersTable,
-    ).filter((f) => f.nationalityId.id.sqlEquals($_itemColumn<String>('id')!));
+    ).filter((f) => f.nacionalityId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(
       _booksPublishersTableRefsTable($_db),
@@ -7406,27 +7853,26 @@ final class $$BooksNacionalityTableTableReferences
   }
 
   static MultiTypedResultKey<
-    $CompletedReadingsTableTable,
-    List<CompletedReadingsTableData>
+    $CompletedReadTableTable,
+    List<CompletedReadTableData>
   >
-  _completedReadingsTableRefsTable(_$AppDatabase db) =>
+  _completedReadTableRefsTable(_$AppDatabase db) =>
       MultiTypedResultKey.fromTable(
-        db.completedReadingsTable,
+        db.completedReadTable,
         aliasName: $_aliasNameGenerator(
           db.booksNacionalityTable.id,
-          db.completedReadingsTable.nationalityId,
+          db.completedReadTable.nacionalityId,
         ),
       );
 
-  $$CompletedReadingsTableTableProcessedTableManager
-  get completedReadingsTableRefs {
-    final manager = $$CompletedReadingsTableTableTableManager(
+  $$CompletedReadTableTableProcessedTableManager get completedReadTableRefs {
+    final manager = $$CompletedReadTableTableTableManager(
       $_db,
-      $_db.completedReadingsTable,
-    ).filter((f) => f.nationalityId.id.sqlEquals($_itemColumn<String>('id')!));
+      $_db.completedReadTable,
+    ).filter((f) => f.nacionalityId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(
-      _completedReadingsTableRefsTable($_db),
+      _completedReadTableRefsTable($_db),
     );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
@@ -7470,7 +7916,7 @@ class $$BooksNacionalityTableTableFilterComposer
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.booksAuthorTable,
-      getReferencedColumn: (t) => t.nationality,
+      getReferencedColumn: (t) => t.nacionality,
       builder:
           (
             joinBuilder, {
@@ -7495,7 +7941,7 @@ class $$BooksNacionalityTableTableFilterComposer
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.booksPublishersTable,
-      getReferencedColumn: (t) => t.nationalityId,
+      getReferencedColumn: (t) => t.nacionalityId,
       builder:
           (
             joinBuilder, {
@@ -7513,29 +7959,28 @@ class $$BooksNacionalityTableTableFilterComposer
     return f(composer);
   }
 
-  Expression<bool> completedReadingsTableRefs(
-    Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
+  Expression<bool> completedReadTableRefs(
+    Expression<bool> Function($$CompletedReadTableTableFilterComposer f) f,
   ) {
-    final $$CompletedReadingsTableTableFilterComposer composer =
-        $composerBuilder(
-          composer: this,
-          getCurrentColumn: (t) => t.id,
-          referencedTable: $db.completedReadingsTable,
-          getReferencedColumn: (t) => t.nationalityId,
-          builder:
-              (
-                joinBuilder, {
-                $addJoinBuilderToRootComposer,
+    final $$CompletedReadTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.completedReadTable,
+      getReferencedColumn: (t) => t.nacionalityId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CompletedReadTableTableFilterComposer(
+            $db: $db,
+            $table: $db.completedReadTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
                 $removeJoinBuilderFromRootComposer,
-              }) => $$CompletedReadingsTableTableFilterComposer(
-                $db: $db,
-                $table: $db.completedReadingsTable,
-                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-                joinBuilder: joinBuilder,
-                $removeJoinBuilderFromRootComposer:
-                    $removeJoinBuilderFromRootComposer,
-              ),
-        );
+          ),
+    );
     return f(composer);
   }
 }
@@ -7600,7 +8045,7 @@ class $$BooksNacionalityTableTableAnnotationComposer
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.booksAuthorTable,
-      getReferencedColumn: (t) => t.nationality,
+      getReferencedColumn: (t) => t.nacionality,
       builder:
           (
             joinBuilder, {
@@ -7626,7 +8071,7 @@ class $$BooksNacionalityTableTableAnnotationComposer
           composer: this,
           getCurrentColumn: (t) => t.id,
           referencedTable: $db.booksPublishersTable,
-          getReferencedColumn: (t) => t.nationalityId,
+          getReferencedColumn: (t) => t.nacionalityId,
           builder:
               (
                 joinBuilder, {
@@ -7644,23 +8089,23 @@ class $$BooksNacionalityTableTableAnnotationComposer
     return f(composer);
   }
 
-  Expression<T> completedReadingsTableRefs<T extends Object>(
-    Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
+  Expression<T> completedReadTableRefs<T extends Object>(
+    Expression<T> Function($$CompletedReadTableTableAnnotationComposer a) f,
   ) {
-    final $$CompletedReadingsTableTableAnnotationComposer composer =
+    final $$CompletedReadTableTableAnnotationComposer composer =
         $composerBuilder(
           composer: this,
           getCurrentColumn: (t) => t.id,
-          referencedTable: $db.completedReadingsTable,
-          getReferencedColumn: (t) => t.nationalityId,
+          referencedTable: $db.completedReadTable,
+          getReferencedColumn: (t) => t.nacionalityId,
           builder:
               (
                 joinBuilder, {
                 $addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer,
-              }) => $$CompletedReadingsTableTableAnnotationComposer(
+              }) => $$CompletedReadTableTableAnnotationComposer(
                 $db: $db,
-                $table: $db.completedReadingsTable,
+                $table: $db.completedReadTable,
                 $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
                 joinBuilder: joinBuilder,
                 $removeJoinBuilderFromRootComposer:
@@ -7687,7 +8132,7 @@ class $$BooksNacionalityTableTableTableManager
           PrefetchHooks Function({
             bool booksAuthorTableRefs,
             bool booksPublishersTableRefs,
-            bool completedReadingsTableRefs,
+            bool completedReadTableRefs,
           })
         > {
   $$BooksNacionalityTableTableTableManager(
@@ -7752,14 +8197,14 @@ class $$BooksNacionalityTableTableTableManager
               ({
                 booksAuthorTableRefs = false,
                 booksPublishersTableRefs = false,
-                completedReadingsTableRefs = false,
+                completedReadTableRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
                     if (booksAuthorTableRefs) db.booksAuthorTable,
                     if (booksPublishersTableRefs) db.booksPublishersTable,
-                    if (completedReadingsTableRefs) db.completedReadingsTable,
+                    if (completedReadTableRefs) db.completedReadTable,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -7782,7 +8227,7 @@ class $$BooksNacionalityTableTableTableManager
                               ).booksAuthorTableRefs,
                           referencedItemsForCurrentItem:
                               (item, referencedItems) => referencedItems.where(
-                                (e) => e.nationality == item.id,
+                                (e) => e.nacionality == item.id,
                               ),
                           typedResults: items,
                         ),
@@ -7804,29 +8249,29 @@ class $$BooksNacionalityTableTableTableManager
                               ).booksPublishersTableRefs,
                           referencedItemsForCurrentItem:
                               (item, referencedItems) => referencedItems.where(
-                                (e) => e.nationalityId == item.id,
+                                (e) => e.nacionalityId == item.id,
                               ),
                           typedResults: items,
                         ),
-                      if (completedReadingsTableRefs)
+                      if (completedReadTableRefs)
                         await $_getPrefetchedData<
                           BooksNacionalityTableData,
                           $BooksNacionalityTableTable,
-                          CompletedReadingsTableData
+                          CompletedReadTableData
                         >(
                           currentTable: table,
                           referencedTable:
                               $$BooksNacionalityTableTableReferences
-                                  ._completedReadingsTableRefsTable(db),
+                                  ._completedReadTableRefsTable(db),
                           managerFromTypedResult: (p0) =>
                               $$BooksNacionalityTableTableReferences(
                                 db,
                                 table,
                                 p0,
-                              ).completedReadingsTableRefs,
+                              ).completedReadTableRefs,
                           referencedItemsForCurrentItem:
                               (item, referencedItems) => referencedItems.where(
-                                (e) => e.nationalityId == item.id,
+                                (e) => e.nacionalityId == item.id,
                               ),
                           typedResults: items,
                         ),
@@ -7853,7 +8298,7 @@ typedef $$BooksNacionalityTableTableProcessedTableManager =
       PrefetchHooks Function({
         bool booksAuthorTableRefs,
         bool booksPublishersTableRefs,
-        bool completedReadingsTableRefs,
+        bool completedReadTableRefs,
       })
     >;
 typedef $$BooksAuthorTableTableCreateCompanionBuilder =
@@ -7861,7 +8306,7 @@ typedef $$BooksAuthorTableTableCreateCompanionBuilder =
       required String id,
       required String fullName,
       Value<String?> gender,
-      Value<String?> nationality,
+      Value<String?> nacionality,
       Value<DateTime?> deletedAt,
       Value<DateTime> createdAt,
       Value<int> rowid,
@@ -7871,7 +8316,7 @@ typedef $$BooksAuthorTableTableUpdateCompanionBuilder =
       Value<String> id,
       Value<String> fullName,
       Value<String?> gender,
-      Value<String?> nationality,
+      Value<String?> nacionality,
       Value<DateTime?> deletedAt,
       Value<DateTime> createdAt,
       Value<int> rowid,
@@ -7890,53 +8335,25 @@ final class $$BooksAuthorTableTableReferences
     super.$_typedResult,
   );
 
-  static $BooksNacionalityTableTable _nationalityTable(_$AppDatabase db) =>
+  static $BooksNacionalityTableTable _nacionalityTable(_$AppDatabase db) =>
       db.booksNacionalityTable.createAlias(
         $_aliasNameGenerator(
-          db.booksAuthorTable.nationality,
+          db.booksAuthorTable.nacionality,
           db.booksNacionalityTable.id,
         ),
       );
 
-  $$BooksNacionalityTableTableProcessedTableManager? get nationality {
-    final $_column = $_itemColumn<String>('nationality');
+  $$BooksNacionalityTableTableProcessedTableManager? get nacionality {
+    final $_column = $_itemColumn<String>('nacionality');
     if ($_column == null) return null;
     final manager = $$BooksNacionalityTableTableTableManager(
       $_db,
       $_db.booksNacionalityTable,
     ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_nationalityTable($_db));
+    final item = $_typedResult.readTableOrNull(_nacionalityTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: [item]),
-    );
-  }
-
-  static MultiTypedResultKey<
-    $CompletedReadingsTableTable,
-    List<CompletedReadingsTableData>
-  >
-  _completedReadingsTableRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(
-        db.completedReadingsTable,
-        aliasName: $_aliasNameGenerator(
-          db.booksAuthorTable.id,
-          db.completedReadingsTable.authorId,
-        ),
-      );
-
-  $$CompletedReadingsTableTableProcessedTableManager
-  get completedReadingsTableRefs {
-    final manager = $$CompletedReadingsTableTableTableManager(
-      $_db,
-      $_db.completedReadingsTable,
-    ).filter((f) => f.authorId.id.sqlEquals($_itemColumn<String>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(
-      _completedReadingsTableRefsTable($_db),
-    );
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
     );
   }
 }
@@ -7975,11 +8392,11 @@ class $$BooksAuthorTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  $$BooksNacionalityTableTableFilterComposer get nationality {
+  $$BooksNacionalityTableTableFilterComposer get nacionality {
     final $$BooksNacionalityTableTableFilterComposer composer =
         $composerBuilder(
           composer: this,
-          getCurrentColumn: (t) => t.nationality,
+          getCurrentColumn: (t) => t.nacionality,
           referencedTable: $db.booksNacionalityTable,
           getReferencedColumn: (t) => t.id,
           builder:
@@ -7997,32 +8414,6 @@ class $$BooksAuthorTableTableFilterComposer
               ),
         );
     return composer;
-  }
-
-  Expression<bool> completedReadingsTableRefs(
-    Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
-  ) {
-    final $$CompletedReadingsTableTableFilterComposer composer =
-        $composerBuilder(
-          composer: this,
-          getCurrentColumn: (t) => t.id,
-          referencedTable: $db.completedReadingsTable,
-          getReferencedColumn: (t) => t.authorId,
-          builder:
-              (
-                joinBuilder, {
-                $addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer,
-              }) => $$CompletedReadingsTableTableFilterComposer(
-                $db: $db,
-                $table: $db.completedReadingsTable,
-                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-                joinBuilder: joinBuilder,
-                $removeJoinBuilderFromRootComposer:
-                    $removeJoinBuilderFromRootComposer,
-              ),
-        );
-    return f(composer);
   }
 }
 
@@ -8060,11 +8451,11 @@ class $$BooksAuthorTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  $$BooksNacionalityTableTableOrderingComposer get nationality {
+  $$BooksNacionalityTableTableOrderingComposer get nacionality {
     final $$BooksNacionalityTableTableOrderingComposer composer =
         $composerBuilder(
           composer: this,
-          getCurrentColumn: (t) => t.nationality,
+          getCurrentColumn: (t) => t.nacionality,
           referencedTable: $db.booksNacionalityTable,
           getReferencedColumn: (t) => t.id,
           builder:
@@ -8109,11 +8500,11 @@ class $$BooksAuthorTableTableAnnotationComposer
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
-  $$BooksNacionalityTableTableAnnotationComposer get nationality {
+  $$BooksNacionalityTableTableAnnotationComposer get nacionality {
     final $$BooksNacionalityTableTableAnnotationComposer composer =
         $composerBuilder(
           composer: this,
-          getCurrentColumn: (t) => t.nationality,
+          getCurrentColumn: (t) => t.nacionality,
           referencedTable: $db.booksNacionalityTable,
           getReferencedColumn: (t) => t.id,
           builder:
@@ -8132,32 +8523,6 @@ class $$BooksAuthorTableTableAnnotationComposer
         );
     return composer;
   }
-
-  Expression<T> completedReadingsTableRefs<T extends Object>(
-    Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
-  ) {
-    final $$CompletedReadingsTableTableAnnotationComposer composer =
-        $composerBuilder(
-          composer: this,
-          getCurrentColumn: (t) => t.id,
-          referencedTable: $db.completedReadingsTable,
-          getReferencedColumn: (t) => t.authorId,
-          builder:
-              (
-                joinBuilder, {
-                $addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer,
-              }) => $$CompletedReadingsTableTableAnnotationComposer(
-                $db: $db,
-                $table: $db.completedReadingsTable,
-                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-                joinBuilder: joinBuilder,
-                $removeJoinBuilderFromRootComposer:
-                    $removeJoinBuilderFromRootComposer,
-              ),
-        );
-    return f(composer);
-  }
 }
 
 class $$BooksAuthorTableTableTableManager
@@ -8173,10 +8538,7 @@ class $$BooksAuthorTableTableTableManager
           $$BooksAuthorTableTableUpdateCompanionBuilder,
           (BooksAuthorTableData, $$BooksAuthorTableTableReferences),
           BooksAuthorTableData,
-          PrefetchHooks Function({
-            bool nationality,
-            bool completedReadingsTableRefs,
-          })
+          PrefetchHooks Function({bool nacionality})
         > {
   $$BooksAuthorTableTableTableManager(
     _$AppDatabase db,
@@ -8196,7 +8558,7 @@ class $$BooksAuthorTableTableTableManager
                 Value<String> id = const Value.absent(),
                 Value<String> fullName = const Value.absent(),
                 Value<String?> gender = const Value.absent(),
-                Value<String?> nationality = const Value.absent(),
+                Value<String?> nacionality = const Value.absent(),
                 Value<DateTime?> deletedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -8204,7 +8566,7 @@ class $$BooksAuthorTableTableTableManager
                 id: id,
                 fullName: fullName,
                 gender: gender,
-                nationality: nationality,
+                nacionality: nacionality,
                 deletedAt: deletedAt,
                 createdAt: createdAt,
                 rowid: rowid,
@@ -8214,7 +8576,7 @@ class $$BooksAuthorTableTableTableManager
                 required String id,
                 required String fullName,
                 Value<String?> gender = const Value.absent(),
-                Value<String?> nationality = const Value.absent(),
+                Value<String?> nacionality = const Value.absent(),
                 Value<DateTime?> deletedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -8222,7 +8584,7 @@ class $$BooksAuthorTableTableTableManager
                 id: id,
                 fullName: fullName,
                 gender: gender,
-                nationality: nationality,
+                nacionality: nacionality,
                 deletedAt: deletedAt,
                 createdAt: createdAt,
                 rowid: rowid,
@@ -8235,74 +8597,49 @@ class $$BooksAuthorTableTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback:
-              ({nationality = false, completedReadingsTableRefs = false}) {
-                return PrefetchHooks(
-                  db: db,
-                  explicitlyWatchedTables: [
-                    if (completedReadingsTableRefs) db.completedReadingsTable,
-                  ],
-                  addJoins:
-                      <
-                        T extends TableManagerState<
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic
-                        >
-                      >(state) {
-                        if (nationality) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.nationality,
-                                    referencedTable:
-                                        $$BooksAuthorTableTableReferences
-                                            ._nationalityTable(db),
-                                    referencedColumn:
-                                        $$BooksAuthorTableTableReferences
-                                            ._nationalityTable(db)
-                                            .id,
-                                  )
-                                  as T;
-                        }
+          prefetchHooksCallback: ({nacionality = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (nacionality) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.nacionality,
+                                referencedTable:
+                                    $$BooksAuthorTableTableReferences
+                                        ._nacionalityTable(db),
+                                referencedColumn:
+                                    $$BooksAuthorTableTableReferences
+                                        ._nacionalityTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
 
-                        return state;
-                      },
-                  getPrefetchedDataCallback: (items) async {
-                    return [
-                      if (completedReadingsTableRefs)
-                        await $_getPrefetchedData<
-                          BooksAuthorTableData,
-                          $BooksAuthorTableTable,
-                          CompletedReadingsTableData
-                        >(
-                          currentTable: table,
-                          referencedTable: $$BooksAuthorTableTableReferences
-                              ._completedReadingsTableRefsTable(db),
-                          managerFromTypedResult: (p0) =>
-                              $$BooksAuthorTableTableReferences(
-                                db,
-                                table,
-                                p0,
-                              ).completedReadingsTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.authorId == item.id,
-                              ),
-                          typedResults: items,
-                        ),
-                    ];
+                    return state;
                   },
-                );
+              getPrefetchedDataCallback: (items) async {
+                return [];
               },
+            );
+          },
         ),
       );
 }
@@ -8319,10 +8656,7 @@ typedef $$BooksAuthorTableTableProcessedTableManager =
       $$BooksAuthorTableTableUpdateCompanionBuilder,
       (BooksAuthorTableData, $$BooksAuthorTableTableReferences),
       BooksAuthorTableData,
-      PrefetchHooks Function({
-        bool nationality,
-        bool completedReadingsTableRefs,
-      })
+      PrefetchHooks Function({bool nacionality})
     >;
 typedef $$BooksGenderTableTableCreateCompanionBuilder =
     BooksGenderTableCompanion Function({
@@ -8340,48 +8674,6 @@ typedef $$BooksGenderTableTableUpdateCompanionBuilder =
       Value<DateTime> createdAt,
       Value<int> rowid,
     });
-
-final class $$BooksGenderTableTableReferences
-    extends
-        BaseReferences<
-          _$AppDatabase,
-          $BooksGenderTableTable,
-          BooksGenderTableData
-        > {
-  $$BooksGenderTableTableReferences(
-    super.$_db,
-    super.$_table,
-    super.$_typedResult,
-  );
-
-  static MultiTypedResultKey<
-    $CompletedReadingsTableTable,
-    List<CompletedReadingsTableData>
-  >
-  _completedReadingsTableRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(
-        db.completedReadingsTable,
-        aliasName: $_aliasNameGenerator(
-          db.booksGenderTable.id,
-          db.completedReadingsTable.genderId,
-        ),
-      );
-
-  $$CompletedReadingsTableTableProcessedTableManager
-  get completedReadingsTableRefs {
-    final manager = $$CompletedReadingsTableTableTableManager(
-      $_db,
-      $_db.completedReadingsTable,
-    ).filter((f) => f.genderId.id.sqlEquals($_itemColumn<String>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(
-      _completedReadingsTableRefsTable($_db),
-    );
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
-  }
-}
 
 class $$BooksGenderTableTableFilterComposer
     extends Composer<_$AppDatabase, $BooksGenderTableTable> {
@@ -8411,32 +8703,6 @@ class $$BooksGenderTableTableFilterComposer
     column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
-
-  Expression<bool> completedReadingsTableRefs(
-    Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
-  ) {
-    final $$CompletedReadingsTableTableFilterComposer composer =
-        $composerBuilder(
-          composer: this,
-          getCurrentColumn: (t) => t.id,
-          referencedTable: $db.completedReadingsTable,
-          getReferencedColumn: (t) => t.genderId,
-          builder:
-              (
-                joinBuilder, {
-                $addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer,
-              }) => $$CompletedReadingsTableTableFilterComposer(
-                $db: $db,
-                $table: $db.completedReadingsTable,
-                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-                joinBuilder: joinBuilder,
-                $removeJoinBuilderFromRootComposer:
-                    $removeJoinBuilderFromRootComposer,
-              ),
-        );
-    return f(composer);
-  }
 }
 
 class $$BooksGenderTableTableOrderingComposer
@@ -8491,32 +8757,6 @@ class $$BooksGenderTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
-
-  Expression<T> completedReadingsTableRefs<T extends Object>(
-    Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
-  ) {
-    final $$CompletedReadingsTableTableAnnotationComposer composer =
-        $composerBuilder(
-          composer: this,
-          getCurrentColumn: (t) => t.id,
-          referencedTable: $db.completedReadingsTable,
-          getReferencedColumn: (t) => t.genderId,
-          builder:
-              (
-                joinBuilder, {
-                $addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer,
-              }) => $$CompletedReadingsTableTableAnnotationComposer(
-                $db: $db,
-                $table: $db.completedReadingsTable,
-                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-                joinBuilder: joinBuilder,
-                $removeJoinBuilderFromRootComposer:
-                    $removeJoinBuilderFromRootComposer,
-              ),
-        );
-    return f(composer);
-  }
 }
 
 class $$BooksGenderTableTableTableManager
@@ -8530,9 +8770,16 @@ class $$BooksGenderTableTableTableManager
           $$BooksGenderTableTableAnnotationComposer,
           $$BooksGenderTableTableCreateCompanionBuilder,
           $$BooksGenderTableTableUpdateCompanionBuilder,
-          (BooksGenderTableData, $$BooksGenderTableTableReferences),
+          (
+            BooksGenderTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $BooksGenderTableTable,
+              BooksGenderTableData
+            >,
+          ),
           BooksGenderTableData,
-          PrefetchHooks Function({bool completedReadingsTableRefs})
+          PrefetchHooks Function()
         > {
   $$BooksGenderTableTableTableManager(
     _$AppDatabase db,
@@ -8576,45 +8823,9 @@ class $$BooksGenderTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$BooksGenderTableTableReferences(db, table, e),
-                ),
-              )
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: ({completedReadingsTableRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (completedReadingsTableRefs) db.completedReadingsTable,
-              ],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (completedReadingsTableRefs)
-                    await $_getPrefetchedData<
-                      BooksGenderTableData,
-                      $BooksGenderTableTable,
-                      CompletedReadingsTableData
-                    >(
-                      currentTable: table,
-                      referencedTable: $$BooksGenderTableTableReferences
-                          ._completedReadingsTableRefsTable(db),
-                      managerFromTypedResult: (p0) =>
-                          $$BooksGenderTableTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).completedReadingsTableRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.genderId == item.id),
-                      typedResults: items,
-                    ),
-                ];
-              },
-            );
-          },
+          prefetchHooksCallback: null,
         ),
       );
 }
@@ -8629,15 +8840,22 @@ typedef $$BooksGenderTableTableProcessedTableManager =
       $$BooksGenderTableTableAnnotationComposer,
       $$BooksGenderTableTableCreateCompanionBuilder,
       $$BooksGenderTableTableUpdateCompanionBuilder,
-      (BooksGenderTableData, $$BooksGenderTableTableReferences),
+      (
+        BooksGenderTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $BooksGenderTableTable,
+          BooksGenderTableData
+        >,
+      ),
       BooksGenderTableData,
-      PrefetchHooks Function({bool completedReadingsTableRefs})
+      PrefetchHooks Function()
     >;
 typedef $$BooksPublishersTableTableCreateCompanionBuilder =
     BooksPublishersTableCompanion Function({
       required String id,
       required String name,
-      Value<String?> nationalityId,
+      Value<String?> nacionalityId,
       Value<DateTime?> deletedAt,
       Value<DateTime> createdAt,
       Value<int> rowid,
@@ -8646,7 +8864,7 @@ typedef $$BooksPublishersTableTableUpdateCompanionBuilder =
     BooksPublishersTableCompanion Function({
       Value<String> id,
       Value<String> name,
-      Value<String?> nationalityId,
+      Value<String?> nacionalityId,
       Value<DateTime?> deletedAt,
       Value<DateTime> createdAt,
       Value<int> rowid,
@@ -8665,22 +8883,22 @@ final class $$BooksPublishersTableTableReferences
     super.$_typedResult,
   );
 
-  static $BooksNacionalityTableTable _nationalityIdTable(_$AppDatabase db) =>
+  static $BooksNacionalityTableTable _nacionalityIdTable(_$AppDatabase db) =>
       db.booksNacionalityTable.createAlias(
         $_aliasNameGenerator(
-          db.booksPublishersTable.nationalityId,
+          db.booksPublishersTable.nacionalityId,
           db.booksNacionalityTable.id,
         ),
       );
 
-  $$BooksNacionalityTableTableProcessedTableManager? get nationalityId {
-    final $_column = $_itemColumn<String>('nationality_id');
+  $$BooksNacionalityTableTableProcessedTableManager? get nacionalityId {
+    final $_column = $_itemColumn<String>('nacionality_id');
     if ($_column == null) return null;
     final manager = $$BooksNacionalityTableTableTableManager(
       $_db,
       $_db.booksNacionalityTable,
     ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_nationalityIdTable($_db));
+    final item = $_typedResult.readTableOrNull(_nacionalityIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: [item]),
@@ -8688,27 +8906,26 @@ final class $$BooksPublishersTableTableReferences
   }
 
   static MultiTypedResultKey<
-    $CompletedReadingsTableTable,
-    List<CompletedReadingsTableData>
+    $CompletedReadTableTable,
+    List<CompletedReadTableData>
   >
-  _completedReadingsTableRefsTable(_$AppDatabase db) =>
+  _completedReadTableRefsTable(_$AppDatabase db) =>
       MultiTypedResultKey.fromTable(
-        db.completedReadingsTable,
+        db.completedReadTable,
         aliasName: $_aliasNameGenerator(
           db.booksPublishersTable.id,
-          db.completedReadingsTable.publisherId,
+          db.completedReadTable.publisherId,
         ),
       );
 
-  $$CompletedReadingsTableTableProcessedTableManager
-  get completedReadingsTableRefs {
-    final manager = $$CompletedReadingsTableTableTableManager(
+  $$CompletedReadTableTableProcessedTableManager get completedReadTableRefs {
+    final manager = $$CompletedReadTableTableTableManager(
       $_db,
-      $_db.completedReadingsTable,
+      $_db.completedReadTable,
     ).filter((f) => f.publisherId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(
-      _completedReadingsTableRefsTable($_db),
+      _completedReadTableRefsTable($_db),
     );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
@@ -8745,11 +8962,11 @@ class $$BooksPublishersTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  $$BooksNacionalityTableTableFilterComposer get nationalityId {
+  $$BooksNacionalityTableTableFilterComposer get nacionalityId {
     final $$BooksNacionalityTableTableFilterComposer composer =
         $composerBuilder(
           composer: this,
-          getCurrentColumn: (t) => t.nationalityId,
+          getCurrentColumn: (t) => t.nacionalityId,
           referencedTable: $db.booksNacionalityTable,
           getReferencedColumn: (t) => t.id,
           builder:
@@ -8769,29 +8986,28 @@ class $$BooksPublishersTableTableFilterComposer
     return composer;
   }
 
-  Expression<bool> completedReadingsTableRefs(
-    Expression<bool> Function($$CompletedReadingsTableTableFilterComposer f) f,
+  Expression<bool> completedReadTableRefs(
+    Expression<bool> Function($$CompletedReadTableTableFilterComposer f) f,
   ) {
-    final $$CompletedReadingsTableTableFilterComposer composer =
-        $composerBuilder(
-          composer: this,
-          getCurrentColumn: (t) => t.id,
-          referencedTable: $db.completedReadingsTable,
-          getReferencedColumn: (t) => t.publisherId,
-          builder:
-              (
-                joinBuilder, {
-                $addJoinBuilderToRootComposer,
+    final $$CompletedReadTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.completedReadTable,
+      getReferencedColumn: (t) => t.publisherId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CompletedReadTableTableFilterComposer(
+            $db: $db,
+            $table: $db.completedReadTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
                 $removeJoinBuilderFromRootComposer,
-              }) => $$CompletedReadingsTableTableFilterComposer(
-                $db: $db,
-                $table: $db.completedReadingsTable,
-                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-                joinBuilder: joinBuilder,
-                $removeJoinBuilderFromRootComposer:
-                    $removeJoinBuilderFromRootComposer,
-              ),
-        );
+          ),
+    );
     return f(composer);
   }
 }
@@ -8825,11 +9041,11 @@ class $$BooksPublishersTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  $$BooksNacionalityTableTableOrderingComposer get nationalityId {
+  $$BooksNacionalityTableTableOrderingComposer get nacionalityId {
     final $$BooksNacionalityTableTableOrderingComposer composer =
         $composerBuilder(
           composer: this,
-          getCurrentColumn: (t) => t.nationalityId,
+          getCurrentColumn: (t) => t.nacionalityId,
           referencedTable: $db.booksNacionalityTable,
           getReferencedColumn: (t) => t.id,
           builder:
@@ -8871,11 +9087,11 @@ class $$BooksPublishersTableTableAnnotationComposer
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
-  $$BooksNacionalityTableTableAnnotationComposer get nationalityId {
+  $$BooksNacionalityTableTableAnnotationComposer get nacionalityId {
     final $$BooksNacionalityTableTableAnnotationComposer composer =
         $composerBuilder(
           composer: this,
-          getCurrentColumn: (t) => t.nationalityId,
+          getCurrentColumn: (t) => t.nacionalityId,
           referencedTable: $db.booksNacionalityTable,
           getReferencedColumn: (t) => t.id,
           builder:
@@ -8895,23 +9111,23 @@ class $$BooksPublishersTableTableAnnotationComposer
     return composer;
   }
 
-  Expression<T> completedReadingsTableRefs<T extends Object>(
-    Expression<T> Function($$CompletedReadingsTableTableAnnotationComposer a) f,
+  Expression<T> completedReadTableRefs<T extends Object>(
+    Expression<T> Function($$CompletedReadTableTableAnnotationComposer a) f,
   ) {
-    final $$CompletedReadingsTableTableAnnotationComposer composer =
+    final $$CompletedReadTableTableAnnotationComposer composer =
         $composerBuilder(
           composer: this,
           getCurrentColumn: (t) => t.id,
-          referencedTable: $db.completedReadingsTable,
+          referencedTable: $db.completedReadTable,
           getReferencedColumn: (t) => t.publisherId,
           builder:
               (
                 joinBuilder, {
                 $addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer,
-              }) => $$CompletedReadingsTableTableAnnotationComposer(
+              }) => $$CompletedReadTableTableAnnotationComposer(
                 $db: $db,
-                $table: $db.completedReadingsTable,
+                $table: $db.completedReadTable,
                 $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
                 joinBuilder: joinBuilder,
                 $removeJoinBuilderFromRootComposer:
@@ -8936,8 +9152,8 @@ class $$BooksPublishersTableTableTableManager
           (BooksPublishersTableData, $$BooksPublishersTableTableReferences),
           BooksPublishersTableData,
           PrefetchHooks Function({
-            bool nationalityId,
-            bool completedReadingsTableRefs,
+            bool nacionalityId,
+            bool completedReadTableRefs,
           })
         > {
   $$BooksPublishersTableTableTableManager(
@@ -8963,14 +9179,14 @@ class $$BooksPublishersTableTableTableManager
               ({
                 Value<String> id = const Value.absent(),
                 Value<String> name = const Value.absent(),
-                Value<String?> nationalityId = const Value.absent(),
+                Value<String?> nacionalityId = const Value.absent(),
                 Value<DateTime?> deletedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => BooksPublishersTableCompanion(
                 id: id,
                 name: name,
-                nationalityId: nationalityId,
+                nacionalityId: nacionalityId,
                 deletedAt: deletedAt,
                 createdAt: createdAt,
                 rowid: rowid,
@@ -8979,14 +9195,14 @@ class $$BooksPublishersTableTableTableManager
               ({
                 required String id,
                 required String name,
-                Value<String?> nationalityId = const Value.absent(),
+                Value<String?> nacionalityId = const Value.absent(),
                 Value<DateTime?> deletedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => BooksPublishersTableCompanion.insert(
                 id: id,
                 name: name,
-                nationalityId: nationalityId,
+                nacionalityId: nacionalityId,
                 deletedAt: deletedAt,
                 createdAt: createdAt,
                 rowid: rowid,
@@ -9000,11 +9216,11 @@ class $$BooksPublishersTableTableTableManager
               )
               .toList(),
           prefetchHooksCallback:
-              ({nationalityId = false, completedReadingsTableRefs = false}) {
+              ({nacionalityId = false, completedReadTableRefs = false}) {
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
-                    if (completedReadingsTableRefs) db.completedReadingsTable,
+                    if (completedReadTableRefs) db.completedReadTable,
                   ],
                   addJoins:
                       <
@@ -9022,17 +9238,17 @@ class $$BooksPublishersTableTableTableManager
                           dynamic
                         >
                       >(state) {
-                        if (nationalityId) {
+                        if (nacionalityId) {
                           state =
                               state.withJoin(
                                     currentTable: table,
-                                    currentColumn: table.nationalityId,
+                                    currentColumn: table.nacionalityId,
                                     referencedTable:
                                         $$BooksPublishersTableTableReferences
-                                            ._nationalityIdTable(db),
+                                            ._nacionalityIdTable(db),
                                     referencedColumn:
                                         $$BooksPublishersTableTableReferences
-                                            ._nationalityIdTable(db)
+                                            ._nacionalityIdTable(db)
                                             .id,
                                   )
                                   as T;
@@ -9042,21 +9258,21 @@ class $$BooksPublishersTableTableTableManager
                       },
                   getPrefetchedDataCallback: (items) async {
                     return [
-                      if (completedReadingsTableRefs)
+                      if (completedReadTableRefs)
                         await $_getPrefetchedData<
                           BooksPublishersTableData,
                           $BooksPublishersTableTable,
-                          CompletedReadingsTableData
+                          CompletedReadTableData
                         >(
                           currentTable: table,
                           referencedTable: $$BooksPublishersTableTableReferences
-                              ._completedReadingsTableRefsTable(db),
+                              ._completedReadTableRefsTable(db),
                           managerFromTypedResult: (p0) =>
                               $$BooksPublishersTableTableReferences(
                                 db,
                                 table,
                                 p0,
-                              ).completedReadingsTableRefs,
+                              ).completedReadTableRefs,
                           referencedItemsForCurrentItem:
                               (item, referencedItems) => referencedItems.where(
                                 (e) => e.publisherId == item.id,
@@ -9083,19 +9299,14 @@ typedef $$BooksPublishersTableTableProcessedTableManager =
       $$BooksPublishersTableTableUpdateCompanionBuilder,
       (BooksPublishersTableData, $$BooksPublishersTableTableReferences),
       BooksPublishersTableData,
-      PrefetchHooks Function({
-        bool nationalityId,
-        bool completedReadingsTableRefs,
-      })
+      PrefetchHooks Function({bool nacionalityId, bool completedReadTableRefs})
     >;
-typedef $$CompletedReadingsTableTableCreateCompanionBuilder =
-    CompletedReadingsTableCompanion Function({
+typedef $$CompletedReadTableTableCreateCompanionBuilder =
+    CompletedReadTableCompanion Function({
       required String id,
       required String bookName,
-      required String authorId,
       required String yearOfReading,
-      required String genderId,
-      Value<String?> nationalityId,
+      Value<String?> nacionalityId,
       Value<String?> publisherId,
       required int totalNumberOfReads,
       required int totalPages,
@@ -9103,14 +9314,12 @@ typedef $$CompletedReadingsTableTableCreateCompanionBuilder =
       Value<DateTime> createdAt,
       Value<int> rowid,
     });
-typedef $$CompletedReadingsTableTableUpdateCompanionBuilder =
-    CompletedReadingsTableCompanion Function({
+typedef $$CompletedReadTableTableUpdateCompanionBuilder =
+    CompletedReadTableCompanion Function({
       Value<String> id,
       Value<String> bookName,
-      Value<String> authorId,
       Value<String> yearOfReading,
-      Value<String> genderId,
-      Value<String?> nationalityId,
+      Value<String?> nacionalityId,
       Value<String?> publisherId,
       Value<int> totalNumberOfReads,
       Value<int> totalPages,
@@ -9119,79 +9328,35 @@ typedef $$CompletedReadingsTableTableUpdateCompanionBuilder =
       Value<int> rowid,
     });
 
-final class $$CompletedReadingsTableTableReferences
+final class $$CompletedReadTableTableReferences
     extends
         BaseReferences<
           _$AppDatabase,
-          $CompletedReadingsTableTable,
-          CompletedReadingsTableData
+          $CompletedReadTableTable,
+          CompletedReadTableData
         > {
-  $$CompletedReadingsTableTableReferences(
+  $$CompletedReadTableTableReferences(
     super.$_db,
     super.$_table,
     super.$_typedResult,
   );
 
-  static $BooksAuthorTableTable _authorIdTable(_$AppDatabase db) =>
-      db.booksAuthorTable.createAlias(
-        $_aliasNameGenerator(
-          db.completedReadingsTable.authorId,
-          db.booksAuthorTable.id,
-        ),
-      );
-
-  $$BooksAuthorTableTableProcessedTableManager get authorId {
-    final $_column = $_itemColumn<String>('author_id')!;
-
-    final manager = $$BooksAuthorTableTableTableManager(
-      $_db,
-      $_db.booksAuthorTable,
-    ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_authorIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
-  }
-
-  static $BooksGenderTableTable _genderIdTable(_$AppDatabase db) =>
-      db.booksGenderTable.createAlias(
-        $_aliasNameGenerator(
-          db.completedReadingsTable.genderId,
-          db.booksGenderTable.id,
-        ),
-      );
-
-  $$BooksGenderTableTableProcessedTableManager get genderId {
-    final $_column = $_itemColumn<String>('gender_id')!;
-
-    final manager = $$BooksGenderTableTableTableManager(
-      $_db,
-      $_db.booksGenderTable,
-    ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_genderIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
-  }
-
-  static $BooksNacionalityTableTable _nationalityIdTable(_$AppDatabase db) =>
+  static $BooksNacionalityTableTable _nacionalityIdTable(_$AppDatabase db) =>
       db.booksNacionalityTable.createAlias(
         $_aliasNameGenerator(
-          db.completedReadingsTable.nationalityId,
+          db.completedReadTable.nacionalityId,
           db.booksNacionalityTable.id,
         ),
       );
 
-  $$BooksNacionalityTableTableProcessedTableManager? get nationalityId {
-    final $_column = $_itemColumn<String>('nationality_id');
+  $$BooksNacionalityTableTableProcessedTableManager? get nacionalityId {
+    final $_column = $_itemColumn<String>('nacionality_id');
     if ($_column == null) return null;
     final manager = $$BooksNacionalityTableTableTableManager(
       $_db,
       $_db.booksNacionalityTable,
     ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_nationalityIdTable($_db));
+    final item = $_typedResult.readTableOrNull(_nacionalityIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: [item]),
@@ -9201,7 +9366,7 @@ final class $$CompletedReadingsTableTableReferences
   static $BooksPublishersTableTable _publisherIdTable(_$AppDatabase db) =>
       db.booksPublishersTable.createAlias(
         $_aliasNameGenerator(
-          db.completedReadingsTable.publisherId,
+          db.completedReadTable.publisherId,
           db.booksPublishersTable.id,
         ),
       );
@@ -9219,11 +9384,67 @@ final class $$CompletedReadingsTableTableReferences
       manager.$state.copyWith(prefetchedData: [item]),
     );
   }
+
+  static MultiTypedResultKey<
+    $CompletedReadGenderTableTable,
+    List<CompletedReadGenderTableData>
+  >
+  _completedReadGenderTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.completedReadGenderTable,
+        aliasName: $_aliasNameGenerator(
+          db.completedReadTable.id,
+          db.completedReadGenderTable.bookId,
+        ),
+      );
+
+  $$CompletedReadGenderTableTableProcessedTableManager
+  get completedReadGenderTableRefs {
+    final manager = $$CompletedReadGenderTableTableTableManager(
+      $_db,
+      $_db.completedReadGenderTable,
+    ).filter((f) => f.bookId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _completedReadGenderTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $CompletedReadAuthorTableTable,
+    List<CompletedReadAuthorTableData>
+  >
+  _completedReadAuthorTableRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.completedReadAuthorTable,
+        aliasName: $_aliasNameGenerator(
+          db.completedReadTable.id,
+          db.completedReadAuthorTable.bookId,
+        ),
+      );
+
+  $$CompletedReadAuthorTableTableProcessedTableManager
+  get completedReadAuthorTableRefs {
+    final manager = $$CompletedReadAuthorTableTableTableManager(
+      $_db,
+      $_db.completedReadAuthorTable,
+    ).filter((f) => f.bookId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _completedReadAuthorTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
-class $$CompletedReadingsTableTableFilterComposer
-    extends Composer<_$AppDatabase, $CompletedReadingsTableTable> {
-  $$CompletedReadingsTableTableFilterComposer({
+class $$CompletedReadTableTableFilterComposer
+    extends Composer<_$AppDatabase, $CompletedReadTableTable> {
+  $$CompletedReadTableTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -9265,57 +9486,11 @@ class $$CompletedReadingsTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  $$BooksAuthorTableTableFilterComposer get authorId {
-    final $$BooksAuthorTableTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.authorId,
-      referencedTable: $db.booksAuthorTable,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BooksAuthorTableTableFilterComposer(
-            $db: $db,
-            $table: $db.booksAuthorTable,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-
-  $$BooksGenderTableTableFilterComposer get genderId {
-    final $$BooksGenderTableTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.genderId,
-      referencedTable: $db.booksGenderTable,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BooksGenderTableTableFilterComposer(
-            $db: $db,
-            $table: $db.booksGenderTable,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-
-  $$BooksNacionalityTableTableFilterComposer get nationalityId {
+  $$BooksNacionalityTableTableFilterComposer get nacionalityId {
     final $$BooksNacionalityTableTableFilterComposer composer =
         $composerBuilder(
           composer: this,
-          getCurrentColumn: (t) => t.nationalityId,
+          getCurrentColumn: (t) => t.nacionalityId,
           referencedTable: $db.booksNacionalityTable,
           getReferencedColumn: (t) => t.id,
           builder:
@@ -9357,11 +9532,65 @@ class $$CompletedReadingsTableTableFilterComposer
     );
     return composer;
   }
+
+  Expression<bool> completedReadGenderTableRefs(
+    Expression<bool> Function($$CompletedReadGenderTableTableFilterComposer f)
+    f,
+  ) {
+    final $$CompletedReadGenderTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadGenderTable,
+          getReferencedColumn: (t) => t.bookId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadGenderTableTableFilterComposer(
+                $db: $db,
+                $table: $db.completedReadGenderTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<bool> completedReadAuthorTableRefs(
+    Expression<bool> Function($$CompletedReadAuthorTableTableFilterComposer f)
+    f,
+  ) {
+    final $$CompletedReadAuthorTableTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadAuthorTable,
+          getReferencedColumn: (t) => t.bookId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadAuthorTableTableFilterComposer(
+                $db: $db,
+                $table: $db.completedReadAuthorTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
-class $$CompletedReadingsTableTableOrderingComposer
-    extends Composer<_$AppDatabase, $CompletedReadingsTableTable> {
-  $$CompletedReadingsTableTableOrderingComposer({
+class $$CompletedReadTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $CompletedReadTableTable> {
+  $$CompletedReadTableTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -9403,57 +9632,11 @@ class $$CompletedReadingsTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  $$BooksAuthorTableTableOrderingComposer get authorId {
-    final $$BooksAuthorTableTableOrderingComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.authorId,
-      referencedTable: $db.booksAuthorTable,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BooksAuthorTableTableOrderingComposer(
-            $db: $db,
-            $table: $db.booksAuthorTable,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-
-  $$BooksGenderTableTableOrderingComposer get genderId {
-    final $$BooksGenderTableTableOrderingComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.genderId,
-      referencedTable: $db.booksGenderTable,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BooksGenderTableTableOrderingComposer(
-            $db: $db,
-            $table: $db.booksGenderTable,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-
-  $$BooksNacionalityTableTableOrderingComposer get nationalityId {
+  $$BooksNacionalityTableTableOrderingComposer get nacionalityId {
     final $$BooksNacionalityTableTableOrderingComposer composer =
         $composerBuilder(
           composer: this,
-          getCurrentColumn: (t) => t.nationalityId,
+          getCurrentColumn: (t) => t.nacionalityId,
           referencedTable: $db.booksNacionalityTable,
           getReferencedColumn: (t) => t.id,
           builder:
@@ -9498,9 +9681,9 @@ class $$CompletedReadingsTableTableOrderingComposer
   }
 }
 
-class $$CompletedReadingsTableTableAnnotationComposer
-    extends Composer<_$AppDatabase, $CompletedReadingsTableTable> {
-  $$CompletedReadingsTableTableAnnotationComposer({
+class $$CompletedReadTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CompletedReadTableTable> {
+  $$CompletedReadTableTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -9534,57 +9717,11 @@ class $$CompletedReadingsTableTableAnnotationComposer
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
-  $$BooksAuthorTableTableAnnotationComposer get authorId {
-    final $$BooksAuthorTableTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.authorId,
-      referencedTable: $db.booksAuthorTable,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BooksAuthorTableTableAnnotationComposer(
-            $db: $db,
-            $table: $db.booksAuthorTable,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-
-  $$BooksGenderTableTableAnnotationComposer get genderId {
-    final $$BooksGenderTableTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.genderId,
-      referencedTable: $db.booksGenderTable,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BooksGenderTableTableAnnotationComposer(
-            $db: $db,
-            $table: $db.booksGenderTable,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-
-  $$BooksNacionalityTableTableAnnotationComposer get nationalityId {
+  $$BooksNacionalityTableTableAnnotationComposer get nacionalityId {
     final $$BooksNacionalityTableTableAnnotationComposer composer =
         $composerBuilder(
           composer: this,
-          getCurrentColumn: (t) => t.nationalityId,
+          getCurrentColumn: (t) => t.nacionalityId,
           referencedTable: $db.booksNacionalityTable,
           getReferencedColumn: (t) => t.id,
           builder:
@@ -9627,47 +9764,95 @@ class $$CompletedReadingsTableTableAnnotationComposer
         );
     return composer;
   }
+
+  Expression<T> completedReadGenderTableRefs<T extends Object>(
+    Expression<T> Function($$CompletedReadGenderTableTableAnnotationComposer a)
+    f,
+  ) {
+    final $$CompletedReadGenderTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadGenderTable,
+          getReferencedColumn: (t) => t.bookId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadGenderTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.completedReadGenderTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> completedReadAuthorTableRefs<T extends Object>(
+    Expression<T> Function($$CompletedReadAuthorTableTableAnnotationComposer a)
+    f,
+  ) {
+    final $$CompletedReadAuthorTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.completedReadAuthorTable,
+          getReferencedColumn: (t) => t.bookId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadAuthorTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.completedReadAuthorTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
-class $$CompletedReadingsTableTableTableManager
+class $$CompletedReadTableTableTableManager
     extends
         RootTableManager<
           _$AppDatabase,
-          $CompletedReadingsTableTable,
-          CompletedReadingsTableData,
-          $$CompletedReadingsTableTableFilterComposer,
-          $$CompletedReadingsTableTableOrderingComposer,
-          $$CompletedReadingsTableTableAnnotationComposer,
-          $$CompletedReadingsTableTableCreateCompanionBuilder,
-          $$CompletedReadingsTableTableUpdateCompanionBuilder,
-          (CompletedReadingsTableData, $$CompletedReadingsTableTableReferences),
-          CompletedReadingsTableData,
+          $CompletedReadTableTable,
+          CompletedReadTableData,
+          $$CompletedReadTableTableFilterComposer,
+          $$CompletedReadTableTableOrderingComposer,
+          $$CompletedReadTableTableAnnotationComposer,
+          $$CompletedReadTableTableCreateCompanionBuilder,
+          $$CompletedReadTableTableUpdateCompanionBuilder,
+          (CompletedReadTableData, $$CompletedReadTableTableReferences),
+          CompletedReadTableData,
           PrefetchHooks Function({
-            bool authorId,
-            bool genderId,
-            bool nationalityId,
+            bool nacionalityId,
             bool publisherId,
+            bool completedReadGenderTableRefs,
+            bool completedReadAuthorTableRefs,
           })
         > {
-  $$CompletedReadingsTableTableTableManager(
+  $$CompletedReadTableTableTableManager(
     _$AppDatabase db,
-    $CompletedReadingsTableTable table,
+    $CompletedReadTableTable table,
   ) : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$CompletedReadingsTableTableFilterComposer(
-                $db: db,
-                $table: table,
-              ),
+              $$CompletedReadTableTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$CompletedReadingsTableTableOrderingComposer(
-                $db: db,
-                $table: table,
-              ),
+              $$CompletedReadTableTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$CompletedReadingsTableTableAnnotationComposer(
+              $$CompletedReadTableTableAnnotationComposer(
                 $db: db,
                 $table: table,
               ),
@@ -9675,23 +9860,19 @@ class $$CompletedReadingsTableTableTableManager
               ({
                 Value<String> id = const Value.absent(),
                 Value<String> bookName = const Value.absent(),
-                Value<String> authorId = const Value.absent(),
                 Value<String> yearOfReading = const Value.absent(),
-                Value<String> genderId = const Value.absent(),
-                Value<String?> nationalityId = const Value.absent(),
+                Value<String?> nacionalityId = const Value.absent(),
                 Value<String?> publisherId = const Value.absent(),
                 Value<int> totalNumberOfReads = const Value.absent(),
                 Value<int> totalPages = const Value.absent(),
                 Value<DateTime?> deletedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
-              }) => CompletedReadingsTableCompanion(
+              }) => CompletedReadTableCompanion(
                 id: id,
                 bookName: bookName,
-                authorId: authorId,
                 yearOfReading: yearOfReading,
-                genderId: genderId,
-                nationalityId: nationalityId,
+                nacionalityId: nacionalityId,
                 publisherId: publisherId,
                 totalNumberOfReads: totalNumberOfReads,
                 totalPages: totalPages,
@@ -9703,23 +9884,19 @@ class $$CompletedReadingsTableTableTableManager
               ({
                 required String id,
                 required String bookName,
-                required String authorId,
                 required String yearOfReading,
-                required String genderId,
-                Value<String?> nationalityId = const Value.absent(),
+                Value<String?> nacionalityId = const Value.absent(),
                 Value<String?> publisherId = const Value.absent(),
                 required int totalNumberOfReads,
                 required int totalPages,
                 Value<DateTime?> deletedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
-              }) => CompletedReadingsTableCompanion.insert(
+              }) => CompletedReadTableCompanion.insert(
                 id: id,
                 bookName: bookName,
-                authorId: authorId,
                 yearOfReading: yearOfReading,
-                genderId: genderId,
-                nationalityId: nationalityId,
+                nacionalityId: nacionalityId,
                 publisherId: publisherId,
                 totalNumberOfReads: totalNumberOfReads,
                 totalPages: totalPages,
@@ -9731,20 +9908,25 @@ class $$CompletedReadingsTableTableTableManager
               .map(
                 (e) => (
                   e.readTable(table),
-                  $$CompletedReadingsTableTableReferences(db, table, e),
+                  $$CompletedReadTableTableReferences(db, table, e),
                 ),
               )
               .toList(),
           prefetchHooksCallback:
               ({
-                authorId = false,
-                genderId = false,
-                nationalityId = false,
+                nacionalityId = false,
                 publisherId = false,
+                completedReadGenderTableRefs = false,
+                completedReadAuthorTableRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
-                  explicitlyWatchedTables: [],
+                  explicitlyWatchedTables: [
+                    if (completedReadGenderTableRefs)
+                      db.completedReadGenderTable,
+                    if (completedReadAuthorTableRefs)
+                      db.completedReadAuthorTable,
+                  ],
                   addJoins:
                       <
                         T extends TableManagerState<
@@ -9761,47 +9943,17 @@ class $$CompletedReadingsTableTableTableManager
                           dynamic
                         >
                       >(state) {
-                        if (authorId) {
+                        if (nacionalityId) {
                           state =
                               state.withJoin(
                                     currentTable: table,
-                                    currentColumn: table.authorId,
+                                    currentColumn: table.nacionalityId,
                                     referencedTable:
-                                        $$CompletedReadingsTableTableReferences
-                                            ._authorIdTable(db),
+                                        $$CompletedReadTableTableReferences
+                                            ._nacionalityIdTable(db),
                                     referencedColumn:
-                                        $$CompletedReadingsTableTableReferences
-                                            ._authorIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
-                        }
-                        if (genderId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.genderId,
-                                    referencedTable:
-                                        $$CompletedReadingsTableTableReferences
-                                            ._genderIdTable(db),
-                                    referencedColumn:
-                                        $$CompletedReadingsTableTableReferences
-                                            ._genderIdTable(db)
-                                            .id,
-                                  )
-                                  as T;
-                        }
-                        if (nationalityId) {
-                          state =
-                              state.withJoin(
-                                    currentTable: table,
-                                    currentColumn: table.nationalityId,
-                                    referencedTable:
-                                        $$CompletedReadingsTableTableReferences
-                                            ._nationalityIdTable(db),
-                                    referencedColumn:
-                                        $$CompletedReadingsTableTableReferences
-                                            ._nationalityIdTable(db)
+                                        $$CompletedReadTableTableReferences
+                                            ._nacionalityIdTable(db)
                                             .id,
                                   )
                                   as T;
@@ -9812,10 +9964,10 @@ class $$CompletedReadingsTableTableTableManager
                                     currentTable: table,
                                     currentColumn: table.publisherId,
                                     referencedTable:
-                                        $$CompletedReadingsTableTableReferences
+                                        $$CompletedReadTableTableReferences
                                             ._publisherIdTable(db),
                                     referencedColumn:
-                                        $$CompletedReadingsTableTableReferences
+                                        $$CompletedReadTableTableReferences
                                             ._publisherIdTable(db)
                                             .id,
                                   )
@@ -9825,7 +9977,50 @@ class $$CompletedReadingsTableTableTableManager
                         return state;
                       },
                   getPrefetchedDataCallback: (items) async {
-                    return [];
+                    return [
+                      if (completedReadGenderTableRefs)
+                        await $_getPrefetchedData<
+                          CompletedReadTableData,
+                          $CompletedReadTableTable,
+                          CompletedReadGenderTableData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CompletedReadTableTableReferences
+                              ._completedReadGenderTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CompletedReadTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).completedReadGenderTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.bookId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (completedReadAuthorTableRefs)
+                        await $_getPrefetchedData<
+                          CompletedReadTableData,
+                          $CompletedReadTableTable,
+                          CompletedReadAuthorTableData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CompletedReadTableTableReferences
+                              ._completedReadAuthorTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CompletedReadTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).completedReadAuthorTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.bookId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
                   },
                 );
               },
@@ -9833,23 +10028,23 @@ class $$CompletedReadingsTableTableTableManager
       );
 }
 
-typedef $$CompletedReadingsTableTableProcessedTableManager =
+typedef $$CompletedReadTableTableProcessedTableManager =
     ProcessedTableManager<
       _$AppDatabase,
-      $CompletedReadingsTableTable,
-      CompletedReadingsTableData,
-      $$CompletedReadingsTableTableFilterComposer,
-      $$CompletedReadingsTableTableOrderingComposer,
-      $$CompletedReadingsTableTableAnnotationComposer,
-      $$CompletedReadingsTableTableCreateCompanionBuilder,
-      $$CompletedReadingsTableTableUpdateCompanionBuilder,
-      (CompletedReadingsTableData, $$CompletedReadingsTableTableReferences),
-      CompletedReadingsTableData,
+      $CompletedReadTableTable,
+      CompletedReadTableData,
+      $$CompletedReadTableTableFilterComposer,
+      $$CompletedReadTableTableOrderingComposer,
+      $$CompletedReadTableTableAnnotationComposer,
+      $$CompletedReadTableTableCreateCompanionBuilder,
+      $$CompletedReadTableTableUpdateCompanionBuilder,
+      (CompletedReadTableData, $$CompletedReadTableTableReferences),
+      CompletedReadTableData,
       PrefetchHooks Function({
-        bool authorId,
-        bool genderId,
-        bool nationalityId,
+        bool nacionalityId,
         bool publisherId,
+        bool completedReadGenderTableRefs,
+        bool completedReadAuthorTableRefs,
       })
     >;
 typedef $$FinnancesExpenseTableTableCreateCompanionBuilder =
@@ -12040,6 +12235,626 @@ typedef $$ReminderAntiomceptivePillTableProcessedTableManager =
       ReminderAntiomceptivePillData,
       PrefetchHooks Function()
     >;
+typedef $$CompletedReadGenderTableTableCreateCompanionBuilder =
+    CompletedReadGenderTableCompanion Function({
+      required String id,
+      required String bookId,
+      required String genderId,
+      Value<int> rowid,
+    });
+typedef $$CompletedReadGenderTableTableUpdateCompanionBuilder =
+    CompletedReadGenderTableCompanion Function({
+      Value<String> id,
+      Value<String> bookId,
+      Value<String> genderId,
+      Value<int> rowid,
+    });
+
+final class $$CompletedReadGenderTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $CompletedReadGenderTableTable,
+          CompletedReadGenderTableData
+        > {
+  $$CompletedReadGenderTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $CompletedReadTableTable _bookIdTable(_$AppDatabase db) =>
+      db.completedReadTable.createAlias(
+        $_aliasNameGenerator(
+          db.completedReadGenderTable.bookId,
+          db.completedReadTable.id,
+        ),
+      );
+
+  $$CompletedReadTableTableProcessedTableManager get bookId {
+    final $_column = $_itemColumn<String>('book_id')!;
+
+    final manager = $$CompletedReadTableTableTableManager(
+      $_db,
+      $_db.completedReadTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_bookIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$CompletedReadGenderTableTableFilterComposer
+    extends Composer<_$AppDatabase, $CompletedReadGenderTableTable> {
+  $$CompletedReadGenderTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get genderId => $composableBuilder(
+    column: $table.genderId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CompletedReadTableTableFilterComposer get bookId {
+    final $$CompletedReadTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.bookId,
+      referencedTable: $db.completedReadTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CompletedReadTableTableFilterComposer(
+            $db: $db,
+            $table: $db.completedReadTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CompletedReadGenderTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $CompletedReadGenderTableTable> {
+  $$CompletedReadGenderTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get genderId => $composableBuilder(
+    column: $table.genderId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CompletedReadTableTableOrderingComposer get bookId {
+    final $$CompletedReadTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.bookId,
+      referencedTable: $db.completedReadTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CompletedReadTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.completedReadTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CompletedReadGenderTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CompletedReadGenderTableTable> {
+  $$CompletedReadGenderTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get genderId =>
+      $composableBuilder(column: $table.genderId, builder: (column) => column);
+
+  $$CompletedReadTableTableAnnotationComposer get bookId {
+    final $$CompletedReadTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.bookId,
+          referencedTable: $db.completedReadTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.completedReadTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
+}
+
+class $$CompletedReadGenderTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $CompletedReadGenderTableTable,
+          CompletedReadGenderTableData,
+          $$CompletedReadGenderTableTableFilterComposer,
+          $$CompletedReadGenderTableTableOrderingComposer,
+          $$CompletedReadGenderTableTableAnnotationComposer,
+          $$CompletedReadGenderTableTableCreateCompanionBuilder,
+          $$CompletedReadGenderTableTableUpdateCompanionBuilder,
+          (
+            CompletedReadGenderTableData,
+            $$CompletedReadGenderTableTableReferences,
+          ),
+          CompletedReadGenderTableData,
+          PrefetchHooks Function({bool bookId})
+        > {
+  $$CompletedReadGenderTableTableTableManager(
+    _$AppDatabase db,
+    $CompletedReadGenderTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CompletedReadGenderTableTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$CompletedReadGenderTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$CompletedReadGenderTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> bookId = const Value.absent(),
+                Value<String> genderId = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CompletedReadGenderTableCompanion(
+                id: id,
+                bookId: bookId,
+                genderId: genderId,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String bookId,
+                required String genderId,
+                Value<int> rowid = const Value.absent(),
+              }) => CompletedReadGenderTableCompanion.insert(
+                id: id,
+                bookId: bookId,
+                genderId: genderId,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$CompletedReadGenderTableTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({bookId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (bookId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.bookId,
+                                referencedTable:
+                                    $$CompletedReadGenderTableTableReferences
+                                        ._bookIdTable(db),
+                                referencedColumn:
+                                    $$CompletedReadGenderTableTableReferences
+                                        ._bookIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$CompletedReadGenderTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $CompletedReadGenderTableTable,
+      CompletedReadGenderTableData,
+      $$CompletedReadGenderTableTableFilterComposer,
+      $$CompletedReadGenderTableTableOrderingComposer,
+      $$CompletedReadGenderTableTableAnnotationComposer,
+      $$CompletedReadGenderTableTableCreateCompanionBuilder,
+      $$CompletedReadGenderTableTableUpdateCompanionBuilder,
+      (CompletedReadGenderTableData, $$CompletedReadGenderTableTableReferences),
+      CompletedReadGenderTableData,
+      PrefetchHooks Function({bool bookId})
+    >;
+typedef $$CompletedReadAuthorTableTableCreateCompanionBuilder =
+    CompletedReadAuthorTableCompanion Function({
+      required String id,
+      required String bookId,
+      required String authorId,
+      Value<int> rowid,
+    });
+typedef $$CompletedReadAuthorTableTableUpdateCompanionBuilder =
+    CompletedReadAuthorTableCompanion Function({
+      Value<String> id,
+      Value<String> bookId,
+      Value<String> authorId,
+      Value<int> rowid,
+    });
+
+final class $$CompletedReadAuthorTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $CompletedReadAuthorTableTable,
+          CompletedReadAuthorTableData
+        > {
+  $$CompletedReadAuthorTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $CompletedReadTableTable _bookIdTable(_$AppDatabase db) =>
+      db.completedReadTable.createAlias(
+        $_aliasNameGenerator(
+          db.completedReadAuthorTable.bookId,
+          db.completedReadTable.id,
+        ),
+      );
+
+  $$CompletedReadTableTableProcessedTableManager get bookId {
+    final $_column = $_itemColumn<String>('book_id')!;
+
+    final manager = $$CompletedReadTableTableTableManager(
+      $_db,
+      $_db.completedReadTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_bookIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$CompletedReadAuthorTableTableFilterComposer
+    extends Composer<_$AppDatabase, $CompletedReadAuthorTableTable> {
+  $$CompletedReadAuthorTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get authorId => $composableBuilder(
+    column: $table.authorId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CompletedReadTableTableFilterComposer get bookId {
+    final $$CompletedReadTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.bookId,
+      referencedTable: $db.completedReadTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CompletedReadTableTableFilterComposer(
+            $db: $db,
+            $table: $db.completedReadTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CompletedReadAuthorTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $CompletedReadAuthorTableTable> {
+  $$CompletedReadAuthorTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get authorId => $composableBuilder(
+    column: $table.authorId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CompletedReadTableTableOrderingComposer get bookId {
+    final $$CompletedReadTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.bookId,
+      referencedTable: $db.completedReadTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CompletedReadTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.completedReadTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CompletedReadAuthorTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CompletedReadAuthorTableTable> {
+  $$CompletedReadAuthorTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get authorId =>
+      $composableBuilder(column: $table.authorId, builder: (column) => column);
+
+  $$CompletedReadTableTableAnnotationComposer get bookId {
+    final $$CompletedReadTableTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.bookId,
+          referencedTable: $db.completedReadTable,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CompletedReadTableTableAnnotationComposer(
+                $db: $db,
+                $table: $db.completedReadTable,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
+}
+
+class $$CompletedReadAuthorTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $CompletedReadAuthorTableTable,
+          CompletedReadAuthorTableData,
+          $$CompletedReadAuthorTableTableFilterComposer,
+          $$CompletedReadAuthorTableTableOrderingComposer,
+          $$CompletedReadAuthorTableTableAnnotationComposer,
+          $$CompletedReadAuthorTableTableCreateCompanionBuilder,
+          $$CompletedReadAuthorTableTableUpdateCompanionBuilder,
+          (
+            CompletedReadAuthorTableData,
+            $$CompletedReadAuthorTableTableReferences,
+          ),
+          CompletedReadAuthorTableData,
+          PrefetchHooks Function({bool bookId})
+        > {
+  $$CompletedReadAuthorTableTableTableManager(
+    _$AppDatabase db,
+    $CompletedReadAuthorTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CompletedReadAuthorTableTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$CompletedReadAuthorTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$CompletedReadAuthorTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> bookId = const Value.absent(),
+                Value<String> authorId = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CompletedReadAuthorTableCompanion(
+                id: id,
+                bookId: bookId,
+                authorId: authorId,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String bookId,
+                required String authorId,
+                Value<int> rowid = const Value.absent(),
+              }) => CompletedReadAuthorTableCompanion.insert(
+                id: id,
+                bookId: bookId,
+                authorId: authorId,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$CompletedReadAuthorTableTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({bookId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (bookId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.bookId,
+                                referencedTable:
+                                    $$CompletedReadAuthorTableTableReferences
+                                        ._bookIdTable(db),
+                                referencedColumn:
+                                    $$CompletedReadAuthorTableTableReferences
+                                        ._bookIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$CompletedReadAuthorTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $CompletedReadAuthorTableTable,
+      CompletedReadAuthorTableData,
+      $$CompletedReadAuthorTableTableFilterComposer,
+      $$CompletedReadAuthorTableTableOrderingComposer,
+      $$CompletedReadAuthorTableTableAnnotationComposer,
+      $$CompletedReadAuthorTableTableCreateCompanionBuilder,
+      $$CompletedReadAuthorTableTableUpdateCompanionBuilder,
+      (CompletedReadAuthorTableData, $$CompletedReadAuthorTableTableReferences),
+      CompletedReadAuthorTableData,
+      PrefetchHooks Function({bool bookId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -12054,11 +12869,8 @@ class $AppDatabaseManager {
       $$BooksGenderTableTableTableManager(_db, _db.booksGenderTable);
   $$BooksPublishersTableTableTableManager get booksPublishersTable =>
       $$BooksPublishersTableTableTableManager(_db, _db.booksPublishersTable);
-  $$CompletedReadingsTableTableTableManager get completedReadingsTable =>
-      $$CompletedReadingsTableTableTableManager(
-        _db,
-        _db.completedReadingsTable,
-      );
+  $$CompletedReadTableTableTableManager get completedReadTable =>
+      $$CompletedReadTableTableTableManager(_db, _db.completedReadTable);
   $$FinnancesExpenseTableTableTableManager get finnancesExpenseTable =>
       $$FinnancesExpenseTableTableTableManager(_db, _db.finnancesExpenseTable);
   $$MenstrualCyclePredictionTableTableManager get menstrualCyclePrediction =>
@@ -12087,5 +12899,15 @@ class $AppDatabaseManager {
       $$ReminderAntiomceptivePillTableTableManager(
         _db,
         _db.reminderAntiomceptivePill,
+      );
+  $$CompletedReadGenderTableTableTableManager get completedReadGenderTable =>
+      $$CompletedReadGenderTableTableTableManager(
+        _db,
+        _db.completedReadGenderTable,
+      );
+  $$CompletedReadAuthorTableTableTableManager get completedReadAuthorTable =>
+      $$CompletedReadAuthorTableTableTableManager(
+        _db,
+        _db.completedReadAuthorTable,
       );
 }

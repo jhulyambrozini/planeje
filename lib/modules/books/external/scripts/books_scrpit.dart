@@ -24,10 +24,9 @@ class BooksScrpit {
       whereClauses.add("cr.year_of_reading = '${dto.yearFilter}'");
     }
 
-    final whereSql =
-        whereClauses.isEmpty
-            ? ''
-            : 'AND ${whereClauses.join(' AND ')}';
+    final whereSql = whereClauses.isEmpty
+        ? ''
+        : 'AND ${whereClauses.join(' AND ')}';
 
     return '''
       SELECT
@@ -40,21 +39,21 @@ class BooksScrpit {
         a.id AS author_id,
         a.full_name AS author_full_name,
         a.gender AS author_gender,
-        a.nationality AS author_nationality,
+        a.nacionality AS author_nacionality,
         g.id AS gender_id,
         g.description AS gender_description,
-        n.id AS nationality_id,
-        n.description AS nationality_description,
+        n.id AS nacionality_id,
+        n.description AS nacionality_description,
         p.id AS publisher_id,
         p.name AS publisher_name,
-        pn.id AS publisher_nationality_id,
-        pn.description AS publisher_nationality_description
-      FROM ${TableName.completedReadings} cr
+        pn.id AS publisher_nacionality_id,
+        pn.description AS publisher_nacionality_description
+      FROM ${TableName.completedRead} cr
       LEFT JOIN ${TableName.booksAuthor} a ON cr.author_id = a.id
       LEFT JOIN ${TableName.booksGender} g ON cr.gender_id = g.id
-      LEFT JOIN ${TableName.booksNationality} n ON cr.nationality_id = n.id
+      LEFT JOIN ${TableName.booksnacionality} n ON cr.nacionality_id = n.id
       LEFT JOIN ${TableName.booksPublisher} p ON cr.publisher_id = p.id
-      LEFT JOIN ${TableName.booksNationality} pn ON p.nationality_id = pn.id
+      LEFT JOIN ${TableName.booksnacionality} pn ON p.nacionality_id = pn.id
       WHERE cr.deleted_at IS NULL
       $whereSql
       ORDER BY cr.year_of_reading ${dto.orderMostRecent ? 'ASC' : 'DESC'}
@@ -84,14 +83,13 @@ class BooksScrpit {
       whereClauses.add("cr.year_of_reading = '${dto.yearFilter}'");
     }
 
-    final whereSql =
-        whereClauses.isEmpty
-            ? ''
-            : 'AND ${whereClauses.join(' AND ')}';
+    final whereSql = whereClauses.isEmpty
+        ? ''
+        : 'AND ${whereClauses.join(' AND ')}';
 
     return '''
       SELECT COUNT(*) AS total
-      FROM ${TableName.completedReadings} cr
+      FROM ${TableName.completedRead} cr
       WHERE cr.deleted_at IS NULL
       $whereSql
     ''';

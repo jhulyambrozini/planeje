@@ -1,25 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:planeje/modules/books/domain/aggregates/completed_read_aggregate.dart';
 import 'package:planeje/modules/core/presenter/theme/colors.dart';
 
 class BooksCardWidget extends StatelessWidget {
-  final String bookName;
-  final String genre;
-  final String author;
-  final String publisher;
-  final String nationality;
-  final String pages;
-  final String year;
+  final CompletedReadAggregate item;
 
-  const BooksCardWidget({
-    super.key,
-    required this.bookName,
-    required this.genre,
-    required this.author,
-    required this.publisher,
-    required this.nationality,
-    required this.pages,
-    required this.year,
-  });
+  const BooksCardWidget({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +23,7 @@ class BooksCardWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  bookName,
+                  item.bookName,
                   style: const TextStyle(
                     fontFamily: 'Livvic',
                     fontSize: 14,
@@ -53,7 +39,7 @@ class BooksCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
-                  genre,
+                  item.gender.description,
                   style: const TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 10,
@@ -69,7 +55,7 @@ class BooksCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                author,
+                item.author.fullName,
                 style: const TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 11,
@@ -78,8 +64,44 @@ class BooksCardWidget extends StatelessWidget {
               ),
               Row(
                 children: [
+                  if (item.publisher != null) ...[
+                    Text(
+                      item.publisher!.name,
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 10,
+                        color: ColorsTheme.mutedForeground,
+                      ),
+                    ),
+                    const Text(
+                      ' · ',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 10,
+                        color: ColorsTheme.mutedForeground2,
+                      ),
+                    ),
+                  ],
+                  if (item.nacionality != null) ...[
+                    Text(
+                      item.nacionality!.description,
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 10,
+                        color: ColorsTheme.mutedForeground,
+                      ),
+                    ),
+                    const Text(
+                      ' · ',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 10,
+                        color: ColorsTheme.mutedForeground2,
+                      ),
+                    ),
+                  ],
                   Text(
-                    publisher,
+                    item.totalPages.toString(),
                     style: const TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 10,
@@ -95,39 +117,7 @@ class BooksCardWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    nationality,
-                    style: const TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 10,
-                      color: ColorsTheme.mutedForeground,
-                    ),
-                  ),
-                  const Text(
-                    ' · ',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 10,
-                      color: ColorsTheme.mutedForeground2,
-                    ),
-                  ),
-                  Text(
-                    pages,
-                    style: const TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 10,
-                      color: ColorsTheme.mutedForeground,
-                    ),
-                  ),
-                  const Text(
-                    ' · ',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 10,
-                      color: ColorsTheme.mutedForeground2,
-                    ),
-                  ),
-                  Text(
-                    year,
+                    item.yearOfReading,
                     style: const TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 10,

@@ -37,7 +37,7 @@ class BookAuthorDatasourceImpl extends DatabaseAccessor<AppDatabase>
         id: data.id,
         fullName: data.fullName,
         gender: Value(data.gender),
-        nationality: Value(data.nationality?.id),
+        nacionality: Value(data.nacionality?.id),
       ),
     );
   }
@@ -48,7 +48,7 @@ class BookAuthorDatasourceImpl extends DatabaseAccessor<AppDatabase>
       BooksAuthorTableCompanion(
         fullName: Value.absentIfNull(data.fullName),
         gender: Value.absentIfNull(data.gender),
-        nationality: Value.absentIfNull(data.nationality?.id),
+        nacionality: Value.absentIfNull(data.nacionality?.id),
       ),
     );
   }

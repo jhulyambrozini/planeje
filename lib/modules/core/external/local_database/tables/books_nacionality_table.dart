@@ -3,7 +3,7 @@ import 'package:planeje/modules/core/external/local_database/constants/table_nam
 
 class BooksNacionalityTable extends Table {
   @override
-  String? get tableName => TableName.booksNationality;
+  String? get tableName => TableName.booksnacionality;
 
   TextColumn get id => text()();
   TextColumn get description => text()();

@@ -4,8 +4,10 @@ class TableName {
   static const booksAuthor = 'books_author_table';
   static const booksPublisher = 'books_publisher_table';
   static const booksGender = 'books_gender_table';
-  static const booksNationality = 'books_nationality_table';
-  static const completedReadings = 'completed_readings_table';
+  static const booksnacionality = 'books_nacionality_table';
+  static const completedRead = 'completed_read_table';
+  static const completedGenderRead = 'completed_read_gender_table';
+  static const completedAuthorRead = 'completed_read_author_table';
   static const menstrualCyclePrediction = 'menstrual_cycle_prediction_table';
   static const menstrualCycleTrackingTable = 'menstrual_cycle_tracking_table';
   static const mesnstrualCycleUserInfosTable =

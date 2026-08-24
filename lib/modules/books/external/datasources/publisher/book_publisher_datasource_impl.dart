@@ -36,7 +36,7 @@ class BookPublisherDatasourceImpl extends DatabaseAccessor<AppDatabase>
       BooksPublishersTableCompanion.insert(
         id: data.id,
         name: data.name,
-        nationalityId: Value(data.nationality?.id),
+        nacionalityId: Value(data.nacionality?.id),
       ),
     );
   }
@@ -46,7 +46,7 @@ class BookPublisherDatasourceImpl extends DatabaseAccessor<AppDatabase>
     await update(booksPublishersTable).write(
       BooksPublishersTableCompanion(
         name: Value.absentIfNull(data.name),
-        nationalityId: Value.absentIfNull(data.nationality?.id),
+        nacionalityId: Value.absentIfNull(data.nacionality?.id),
       ),
     );
   }

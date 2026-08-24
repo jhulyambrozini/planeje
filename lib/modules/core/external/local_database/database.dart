@@ -7,7 +7,9 @@ import 'package:planeje/modules/core/external/local_database/tables/books_author
 import 'package:planeje/modules/core/external/local_database/tables/books_gender_table.dart';
 import 'package:planeje/modules/core/external/local_database/tables/books_nacionality_table.dart';
 import 'package:planeje/modules/core/external/local_database/tables/books_publishers_table.dart';
-import 'package:planeje/modules/core/external/local_database/tables/completed_readings_table.dart';
+import 'package:planeje/modules/core/external/local_database/tables/completed_read_author_table.dart';
+import 'package:planeje/modules/core/external/local_database/tables/completed_read_gender_table.dart';
+import 'package:planeje/modules/core/external/local_database/tables/completed_read_table.dart';
 import 'package:planeje/modules/core/external/local_database/tables/finnances_expense_table.dart';
 import 'package:planeje/modules/core/external/local_database/tables/finnances_header_table.dart';
 import 'package:planeje/modules/core/external/local_database/tables/menstrual_cycle_prediction_table.dart';
@@ -28,13 +30,15 @@ part 'database.g.dart';
     BooksGenderTable,
     BooksNacionalityTable,
     BooksPublishersTable,
-    CompletedReadingsTable,
+    CompletedReadTable,
     FinnancesExpenseTable,
     MenstrualCyclePrediction,
     MenstrualCycleTrackingTable,
     MesnstrualCycleUserInfosTable,
     RecordsAntiomceptivePill,
     ReminderAntiomceptivePill,
+    CompletedReadGenderTable,
+    CompletedReadAuthorTable,
   ],
 )
 class AppDatabase extends _$AppDatabase {

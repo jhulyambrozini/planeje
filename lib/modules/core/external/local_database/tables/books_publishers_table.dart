@@ -8,7 +8,7 @@ class BooksPublishersTable extends Table {
 
   TextColumn get id => text()();
   TextColumn get name => text()();
-  TextColumn get nationalityId => text()
+  TextColumn get nacionalityId => text()
       .references(BooksNacionalityTable, #id, onDelete: KeyAction.cascade)
       .nullable()();
   DateTimeColumn get deletedAt => dateTime().nullable()();
